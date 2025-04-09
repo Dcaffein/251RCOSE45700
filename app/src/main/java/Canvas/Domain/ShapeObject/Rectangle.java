@@ -9,7 +9,8 @@ public class Rectangle extends ShapeObject {
 
     @Override
     public void draw(Graphics g) {
-        g.drawRect(x, y, width, height);
         g.setColor(Color.RED);
+        //hardCode
+        g.drawRect(0, 0, 10, 10);
     }
 }

@@ -22,6 +22,12 @@ public abstract class ShapeObject extends Observable {
         return id;
     }
 
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
     public int getZ() {
         return z;
     }

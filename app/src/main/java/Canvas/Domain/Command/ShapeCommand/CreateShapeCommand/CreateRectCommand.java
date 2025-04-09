@@ -18,6 +18,7 @@ public class CreateRectCommand implements CreateShapeCommand {
     @Override
     public String execute() {
         RectFactory factory = RectFactory.getInstance();
+        //hardCode
         ShapeObject shape = factory.create(id, 50, 50, 100, 100, 0);
         viewModel.addShape(id, shape);
         shape.attach(viewModel);

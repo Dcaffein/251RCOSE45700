@@ -31,6 +31,16 @@ public class CanvasVM extends Observable implements Observer {
         }
     }
 
+    public int getX(String id) {
+        ShapeObject target = shapes.get(id);
+        return target.getX();
+    }
+
+    public int getY(String id) {
+        ShapeObject target = shapes.get(id);
+        return target.getY();
+    }
+
     public void draw(Graphics g, String id) {
         ShapeObject shape = get(id);
         if (shape != null && g != null) {
