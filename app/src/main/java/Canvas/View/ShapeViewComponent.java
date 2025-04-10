@@ -13,7 +13,7 @@ public class ShapeViewComponent extends JComponent implements Observer {
     public ShapeViewComponent(String id, CanvasVM viewModel) {
         this.id = id;
         this.viewModel = viewModel;
-        setBounds(viewModel.getX(id), viewModel.getY(id), 100, 100);
+        setBounds(viewModel.getX(id), viewModel.getY(id), viewModel.getW(id),viewModel.getH(id));
     }
 
     @Override

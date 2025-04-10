@@ -11,6 +11,6 @@ public class Rectangle extends ShapeObject {
     public void draw(Graphics g) {
         g.setColor(Color.RED);
         //hardCode
-        g.drawRect(0, 0, 10, 10);
+        g.drawRect(padding, padding, width-2*padding, height-2*padding);
     }
 }

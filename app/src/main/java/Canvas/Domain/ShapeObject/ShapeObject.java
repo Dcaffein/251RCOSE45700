@@ -8,6 +8,7 @@ public abstract class ShapeObject extends Observable {
     protected int width, height;
     protected int z;
     protected String id;
+    protected int padding = 2;
 
     public ShapeObject(String id, int x, int y, int width, int height, int z) {
         this.id = id;
@@ -27,6 +28,12 @@ public abstract class ShapeObject extends Observable {
     }
     public int getY() {
         return y;
+    }
+    public int getW() {
+        return width;
+    }
+    public int getH() {
+        return height;
     }
     public int getZ() {
         return z;

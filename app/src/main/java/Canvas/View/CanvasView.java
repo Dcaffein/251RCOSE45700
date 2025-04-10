@@ -19,7 +19,7 @@ public class CanvasView extends JPanel {
 
 
     private void initUI() {
-        rectButton.setBounds(10, 10, 100, 30); // ✅ 버튼의 위치와 크기 지정
+        rectButton.setBounds(10, 10, 100, 30);
         rectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
