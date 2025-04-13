@@ -1,4 +1,4 @@
-package Canvas.Domain.Command.ShapeCommand.CreateShapeCommand;
+package Canvas.Domain.Command.ShapeCommand.CreateShape;
 
 public interface CreateShapeCommand {
     String execute();

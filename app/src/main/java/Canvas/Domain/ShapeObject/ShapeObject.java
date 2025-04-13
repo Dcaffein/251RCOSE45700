@@ -1,9 +1,10 @@
 package Canvas.Domain.ShapeObject;
 
-import Canvas.Domain.Observer.Observable;
-import java.awt.Graphics;
+import Canvas.Domain.Observer.ShapeObjectObservable;
 
-public abstract class ShapeObject extends Observable {
+import java.awt.*;
+
+public abstract class ShapeObject extends ShapeObjectObservable {
     protected int x, y;
     protected int width, height;
     protected int z;
@@ -39,5 +40,22 @@ public abstract class ShapeObject extends Observable {
         return z;
     }
 
+    protected void setX(int x) {
+        this.x = x;
+    }
+    protected void setY(int y) {
+        this.y = y;
+    }
+    protected void setW(int w) {
+        this.width = w;
+    }
+    protected void setH(int height) {
+        this.height = height;
+    }
+    protected void setZ(int z) {
+        this.z = z;
+    }
+
     public abstract void draw(Graphics g);
+    public abstract void move(int dx, int dy);
 }

@@ -1,16 +1,19 @@
 package Canvas.ViewModel;
 
-import Canvas.Domain.Command.ShapeCommand.CreateShapeCommand.CreateShapeCommand;
-import Canvas.Domain.Observer.Observer;
-import Canvas.Domain.Observer.Observable;
+import Canvas.Domain.Command.ShapeCommand.CreateShape.CreateShapeCommand;
+import Canvas.Domain.Command.ShapeCommand.RenderShape.ShapeObjectEvent;
+import Canvas.Domain.Observer.*;
 import Canvas.Domain.ShapeObject.ShapeObject;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class CanvasVM extends Observable implements Observer {
+public class CanvasVM extends ShapeObjectObservable implements ShapeObjectObserver {
     private final Map<String, ShapeObject> shapes = new HashMap<>();
+    private final List<String> selected = new ArrayList<>();
 
     public String createShape(CreateShapeCommand command) {
         return command.execute();
@@ -24,18 +27,19 @@ public class CanvasVM extends Observable implements Observer {
         return shapes.get(id);
     }
 
+    @Override
+    public void onUpdate(ShapeObjectEvent event) {
+        notifyObservers(event);
+    }
 
-    public void onUpdate(Object obj) {
-        if (obj != null) {
-            notifyObserver(obj.toString());
-        }
+    public void draw(Graphics g,String id){
+        get(id).draw(g);
     }
 
     public int getX(String id) {
         ShapeObject target = shapes.get(id);
         return target.getX();
     }
-
     public int getY(String id) {
         ShapeObject target = shapes.get(id);
         return target.getY();
@@ -48,10 +52,25 @@ public class CanvasVM extends Observable implements Observer {
         ShapeObject target = shapes.get(id);
         return target.getH();
     }
-    public void draw(Graphics g, String id) {
-        ShapeObject shape = get(id);
-        if (shape != null && g != null) {
-            shape.draw(g);
+
+    public void deSelectAll(){
+        selected.clear();
+    }
+
+    public void handleSelected(String id) {
+        if (selected.contains(id)) {
+            selected.remove(id);
+        } else {
+            selected.add(id);
+        }
+
+        // 로그 출력
+        System.out.println("[Selected Shapes] " + selected);
+    }
+
+    public void move(int dx, int dy){
+        for(String id : selected){
+            get(id).move(dx, dy);
         }
     }
 
