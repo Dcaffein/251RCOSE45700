@@ -1,7 +1,7 @@
 package Canvas.View;
 
-import Canvas.Domain.Command.ShapeCommand.CreateShape.CreateRectCommand;
 import Canvas.ViewModel.CanvasVM;
+import Canvas.ViewModel.ShapeProp;
 
 import javax.swing.*;
 import java.util.Random;
@@ -11,6 +11,8 @@ public class CanvasView extends JPanel {
     private final JButton rectButton = new JButton("Create Rectangle");
     private final Random random = new Random();
 
+    private final JLayeredPane layeredPane = new JLayeredPane();
+
     public CanvasView(CanvasVM viewModel) {
         this.viewModel = viewModel;
         setLayout(null);
@@ -18,7 +20,11 @@ public class CanvasView extends JPanel {
     }
 
     private void initUI() {
-        rectButton.setBounds(10, 10, 100, 30);
+        layeredPane.setBounds(0, 0, 800, 600);
+        layeredPane.setLayout(null);
+        this.add(layeredPane);
+
+        rectButton.setBounds(10, 10, 150, 30);
         rectButton.addActionListener(e -> createRect());
         this.add(rectButton);
     }
@@ -30,14 +36,13 @@ public class CanvasView extends JPanel {
         int randomY = random.nextInt(maxY);
         int initialW = 100;
         int initialH = 100;
-        int initialZ = 0;
-        CreateRectCommand command = new CreateRectCommand(viewModel,randomX,randomY,initialW,initialH,initialZ);
-        String id = viewModel.createShape(command);
-        ShapeViewComponent component = new ShapeViewComponent(id, viewModel);
-        viewModel.get(id).attach(component);
+        int initialZ = random.nextInt(100);
+
+        ShapeProp rectViewProps = viewModel.createShape(randomX,randomY,initialW,initialH,initialZ);
+        ShapeViewComponent component = new RectangleView(rectViewProps, viewModel);
+        rectViewProps.attachView(component);
+
         component.setBounds(randomX, randomY, initialW, initialH);
-        add(component);
-        revalidate();
-        repaint();
+        layeredPane.add(component, Integer.valueOf(initialZ));
     }
 }

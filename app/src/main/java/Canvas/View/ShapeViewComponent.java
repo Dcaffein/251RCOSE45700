@@ -1,8 +1,9 @@
 package Canvas.View;
 
-import Canvas.Domain.Command.ShapeCommand.RenderShape.ShapeObjectEvent;
+import Canvas.Domain.Observer.ShapeObjectEvent;
 import Canvas.Domain.Observer.ShapeObjectObserver;
 import Canvas.ViewModel.CanvasVM;
+import Canvas.ViewModel.ReadOnlyShapeProp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,27 +11,27 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-public class ShapeViewComponent extends JComponent implements ShapeObjectObserver {
-    private final String id;
-    private final CanvasVM viewModel;
+public abstract class ShapeViewComponent extends JComponent implements ShapeObjectObserver {
+    protected final ReadOnlyShapeProp shapeProp;
+    protected final CanvasVM viewModel;
 
-    private Point dragStart = null;
+    protected Point dragStart = null;
 
-    public ShapeViewComponent(String id, CanvasVM viewModel ) {
-        this.id = id;
+    public ShapeViewComponent(ReadOnlyShapeProp shapeProp, CanvasVM viewModel ) {
+        this.shapeProp = shapeProp;
         this.viewModel = viewModel;
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                requestFocusInWindow();
+
                 if (e.isControlDown()) {
-                    viewModel.handleSelected(id);
+                    viewModel.multiSelect(shapeProp.getId());
                 } else {
-                    viewModel.deSelectAll();
-                    viewModel.handleSelected(id);
+                    viewModel.select(shapeProp.getId());
                 }
                 dragStart = e.getPoint();
+
             }
 
             @Override
@@ -43,6 +44,7 @@ public class ShapeViewComponent extends JComponent implements ShapeObjectObserve
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (dragStart == null) return;
+
 
                 Point dragEnd = e.getPoint();
                 int dx = dragEnd.x - dragStart.x;
@@ -57,14 +59,19 @@ public class ShapeViewComponent extends JComponent implements ShapeObjectObserve
 
     @Override
     public void onUpdate(ShapeObjectEvent event) {
-        if(event.targetId.equals(id)) {
-            event.apply(this);
-        }
+        int x = shapeProp.getX(), y = shapeProp.getY();
+        int w = shapeProp.getW(), h = shapeProp.getH();
+        setBounds(x, y, w, h);
+        repaint();
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        viewModel.draw(g,id);
+        draw(g);
     }
+
+    public abstract void draw(Graphics g);
+
 }

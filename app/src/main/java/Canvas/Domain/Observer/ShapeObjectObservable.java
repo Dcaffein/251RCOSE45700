@@ -1,7 +1,5 @@
 package Canvas.Domain.Observer;
 
-import Canvas.Domain.Command.ShapeCommand.RenderShape.ShapeObjectEvent;
-
 import java.util.List;
 import java.util.ArrayList;
 
