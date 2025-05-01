@@ -34,7 +34,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass.set("Canvas.App")
+    mainClass.set("CanvasApp.App")
 }
 
 tasks.named<Test>("test") {
