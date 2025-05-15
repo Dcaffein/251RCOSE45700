@@ -17,7 +17,7 @@ public class IsReadyToSelect extends ShapeViewState {
             }
         }
 
-        shapeView.setDragStart(e.getPoint()); // 내부 좌표 그대로 저장 (move/resize 쪽에서 변환해서 사용)
+        shapeView.setDragStart(e.getPoint());
 
         if (shapeView.isCorner(e.getPoint())) {
             shapeView.setCurrentState(new IsResizing(shapeView));

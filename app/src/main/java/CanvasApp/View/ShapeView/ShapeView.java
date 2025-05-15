@@ -4,10 +4,15 @@ import CanvasApp.View.ShapeView.ShapeViewState.IsReadyToSelect;
 import CanvasApp.View.ShapeView.ShapeViewState.ShapeViewContext;
 import CanvasApp.View.ShapeView.ShapeViewState.ShapeViewState;
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.ShapeData.Observer.ShapeDataMoved;
-import CanvasApp.ViewModel.ShapeData.Observer.ShapeDataObserver;
-import CanvasApp.ViewModel.ShapeData.Observer.ShapeDataResized;
-import CanvasApp.ViewModel.ShapeData.ReadOnlyShapeData;
+import CanvasApp.ViewModel.Command.ShapeCmd.Move;
+import CanvasApp.ViewModel.Command.ShapeCmd.MultiSelect;
+import CanvasApp.ViewModel.Command.ShapeCmd.Resize;
+import CanvasApp.ViewModel.Command.ShapeCmd.Select;
+import CanvasApp.ViewModel.Datas.ShapeData.Event.ShapeDataMoved;
+import CanvasApp.ViewModel.Datas.ShapeData.Event.ShapeDataObserver;
+import CanvasApp.ViewModel.Datas.ShapeData.Event.ShapeDataRealigned;
+import CanvasApp.ViewModel.Datas.ShapeData.Event.ShapeDataResized;
+import CanvasApp.ViewModel.Datas.ShapeData.ReadOnlyShapeData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +33,6 @@ public abstract class ShapeView extends JComponent implements ShapeDataObserver,
         this.shapeData.attach(this);
         this.setName(shapeData.getId());
         setBounds(shapeData.getX(), shapeData.getY(), shapeData.getW(), shapeData.getH());
-        System.out.println("[ShapeView] setBounds at creation: " + getBounds());
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -52,12 +56,12 @@ public abstract class ShapeView extends JComponent implements ShapeDataObserver,
 
     @Override
     public void onMoved(ShapeDataMoved event) {
-        setBounds(event.x,event.y,shapeData.getW(),shapeData.getH());
+        setBounds(event.source.getX(), event.source.getY(),shapeData.getW(),shapeData.getH());
     }
 
     @Override
     public void onResized(ShapeDataResized event) {
-        setBounds(shapeData.getX(),shapeData.getY(),event.w,event.h);
+        setBounds(shapeData.getX(),shapeData.getY(),event.source.getW(),event.source.getH());
         repaint();
     }
 
@@ -83,12 +87,12 @@ public abstract class ShapeView extends JComponent implements ShapeDataObserver,
 
     @Override
     public void select(String id) {
-        viewModel.select(id);
+        viewModel.handleCmd(new Select(id,viewModel));
     }
 
     @Override
     public void multiSelect(String id) {
-        viewModel.multiSelect(id);
+        viewModel.handleCmd(new MultiSelect(id,viewModel));
     }
 
     @Override
@@ -108,11 +112,16 @@ public abstract class ShapeView extends JComponent implements ShapeDataObserver,
 
     @Override
     public void resizeShape(int dw,int dh){
-        viewModel.resize(dw,dh);
+        viewModel.handleCmd(new Resize(viewModel,shapeData.getW()+dw, shapeData.getH()+dh));
     }
 
     @Override
     public void moveShape(int dx, int dy) {
-        viewModel.move(dx, dy);
+        viewModel.handleCmd(new Move(viewModel,shapeData.getX()+dx, shapeData.getY()+dy));
+    }
+
+    @Override
+    public void onRealigned(ShapeDataRealigned event){
+
     }
 }

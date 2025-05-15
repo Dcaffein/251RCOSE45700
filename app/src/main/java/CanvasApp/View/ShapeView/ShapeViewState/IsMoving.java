@@ -17,7 +17,6 @@ public class IsMoving extends ShapeViewState{
         shapeView.setDragStart(null);
     }
 
-
     @Override
     public void onMouseDragged(MouseEvent e) {
         if(shapeView.getDragStart()==null) shapeView.setCurrentState(new IsReadyToSelect(shapeView));
@@ -29,5 +28,4 @@ public class IsMoving extends ShapeViewState{
         shapeView.moveShape(dx, dy);
         shapeView.setDragStart(dragEnd);
     }
-
 }

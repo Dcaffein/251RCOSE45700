@@ -1,58 +1,24 @@
 package CanvasApp.Model.Shape;
 
+import Command.Command;
 import Observer.Observable;
-import CanvasApp.Model.Shape.Observer.ShapeModelMoved;
-import CanvasApp.Model.Shape.Observer.ShapeModelResized;
+
+import java.util.Collection;
 
 public abstract class ShapeModel extends Observable {
-    protected int x, y;
-    protected int w, h;
-    protected int z;
-    protected String id;
-    protected int padding = 2;
-
-    public ShapeModel(String id, int x, int y, int w, int h, int z) {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.z = z;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
-    public int getW() {
-        return w;
-    }
-    public int getH() {
-        return h;
-    }
-    public int getZ() {
-        return z;
-    }
-
-    public void setZ(int z) {
-        this.z = z;
-    }
-
-    public void move(int dx, int dy) {
-        this.x += dx;
-        this.y += dy;
-        notify(new ShapeModelMoved(id,x,y));
-    }
-
-    public void resize(int dw, int dh) {
-        this.w += dw;
-        this.h += dh;
-        notify(new ShapeModelResized(id,w,h));
-    }
+    public abstract String getId();
+    public abstract int getX();
+    public abstract int getY();
+    public abstract int getW();
+    public abstract int getH();
+    public abstract int getZ();
+    public abstract void move(int dx,int dy);
+    public abstract void resize(int dw, int dh);
+    public abstract void realign(int z);
+    public abstract void add(ShapeModel shapeModel);
+    public abstract void remove(ShapeModel shapeModel);
+    public abstract void clear();
+    public abstract Collection<ShapeModel> getChildren();
+    public abstract void handleCmd(Command cmd);
+    public abstract boolean contains(String id);
 }

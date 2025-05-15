@@ -1,142 +1,73 @@
 package CanvasApp.ViewModel;
 
-import CanvasApp.Model.Canvas.CanvasModel;
-import CanvasApp.Model.Canvas.Cmd.CreateShapeModelCmd;
-import CanvasApp.Model.Canvas.Observer.*;
-import CanvasApp.Model.Factory.ShapeFactory;
-import CanvasApp.Model.Shape.Observer.ShapeModelMoved;
-import CanvasApp.Model.Shape.Observer.ShapeModelResized;
-import CanvasApp.Model.Shape.Observer.ShapeModelObserver;
-import CanvasApp.Model.Shape.Observer.ShapeModelRealigned;
+import CanvasApp.Factory.RectFactory;
+import CanvasApp.Factory.ShapeFactory;
+import CanvasApp.Model.Shape.Cmd.CreateShapeLeafCmd;
+import CanvasApp.Model.Shape.Composite.ShapeModelGroup;
+import CanvasApp.Model.Shape.Event.ShapeComposition.ShapeModelAdded;
 import CanvasApp.Model.Shape.ShapeModel;
-import CanvasApp.ViewModel.CanvasData.CanvasData;
-import CanvasApp.ViewModel.ShapeData.ShapeData;
+import CanvasApp.ViewModel.Datas.CanvasData.CanvasData;
+import CanvasApp.ViewModel.EventHandler.CanvasEventHandler;
+import CanvasApp.ViewModel.Datas.PropertyData.PropertyData;
+import CanvasApp.ViewModel.EventHandler.SelectedHandler;
 import Command.Command;
 
-import java.util.ArrayList;
-import java.util.List;
+public class CanvasVM {
+    private final ShapeModel canvas = new ShapeModelGroup();
+    public final ShapeModel selected = new ShapeModelGroup();
 
-public class CanvasVM implements ShapeModelObserver, CanvasModelObserver {
-    //models
-    private final CanvasModel canvas = new CanvasModel();
+    private final CanvasData canvasData;
+    private ShapeFactory factoryForNewShape;
+    private final PropertyData propertyData = new PropertyData(selected);
 
-    //canvasData,shapeData
-    public final CanvasData canvasData;
-
-    //viewModel tool data
-    public CreateShapeModelCmd tempCreateCmd;
-
-    private final List<String> selected = new ArrayList<>();
+    CanvasEventHandler canvasEventHandler;
+    SelectedHandler selectedHandler;
 
     public CanvasVM(CanvasData canvasData) {
         this.canvasData = canvasData;
-        canvas.attach(this);
+        this.canvasEventHandler = new CanvasEventHandler(canvasData);
+        canvas.attach(canvasEventHandler);
+        this.selectedHandler = new SelectedHandler(selected, propertyData);
+        selected.attach(selectedHandler);
     }
-
-    @Override
-    public void onShapeAdded(CanvasModelShapeAdded event) {
-        System.out.println("[CanvasVM] onShapeAdded: id=" + event.id);
-
-        ShapeModel shapeModel = canvas.getShape(event.id);
-        shapeModel.attach(this);
-
-        ShapeFactory shapeFactory = event.getShapeFactory();
-        ShapeData shapeData = shapeFactory.createShapeData(shapeModel);
-
-        System.out.println("[CanvasVM] shapeData created: id=" + shapeData.getId());
-
-        canvasData.addShape(shapeData, shapeFactory);
-    }
-
-
-    @Override
-    public void onShapeRemoved(CanvasModelShapeRemoved event) {
-        canvasData.removeShape(event.id);
-    }
-
-
-    @Override
-    public void onShapeZChanged(ShapeModelRealigned event) {
-        canvasData.getShapeData(event.id).setZ(event.z);
-        canvasData.realignShape(event.id,event.z);
-    }
-
-    @Override
-    public void onMoved(ShapeModelMoved event) {
-        canvasData.getShapeData(event.id).moved(event.x,event.y);
-    }
-
-    @Override
-    public void onResized(ShapeModelResized event) {
-        canvasData.getShapeData(event.id).resized(event.w,event.h);
-    }
-
-    @Override
-    public void onRealigned(ShapeModelRealigned event) {
-        canvasData.getShapeData(event.id).setZ(event.z);
-        canvasData.realignShape(event.id,event.z);
-    }
-
 
     public ShapeModel getShape(String id) {
-        return canvas.getShape(id);
+        return canvas.getChildren().stream()
+                .filter(shape -> shape.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
-    private void deSelectAll(){
+    public void deSelectAll() {
         selected.clear();
     }
 
-    private void handleSelected(String id) {
-        if (selected.contains(id)) {
-            selected.remove(id);
+    public void toggleSelect(ShapeModel shapeModel) {
+        if (selected.contains(shapeModel.getId())) {
+            selected.remove(shapeModel);
         } else {
-            selected.add(id);
+            selected.add(shapeModel);
+            selected.notify(new ShapeModelAdded(shapeModel));
         }
-        System.out.println("[Selected Shapes] " + selected);
-    }
-
-    public void multiSelect(String id){
-        handleSelected(id);
-    }
-    public void select(String id){
-        deSelectAll();
-        handleSelected(id);
     }
 
     public void handleCmd(Command command) {
         command.execute();
     }
 
-    public void move(int dx, int dy){
-        for(String id : selected){
-            getShape(id).move(dx, dy);
-        }
+    public void setCurrentFactory(ShapeFactory selectedShapeFactory) {
+        this.factoryForNewShape = selectedShapeFactory;
     }
 
-    public void realign(int z){
-        for(String id : selected){
-            canvas.setZ(id,z);
-        }
-    }
-
-    public void resize(int dw, int dh){
-        for(String id : selected){
-            getShape(id).resize(dw,dh);
-        }
-    }
-
-    public void setTempCreateCmd(CreateShapeModelCmd tempCreateCmd) {
-        System.out.println("[CanvasVM] setTempCreateCmd called");
-        this.tempCreateCmd = tempCreateCmd;
-    }
-
-    public void setCanvasDraggable(boolean draggable){
-        System.out.println("[CanvasVM] setCanvasDraggable = " + draggable);
+    public void setCanvasDraggable(boolean draggable) {
         canvasData.setCanvasViewState(draggable);
     }
 
-    public void completeTempCreateCmd(int x, int y, int w, int h, int z){
-        tempCreateCmd.Complete(canvas,x,y,w,h,z);
-        canvas.handleCmd(tempCreateCmd);
+    public void createShapeLeafByDrag(int x, int y, int w, int h, int z) {
+        new CreateShapeLeafCmd(canvas,factoryForNewShape,x,y,w,h,z).execute();
+    }
+
+    public PropertyData getPropertyData() {
+        return propertyData;
     }
 }

@@ -3,7 +3,7 @@ package CanvasApp;
 import CanvasApp.View.CanvasView.CanvasView;
 import CanvasApp.View.ToolView.ToolBarView;
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.CanvasData.CanvasData;
+import CanvasApp.ViewModel.Datas.CanvasData.CanvasData;
 
 import javax.swing.*;
 import java.awt.*;

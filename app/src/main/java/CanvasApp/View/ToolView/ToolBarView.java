@@ -1,7 +1,7 @@
 package CanvasApp.View.ToolView;
 
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Command.ToolCmd.SetTempRectCreateCmd;
+import CanvasApp.ViewModel.Command.CreateShapeCmd.CreateRectSelectedCmd;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,9 +23,9 @@ public class ToolBarView extends JPanel {
         JButton ellipseBtn = new JButton("Ellipse");
 
         selectBtn.addActionListener(e ->
-                viewModel.handleCmd(new SetTempRectCreateCmd(viewModel)));
+                viewModel.handleCmd(new CreateRectSelectedCmd(viewModel)));
         rectBtn.addActionListener(e ->
-                viewModel.handleCmd(new SetTempRectCreateCmd(viewModel)));
+                viewModel.handleCmd(new CreateRectSelectedCmd(viewModel)));
 //        ellipseBtn.addActionListener(e ->
 //                viewModel.handleCmd(new SetTempRectCreateCmd(viewModel)));
 
