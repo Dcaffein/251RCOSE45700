@@ -2,6 +2,8 @@ package CanvasApp.View.ToolView;
 
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Command.CreateShapeCmd.CreateRectSelectedCmd;
+import CanvasApp.ViewModel.Command.SelectToolSelectedCmd;
+import CanvasApp.ViewModel.Command.ShapeCmd.DecorateWithTextCmd;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,16 +23,21 @@ public class ToolBarView extends JPanel {
         JButton selectBtn = new JButton("Select");
         JButton rectBtn = new JButton("Rect");
         JButton ellipseBtn = new JButton("Ellipse");
+        JButton addTextBtn = new JButton("Add Text");
 
         selectBtn.addActionListener(e ->
-                viewModel.handleCmd(new CreateRectSelectedCmd(viewModel)));
+                viewModel.handleCmd(new SelectToolSelectedCmd(viewModel)));
         rectBtn.addActionListener(e ->
                 viewModel.handleCmd(new CreateRectSelectedCmd(viewModel)));
 //        ellipseBtn.addActionListener(e ->
 //                viewModel.handleCmd(new SetTempRectCreateCmd(viewModel)));
+        addTextBtn.addActionListener(e -> {
+            viewModel.handleCmd(new DecorateWithTextCmd(viewModel, "text"));
+        });
 
         this.add(selectBtn);
         this.add(rectBtn);
         this.add(ellipseBtn);
+        this.add(addTextBtn);
     }
 }

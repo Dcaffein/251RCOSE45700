@@ -15,6 +15,6 @@ public class Move implements Command {
 
     @Override
     public void execute() {
-        canvasVM.selected.move(newX,newY);
+        canvasVM.selected.move(newX, newY);
     }
 }

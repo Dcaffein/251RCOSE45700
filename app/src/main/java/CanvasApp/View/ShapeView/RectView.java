@@ -1,12 +1,14 @@
 package CanvasApp.View.ShapeView;
 
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Datas.ShapeData.ReadOnlyShapeData;
+import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataEvent;
+import CanvasApp.ViewModel.Data.ShapeData.ReadOnlyShapeData;
+import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
 import java.awt.*;
 
-public class RectView extends ShapeView {
-    public RectView(ReadOnlyShapeData prop, CanvasVM viewModel) {
+public class RectView extends ConcreteShapeView {
+    public RectView(ShapeData prop, CanvasVM viewModel) {
         super(prop, viewModel);
     }
 

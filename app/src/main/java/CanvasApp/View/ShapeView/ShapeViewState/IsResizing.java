@@ -1,11 +1,13 @@
 package CanvasApp.View.ShapeView.ShapeViewState;
 
 
+import CanvasApp.View.ShapeView.ConcreteShapeView;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class IsResizing extends ShapeViewState{
-    public IsResizing(ShapeViewContext shapeView) {
+    public IsResizing(ConcreteShapeView shapeView) {
         super(shapeView);
     }
 

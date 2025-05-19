@@ -1,7 +1,8 @@
 package CanvasApp.Factory;
 
-import CanvasApp.Model.Shape.Composite.Leaf.RectModel;
-import CanvasApp.Model.Shape.ShapeModel;
+import CanvasApp.Model.Composite.Leaf.RectModel;
+import CanvasApp.Model.Decorator.TextInShape;
+import CanvasApp.Model.ShapeModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ public final class ShapeFactoryRegistry {
 
     static {
         registry.put(RectModel.class, RectFactory.getInstance());
+        registry.put(TextInShape.class, DecoratorTextFactory.getInstance());
     }
 
     public static ShapeFactory factoryFor(Class<? extends ShapeModel> modelClass) {

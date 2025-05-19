@@ -1,3 +1,4 @@
 package Observer;
 
-public interface Observer {}
+public interface Observer {
+}

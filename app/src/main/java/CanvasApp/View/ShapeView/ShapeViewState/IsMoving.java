@@ -1,10 +1,12 @@
 package CanvasApp.View.ShapeView.ShapeViewState;
 
+import CanvasApp.View.ShapeView.ConcreteShapeView;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class IsMoving extends ShapeViewState{
-    public IsMoving(ShapeViewContext shapeView) {
+    public IsMoving(ConcreteShapeView shapeView) {
         super(shapeView);
     }
 

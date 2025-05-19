@@ -3,7 +3,7 @@ package Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Observable {
+public abstract class Observable {
     protected final List<Observer> observers = new ArrayList<>();
 
     public void attach(Observer observer) {
@@ -12,6 +12,10 @@ public class Observable {
 
     public void detach(Observer observer) {
         observers.remove(observer);
+    }
+
+    public List<Observer> getObservers() {
+        return observers;
     }
 
     public void notify(Event<?> event) {

@@ -1,12 +1,12 @@
 package CanvasApp.Factory;
 
-import CanvasApp.Model.Shape.Composite.Leaf.RectModel;
-import CanvasApp.Model.Shape.Composite.Leaf.ShapeModelLeaf;
-import CanvasApp.Model.Shape.ShapeModel;
+import CanvasApp.Model.Composite.Leaf.RectModel;
+import CanvasApp.Model.Composite.Leaf.ShapeModelLeaf;
+import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.ShapeView.RectView;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Datas.ShapeData.ShapeData;
+import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
 public class RectFactory extends ShapeFactory {
     private static final RectFactory instance = new RectFactory();

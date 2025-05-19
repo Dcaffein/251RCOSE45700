@@ -1,9 +1,11 @@
 package CanvasApp.View.ShapeView.ShapeViewState;
 
+import CanvasApp.View.ShapeView.ConcreteShapeView;
+
 import java.awt.event.MouseEvent;
 
 public class IsReadyToSelect extends ShapeViewState {
-    public IsReadyToSelect(ShapeViewContext shapeView) {
+    public IsReadyToSelect(ConcreteShapeView shapeView) {
         super(shapeView);
     }
 
