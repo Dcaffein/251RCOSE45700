@@ -22,9 +22,9 @@ public class TextInViewHandler implements ShapeDataObserver {
     }
 
     private void initializeStrategies() {
-        strategies.put(TextInShapeDataChanged.class, new HandleTextChanged(this));
-        strategies.put(ShapeDataMoved.class, new HandleMoved(this));
-        strategies.put(ShapeDataResized.class, new HandleResized(this));
+//        strategies.put(TextInShapeDataChanged.class, new HandleTextChanged(this));
+//        strategies.put(ShapeDataMoved.class, new HandleMoved(this));
+//        strategies.put(ShapeDataResized.class, new HandleResized(this));
     }
 
     @Override

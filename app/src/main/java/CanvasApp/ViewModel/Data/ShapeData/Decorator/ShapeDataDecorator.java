@@ -1,6 +1,5 @@
 package CanvasApp.ViewModel.Data.ShapeData.Decorator;
 
-import CanvasApp.Model.Decorator.ShapeDecorator;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 

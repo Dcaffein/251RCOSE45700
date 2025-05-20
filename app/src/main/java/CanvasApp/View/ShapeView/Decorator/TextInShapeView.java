@@ -4,154 +4,109 @@ import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Command.ShapeCmd.UpdateTextCmd;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.TextInShapeData;
-import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class TextInShapeView extends ShapeDecoratorView {
-    private String text;
     private final JTextField textEditField;
-    // TextInShapeData에 접근할 수 있도록 protected 또는 getter 추가
-    protected final TextInShapeData textInShapeData; // 핸들러 인스턴스
+    private final TextInShapeData textInShapeData;
 
     public TextInShapeView(TextInShapeData shapeData, CanvasVM viewModel, ShapeView decorated) {
         super(shapeData, viewModel, decorated);
+        setLayout(null);
         this.textInShapeData = shapeData;
-        this.text = shapeData.getText();
         this.shapeDataEventHandler = new TextInViewHandler(this);
         this.textInShapeData.attach(this.shapeDataEventHandler);
-        System.out.println("TextInShapeView - constructor called");
 
-        if (decorated == null) {
-            throw new IllegalArgumentException("Decorated ShapeView must be a JComponent.");
-        }
-
-        setLayout(new BorderLayout());
-
-        this.textEditField = new JTextField();
-        this.textEditField.setVisible(false);
+        this.textEditField = new JTextField(shapeData.getText());
         this.textEditField.setHorizontalAlignment(JTextField.CENTER);
         this.add(textEditField);
-        this.setOpaque(false);
+        this.setBackground(Color.YELLOW);
 
-        setupMouseListener();
-        setupTextFieldListeners();
+        setupField(textEditField, this::commitEdit);
     }
 
-    private void setupMouseListener() {
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // decorated가 보이고, 편집 필드가 안 보일 때 더블클릭하면 편집 시작
-                if (e.getClickCount() == 2 && decorated.isVisible() && !textEditField.isVisible()) {
-                    startEditing();
-                } else if (textEditField.isVisible() && !textEditField.getBounds().contains(e.getPoint())) {
-                    // 편집 중인데 텍스트 필드 바깥을 클릭하면 편집 종료
-                     stopEditing();
-                }
-            }
-        });
-    }
-
-    private void startEditing() {
-        this.text = textInShapeData.getText();
-        textEditField.setText(this.text);
-
-        int padding = Math.min(10, Math.min(getWidth(), getHeight()) / 5);
-        int fieldWidth = Math.max(50, getWidth() - 2 * padding); // 최소 너비 보장
-        int fieldHeight = textEditField.getPreferredSize().height;
-        int fieldX = (getWidth() - fieldWidth) / 2;
-        int fieldY = (getHeight() - fieldHeight) / 2;
-
-        textEditField.setBounds(fieldX, fieldY, fieldWidth, fieldHeight);
-        textEditField.setVisible(true);
-        textEditField.requestFocusInWindow();
-        repaint();
-    }
-
-    private void stopEditing() {
-        if (!textEditField.isVisible()) return; // 이미 종료된 경우
-
-        String newText = textEditField.getText();
-        textEditField.setVisible(false);
-        decorated.setVisible(true);
-
-//        if (commitChange) {
-            if (!newText.equals(this.textInShapeData.getText())) {
-                viewModel.handleCmd(new UpdateTextCmd(viewModel, shapeData.getId(), newText));
-            }
-//        }
-//        this.text = textInShapeData.getText();
-//        repaint();
-    }
-
-    public ShapeData getShapeData(){
-        return shapeData;
-    }
-
-    private void setupTextFieldListeners() {
-        textEditField.addActionListener(e -> stopEditing()); // Enter 키
-
-        textEditField.addFocusListener(new FocusAdapter() {
+    private void setupField(JTextField field, Runnable commit) {
+        // 엔터 입력 또는 포커스 잃을 때 커밋
+        field.addActionListener(e -> commit.run());
+        field.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                // 포커스를 잃으면 변경사항 커밋
-                // GlassPane 등으로 화면 전체를 덮는게 아니라면, 다른 컴포넌트 클릭 시 focusLost 발생
-                stopEditing();
+                commit.run();
             }
+        });
+
+        // 텍스트 변경될 때마다 필드 크기 갱신
+        field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override public void insertUpdate(DocumentEvent e) { updateTextFieldBounds(); }
+            @Override public void removeUpdate(DocumentEvent e) { updateTextFieldBounds(); }
+            @Override public void changedUpdate(DocumentEvent e) { updateTextFieldBounds(); }
         });
     }
 
-    // TextInViewHandler에 의해 호출되어 외부에서 텍스트 변경 시 화면 갱신
-    public void updateTextDisplay(String newText) {
-        this.text = newText;
-        if (!textEditField.isVisible()) { // 편집 중이 아닐 때만 repaint
-            repaint();
+    private void commitEdit() {
+        String newText = textEditField.getText();
+        if (!newText.equals(textInShapeData.getText())) {
+            viewModel.handleCmd(new UpdateTextCmd(viewModel, shapeData.getId(), newText));
         }
     }
+
+    @Override
+    public void draw(Graphics g) {}
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        // 편집 중이 아니고, decorated가 보이고, 텍스트가 있을 때만 텍스트 오버레이를 그림
-        if (!textEditField.isVisible() && decorated.isVisible() && this.text != null && !this.text.isEmpty()) {
-            drawTextOverlay(g);
-        }
-    }
-
-    private void drawTextOverlay(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g.create();
-        // 안티앨리어싱 설정
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-
-        // 폰트 설정 (기본 폰트 또는 컴포넌트 폰트)
-        Font font = getFont();
-        if (font == null) {
-            font = new Font("SansSerif", Font.PLAIN, 10);
-        }
-        g2d.setFont(font);
-
-        FontMetrics fm = g2d.getFontMetrics();
-        int stringWidth = fm.stringWidth(this.text);
-
-        // 텍스트 중앙 정렬
-        int x = (getWidth() - stringWidth) / 2;
-        int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
-
-        g2d.setColor(Color.BLACK); // 텍스트 색상
-        g2d.drawString(this.text, x, y);
-        g2d.dispose();
     }
 
     @Override
-    public void draw(Graphics g) {
-        // All drawing is handled by paintComponent and child components
+    public void setBounds(int x, int y, int width, int height) {
+        super.setBounds(x, y, width, height);
+        SwingUtilities.invokeLater(this::updateTextFieldBounds);
+    }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+        SwingUtilities.invokeLater(this::updateTextFieldBounds);
+    }
+
+    private void updateTextFieldBounds() {
+        String text = textEditField.getText();
+        if (text == null || text.isEmpty()) {
+            text = " ";
+        }
+
+        Font font = getFont();
+        if (font == null) font = new Font("SansSerif", Font.PLAIN, 12);
+        textEditField.setFont(font);
+
+        FontMetrics fm = getFontMetrics(font);
+
+        int textWidth = fm.stringWidth(text);
+        int textHeight = fm.getHeight();
+
+        int horizontalPadding = 10;
+        int verticalPadding = 4;
+
+        int minWidth = 50;
+        int minHeight = 24;
+        int maxWidth = Math.max(getWidth() - 4, minWidth);
+        int maxHeight = Math.max(getHeight() - 4, minHeight);
+
+        int fieldWidth = Math.min(textWidth + 2 * horizontalPadding, maxWidth);
+        int fieldHeight = Math.min(textHeight + verticalPadding, maxHeight);
+
+        int x = (getWidth() - fieldWidth) / 2;
+        int y = (getHeight() - fieldHeight) / 2;
+
+        textEditField.setBounds(x, y, fieldWidth, fieldHeight);
+
+        System.out.println("[updateTextFieldBounds] : " + textEditField.getBounds());
+        System.out.println("[TextInShapeView] : " + this.getBounds());
     }
 }

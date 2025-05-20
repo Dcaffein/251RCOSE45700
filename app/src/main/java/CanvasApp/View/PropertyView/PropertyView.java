@@ -5,7 +5,6 @@ import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Command.ShapeCmd.Move;
 import CanvasApp.ViewModel.Command.ShapeCmd.Realign;
 import CanvasApp.ViewModel.Command.ShapeCmd.Resize;
-import CanvasApp.ViewModel.Data.PropertyData.Event.PropertyDataChanged;
 import CanvasApp.ViewModel.Data.PropertyData.Event.PropertyDataObserver;
 import CanvasApp.ViewModel.Data.PropertyData.PropertyData;
 
@@ -14,7 +13,7 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class PropertyDataView extends JPanel implements PropertyViewContext {
+public class PropertyView extends JPanel implements PropertyViewContext {
     private final PropertyData data;
     private final CanvasVM vm;
     private final JTextField xField = new JTextField(5);
@@ -24,7 +23,7 @@ public class PropertyDataView extends JPanel implements PropertyViewContext {
     private final JTextField zField = new JTextField(5);
     private final PropertyDataObserver eventHandler;
 
-    public PropertyDataView(CanvasVM vm, PropertyData data) {
+    public PropertyView(CanvasVM vm, PropertyData data) {
         this.vm = vm;
         this.data = data;
         eventHandler = new PropertyDataEventHandler(this);
@@ -45,11 +44,6 @@ public class PropertyDataView extends JPanel implements PropertyViewContext {
 
         updateFields(data);
     }
-
-//    @Override
-//    public void onUpdate(PropertyDataChanged event) {
-//        updateFields(event.source);
-//    }
 
     private void setupField(JTextField field, Runnable commit) {
         field.addActionListener(e -> commit.run());
@@ -73,6 +67,7 @@ public class PropertyDataView extends JPanel implements PropertyViewContext {
         int newY = parseField(yField.getText());
         int oldY = data.getY();
         if (newY != oldY) {
+            System.out.println("[commitY] oldY : " + oldY + ", newY :" + newY);
             vm.handleCmd(new Move(vm, 0, newY - (oldY == -1? 0 : oldY)));
         }
     }
@@ -94,14 +89,15 @@ public class PropertyDataView extends JPanel implements PropertyViewContext {
         int newZ = parseField(zField.getText());
         int oldZ = data.getZ();
         if ( newZ != oldZ) {
+
             vm.handleCmd(new Realign(vm, newZ));
         }
     }
 
     public void updateFields(PropertyData data) {
-        System.out.printf(
-                "[PropertyView] beforeUpdateData : X:%s  Y:%s  W:%s  H:%s  Z:%s%n",
-                data.getX(), data.getY(), data.getW(), data.getH(), data.getZ());
+//        System.out.printf(
+//                "[PropertyView] beforeUpdateData : X:%s  Y:%s  W:%s  H:%s  Z:%s%n",
+//                data.getX(), data.getY(), data.getW(), data.getH(), data.getZ());
 
         String xs = data.getX() == -1 ? "--" : String.valueOf(data.getX());
         String ys = data.getY() == -1 ? "--" : String.valueOf(data.getY());

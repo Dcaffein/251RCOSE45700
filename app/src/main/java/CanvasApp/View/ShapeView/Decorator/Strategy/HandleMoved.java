@@ -17,7 +17,7 @@ public class HandleMoved extends StrategyTextInShapeView {
         if(event instanceof TextInShapeDataChanged e){
             String text = ((TextInShapeData) e.source).getText();
             TextInShapeView view = textInViewHandler.textInShapeView;
-            view.updateTextDisplay(text);
+//            view.updateTextDisplay(text);
         }
     }
 }

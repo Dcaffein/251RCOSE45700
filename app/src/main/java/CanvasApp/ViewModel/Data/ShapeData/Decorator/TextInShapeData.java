@@ -16,5 +16,6 @@ public class TextInShapeData extends ShapeDataDecorator {
     public String getText() { return text; }
     public void setText(String text) {
         this.text = text;
+        notify(new TextInShapeDataChanged(this));
     }
 }

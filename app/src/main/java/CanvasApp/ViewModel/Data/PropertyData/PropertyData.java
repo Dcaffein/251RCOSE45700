@@ -37,7 +37,7 @@ public class PropertyData extends Observable {
             z = shapes.stream().allMatch(s -> s.getZ() == fz) ? fz : -1;
         }
 
-        System.out.printf("[PropertyData] recalc : x=%d, y=%d, w=%d, h=%d, z=%d%n", x, y, w, h, z);
+//        System.out.printf("[PropertyData] recalc : x=%d, y=%d, w=%d, h=%d, z=%d%n", x, y, w, h, z);
         notify(new PropertyDataChanged(this));
     }
 

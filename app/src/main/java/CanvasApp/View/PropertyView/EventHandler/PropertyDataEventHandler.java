@@ -11,9 +11,9 @@ import java.util.Map;
 public class PropertyDataEventHandler implements PropertyDataObserver {
     public final PropertyViewContext propertyViewContext;
 
-    private final Map<Class<? extends ShapeEvent>, HandlePropertyView> handlingStrategies = new HashMap<>();
+    private final Map<Class<? extends ShapeEvent>, StrategyHandlingPropertyView> handlingStrategies = new HashMap<>();
 
-    private HandlePropertyView currentStrategy;
+    private StrategyHandlingPropertyView currentStrategy;
 
     public PropertyDataEventHandler(PropertyViewContext propertyViewContext) {
         this.propertyViewContext = propertyViewContext;
@@ -27,5 +27,6 @@ public class PropertyDataEventHandler implements PropertyDataObserver {
     @Override
     public void onUpdate(PropertyDataChanged event) {
         currentStrategy.handle(event);
+        System.out.println("[PropertyDataEventHandler] : " + currentStrategy.getClass().getName());
     }
 }
