@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class ShadowAroundShapeView extends ShapeViewDecorator {
-    private int shadowOffset = 5;
+    private int shadowOffset = 20;
     private ShadowData shadowData;
 
     public ShadowAroundShapeView(ShadowData shapeData, CanvasVM viewModel, ShapeView decorated) {
@@ -34,7 +34,7 @@ public class ShadowAroundShapeView extends ShapeViewDecorator {
 
         g2.setColor(shadowData.getColor());
         Shape shape = getShape();
-        if(shape != null) {return;}
+        if(shape == null) {return;}
         AffineTransform tx = AffineTransform.getTranslateInstance(shadowOffset, shadowOffset);
         Shape shadow = tx.createTransformedShape(shape);
         g2.fill(shadow);
