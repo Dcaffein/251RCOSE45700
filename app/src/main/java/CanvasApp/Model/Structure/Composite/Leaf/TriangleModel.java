@@ -1,4 +1,4 @@
-package CanvasApp.Model.Composite.Leaf;
+package CanvasApp.Model.Structure.Composite.Leaf;
 
 public class TriangleModel extends ShapeModelLeaf {
   public TriangleModel(String id, int x, int y, int w, int h, int z) {

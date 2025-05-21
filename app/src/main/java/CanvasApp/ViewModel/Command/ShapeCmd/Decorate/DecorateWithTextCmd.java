@@ -15,5 +15,6 @@ public class DecorateWithTextCmd implements Command {
     @Override
     public void execute() {
         viewModel.decoratesWithText(text);
+        System.out.println("[DecorateWithTextCmd] text : " + text);
     }
 }

@@ -1,6 +1,6 @@
 package CanvasApp.Factory;
 
-import CanvasApp.Model.Decorator.Shadow;
+import CanvasApp.Model.Structure.Decorator.Shadow;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.ShapeView.Decorator.Shadow.ShadowAroundShapeView;
 import CanvasApp.View.ShapeView.ShapeView;

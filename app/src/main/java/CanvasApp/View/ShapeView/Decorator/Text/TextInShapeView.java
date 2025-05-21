@@ -1,5 +1,6 @@
 package CanvasApp.View.ShapeView.Decorator.Text;
 
+import CanvasApp.Model.Structure.HasText;
 import CanvasApp.View.ShapeView.Decorator.ShapeViewDecorator;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
@@ -12,7 +13,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TextInShapeView extends ShapeViewDecorator {
+public class TextInShapeView extends ShapeViewDecorator implements HasText {
     private final JTextField textEditField;
     private final TextInShapeData textInShapeData;
 
@@ -112,5 +113,15 @@ public class TextInShapeView extends ShapeViewDecorator {
         System.out.println("[updateTextDisplay] currentText : " + textEditField.getText());
         updateTextFieldBounds();
         repaint();
+    }
+
+    @Override
+    public String getText() {
+        return textInShapeData.getText();
+    }
+
+    @Override
+    public void setText(String text) {
+        updateTextDisplay(text);
     }
 }

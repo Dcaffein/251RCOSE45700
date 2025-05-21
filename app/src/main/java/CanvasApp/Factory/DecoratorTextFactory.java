@@ -1,6 +1,6 @@
 package CanvasApp.Factory;
 
-import CanvasApp.Model.Decorator.TextInShape;
+import CanvasApp.Model.Structure.Decorator.TextInShape;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.ShapeView.Decorator.Text.TextInShapeView;
 import CanvasApp.View.ShapeView.ShapeView;

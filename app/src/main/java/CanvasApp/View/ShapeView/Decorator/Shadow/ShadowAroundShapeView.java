@@ -8,7 +8,7 @@ import CanvasApp.ViewModel.Data.ShapeData.Decorator.Shadow.ShadowData;
 import java.awt.*;
 
 public class ShadowAroundShapeView extends ShapeViewDecorator {
-    private int shadowOffset = 30;
+    private int shadowOffset = 15;
     private ShadowData shadowData;
 
     public ShadowAroundShapeView(ShadowData shapeData, CanvasVM viewModel, ShapeView decorated) {

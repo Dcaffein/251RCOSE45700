@@ -1,7 +1,6 @@
 package CanvasApp.Factory;
 
-import CanvasApp.Model.Composite.Leaf.EllipseModel;
-import CanvasApp.Model.Composite.Leaf.ShapeModelLeaf;
+import CanvasApp.Model.Structure.Composite.Leaf.EllipseModel;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.ShapeView.EllipseView;
 import CanvasApp.View.ShapeView.ShapeView;
@@ -19,7 +18,7 @@ public class EllipseFactory extends ShapeFactory {
   }
 
   @Override
-  public ShapeModelLeaf createShapeModel(String id, int x, int y, int w, int h, int z) {
+  public ShapeModel createShapeModel(String id, int x, int y, int w, int h, int z) {
     return new EllipseModel(id, x, y, w, h, z);
   }
 

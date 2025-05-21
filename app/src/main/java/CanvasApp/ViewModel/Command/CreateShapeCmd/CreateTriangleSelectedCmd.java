@@ -14,6 +14,7 @@ public class CreateTriangleSelectedCmd implements Command {
   @Override
   public void execute() {
     System.out.println("[ToolCmd] CreateTriangleFactory executed");
+    canvasVM.deSelectAll();
     canvasVM.setCurrentFactory(TriangleFactory.getInstance());
     canvasVM.setCanvasDraggable(true);
   }

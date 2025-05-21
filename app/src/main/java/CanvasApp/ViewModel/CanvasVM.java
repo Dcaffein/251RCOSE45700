@@ -4,9 +4,9 @@ import CanvasApp.Factory.DecoratorShadowFactory;
 import CanvasApp.Factory.DecoratorTextFactory;
 import CanvasApp.Factory.ShapeFactory;
 import CanvasApp.Model.Cmd.*;
-import CanvasApp.Model.Composite.ShapeModelGroup;
-import CanvasApp.Model.Decorator.Shadow;
-import CanvasApp.Model.Decorator.TextInShape;
+import CanvasApp.Model.Structure.Composite.ShapeModelGroup;
+import CanvasApp.Model.Structure.Decorator.Shadow;
+import CanvasApp.Model.Structure.Decorator.TextInShape;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.Data.CanvasData.CanvasData;
 import CanvasApp.ViewModel.EventHandler.CanvasHandler.CanvasHandler;
@@ -99,9 +99,11 @@ public class CanvasVM {
 
         DecoratorTextFactory textFactory = DecoratorTextFactory.getInstance();
         for (ShapeModel originalShape : selectedShapes) {
+            System.out.println("[decoratesWithText] decorator : " + originalShape.getClass());
             TextInShape textDecorator = textFactory.createShapeDecorator(originalShape, text);
             new DecorateCmd(originalShape,textDecorator,canvas).execute();
         }
+        deSelectAll();
     }
 
     public void decoratesWithShadow(Color color,int border){
@@ -113,13 +115,16 @@ public class CanvasVM {
         DecoratorShadowFactory shadowFactory = DecoratorShadowFactory.getInstance();
         for (ShapeModel originalShape : selectedShapes) {
             Shadow shadow = shadowFactory.createShapeDecorator(originalShape, color,border);
+            System.out.println("[decoratesWithShadow] decorator : " + originalShape.getClass());
             new DecorateCmd(originalShape,shadow,canvas).execute();
         }
+        deSelectAll();
     }
 
     public void changeText(String id, String text) {
         ShapeModel shapeModel = canvas.getChild(id);
         if(shapeModel == null) return;
+        System.out.println("[CanvasVM] text : " + text);
         new ChangeTextCmd(shapeModel, text).execute();
     }
 }

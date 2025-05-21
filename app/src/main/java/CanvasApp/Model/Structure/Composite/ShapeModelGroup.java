@@ -1,4 +1,4 @@
-package CanvasApp.Model.Composite;
+package CanvasApp.Model.Structure.Composite;
 
 import CanvasApp.Model.Event.ShapeModelAdded;
 import CanvasApp.Model.Event.ShapeModelRemoved;

@@ -12,6 +12,7 @@ public class SelectToolSelectedCmd implements Command {
 
     @Override
     public void execute() {
+        canvasVM.deSelectAll();
         canvasVM.setCanvasDraggable(false);
     }
 }

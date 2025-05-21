@@ -3,6 +3,7 @@ package CanvasApp.View.ShapeView.EventHandler;
 import CanvasApp.View.ShapeView.EventHandler.Strategy.StrategyOnShapeDataMoved;
 import CanvasApp.View.ShapeView.EventHandler.Strategy.StrategyOnShapeDataResized;
 import CanvasApp.View.ShapeView.EventHandler.Strategy.StrategyOnShapeDataSelected;
+import CanvasApp.View.ShapeView.EventHandler.Strategy.StrategyOnShapeDataTextChanged;
 import CanvasApp.View.ShapeView.ShapeViewContext;
 import CanvasApp.ViewModel.Data.ShapeData.Event.*;
 
@@ -23,6 +24,7 @@ public class ShapeDataEventHandler implements ShapeDataObserver {
         handlingStrategies.put(ShapeDataMoved.class, new StrategyOnShapeDataMoved(this));
         handlingStrategies.put(ShapeDataResized.class, new StrategyOnShapeDataResized(this));
         handlingStrategies.put(ShapeDataSelected.class, new StrategyOnShapeDataSelected(this));
+        handlingStrategies.put(ShapeDataTextChanged.class, new StrategyOnShapeDataTextChanged(this));
     }
 
     @Override

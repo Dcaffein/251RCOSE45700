@@ -14,6 +14,7 @@ public class CreateEllipseSelectedCmd implements Command {
   @Override
   public void execute() {
     System.out.println("[ToolCmd] CreateEllipseSelectedCmd executed");
+    canvasVM.deSelectAll();
     canvasVM.setCurrentFactory(EllipseFactory.getInstance());
     canvasVM.setCanvasDraggable(true);
   }

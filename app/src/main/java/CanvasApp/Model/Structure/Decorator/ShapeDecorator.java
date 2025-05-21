@@ -1,4 +1,4 @@
-package CanvasApp.Model.Decorator;
+package CanvasApp.Model.Structure.Decorator;
 
 import CanvasApp.Model.Event.ShapeModelMoved;
 import CanvasApp.Model.Event.ShapeModelRealigned;

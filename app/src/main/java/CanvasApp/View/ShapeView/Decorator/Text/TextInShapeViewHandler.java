@@ -1,9 +1,9 @@
 package CanvasApp.View.ShapeView.Decorator.Text;
 
 import CanvasApp.View.ShapeView.Decorator.Text.Strategy.StrategyOnTextChanged;
-import CanvasApp.ViewModel.Data.ShapeData.Decorator.Text.TextInShapeDataChanged;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataEvent;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataObserver;
+import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataTextChanged;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +18,7 @@ public class TextInShapeViewHandler implements ShapeDataObserver {
     }
 
     private void initializeStrategies() {
-        strategies.put(TextInShapeDataChanged.class, new StrategyOnTextChanged(this));
+        strategies.put(ShapeDataTextChanged.class, new StrategyOnTextChanged(textInShapeView));
     }
 
     @Override

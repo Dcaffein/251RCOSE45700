@@ -16,6 +16,7 @@ public class UpdateTextCmd implements Command {
 
     @Override
     public void execute() {
+        System.out.println("[UpdateTextCmd] newText : " + newText);
         viewModel.changeText(id, newText);
     }
 }

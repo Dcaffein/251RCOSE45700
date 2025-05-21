@@ -1,4 +1,4 @@
-package CanvasApp.Model.Decorator;
+package CanvasApp.Model.Structure.Decorator;
 
 import CanvasApp.Model.ShapeModel;
 

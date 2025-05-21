@@ -1,9 +1,10 @@
 package CanvasApp.Model.Cmd;
 
-import CanvasApp.Model.Composite.Leaf.TextModel;
-import CanvasApp.Model.Decorator.ShapeDecorator;
-import CanvasApp.Model.Decorator.TextInShape;
+import CanvasApp.Model.Structure.Composite.Leaf.TextModel;
+import CanvasApp.Model.Structure.Decorator.ShapeDecorator;
+import CanvasApp.Model.Structure.Decorator.TextInShape;
 import CanvasApp.Model.ShapeModel;
+import CanvasApp.Model.Structure.HasText;
 import Command.Command;
 
 public class ChangeTextCmd implements Command {
@@ -21,14 +22,20 @@ public class ChangeTextCmd implements Command {
     }
 
     private void updateShapeTextById(ShapeModel shapeModel, String newText) {
-        if (shapeModel instanceof ShapeDecorator shapeDecorator) {
-            if(shapeDecorator instanceof TextInShape textInShape){
-                textInShape.setText(newText);
-            } else {
-                updateShapeTextById(shapeDecorator.getDecorated(),newText);
-            }
-        } else if (shapeModel instanceof TextModel textModel) {
-            textModel.setText(newText);
+        HasText hasText = findHasText(shapeModel);
+        if (hasText != null) {
+            System.out.println("[ChangeTextCmd] hasText : " + hasText.getClass().getSimpleName());
+            hasText.setText(newText);
         }
+    }
+
+    private HasText findHasText(ShapeModel model) {
+        if (model instanceof HasText modelWhichHasText) {
+            return modelWhichHasText;
+        }
+        if (model instanceof ShapeDecorator decorator) {
+            return findHasText(decorator.getDecorated());
+        }
+        return null;
     }
 }

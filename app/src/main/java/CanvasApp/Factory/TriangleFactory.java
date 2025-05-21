@@ -1,7 +1,6 @@
 package CanvasApp.Factory;
 
-import CanvasApp.Model.Composite.Leaf.TriangleModel;
-import CanvasApp.Model.Composite.Leaf.ShapeModelLeaf;
+import CanvasApp.Model.Structure.Composite.Leaf.TriangleModel;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.ShapeView.TriangleView;
 import CanvasApp.View.ShapeView.ShapeView;
@@ -19,7 +18,7 @@ public class TriangleFactory extends ShapeFactory {
   }
 
   @Override
-  public ShapeModelLeaf createShapeModel(String id, int x, int y, int w, int h, int z) {
+  public ShapeModel createShapeModel(String id, int x, int y, int w, int h, int z) {
     return new TriangleModel(id, x, y, w, h, z);
   }
 

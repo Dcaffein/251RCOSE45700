@@ -1,4 +1,4 @@
-package CanvasApp.Model.Composite.Leaf;
+package CanvasApp.Model.Structure.Composite.Leaf;
 
 import CanvasApp.Model.Event.ShapeModelRealigned;
 import CanvasApp.Model.ShapeModel;

@@ -1,6 +1,6 @@
 package CanvasApp.Model.Cmd;
 
-import CanvasApp.Model.Decorator.ShapeDecorator;
+import CanvasApp.Model.Structure.Decorator.ShapeDecorator;
 import CanvasApp.Model.ShapeModel;
 import Command.Command;
 
@@ -19,5 +19,6 @@ public class DecorateCmd implements Command {
     public void execute() {
         canvas.remove(decorated);
         canvas.add(decorator);
+        System.out.println("[DecorateCmd] decorator : " + decorator.getClass() + ", decorated : " + decorated.getClass());
     }
 }

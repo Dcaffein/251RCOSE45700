@@ -1,9 +1,10 @@
-package CanvasApp.Model.Decorator;
+package CanvasApp.Model.Structure.Decorator;
 
 import CanvasApp.Model.Event.ShapeModelTextChanged;
 import CanvasApp.Model.ShapeModel;
+import CanvasApp.Model.Structure.HasText;
 
-public class TextInShape extends ShapeDecorator {
+public class TextInShape extends ShapeDecorator implements HasText {
     private String text;
 
     public TextInShape(ShapeModel decorated, String text) {

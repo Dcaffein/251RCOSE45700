@@ -1,6 +1,6 @@
 package CanvasApp.ViewModel.Data.ShapeData.Decorator.Shadow;
 
-import CanvasApp.Model.Decorator.Shadow;
+import CanvasApp.Model.Structure.Decorator.Shadow;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.ShapeDataDecorator;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
