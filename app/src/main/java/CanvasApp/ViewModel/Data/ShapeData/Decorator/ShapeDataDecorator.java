@@ -17,7 +17,6 @@ public abstract class ShapeDataDecorator extends ShapeData {
 
     @Override
     public void move(int x, int y) {
-        super.move(x, y);
         if (decorated != null) {
             decorated.move(x, y);
         }
@@ -25,7 +24,6 @@ public abstract class ShapeDataDecorator extends ShapeData {
 
     @Override
     public void resize(int w, int h) {
-        super.resize(w, h);
         if (decorated != null) {
             decorated.resize(w, h);
         }
@@ -33,9 +31,40 @@ public abstract class ShapeDataDecorator extends ShapeData {
 
     @Override
     public void updateZ(int z) {
-        super.updateZ(z);
         if (decorated != null) {
             decorated.updateZ(z);
         }
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        if(decorated != null) {
+            decorated.setSelected(selected);
+        }
+    }
+
+    @Override
+    public int getX(){
+        return decorated.getX();
+    }
+
+    @Override
+    public int getY(){
+        return decorated.getY();
+    }
+
+    @Override
+    public int getW(){
+        return decorated.getW();
+    }
+
+    @Override
+    public int getH(){
+        return decorated.getH();
+    }
+
+    @Override
+    public int getZ(){
+        return decorated.getZ();
     }
 }

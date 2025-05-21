@@ -6,8 +6,8 @@ import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataShapeRealigned;
 
 import java.awt.*;
 
-public class HandleCanvasDataShapeRealigned extends HandleCanvasView{
-    public HandleCanvasDataShapeRealigned(CanvasDataEventHandler canvasDataEventHandler) {
+public class StrategyOnCanvasDataShapeRealigned extends StrategyHandlingCanvasView {
+    public StrategyOnCanvasDataShapeRealigned(CanvasDataEventHandler canvasDataEventHandler) {
         super(canvasDataEventHandler);
     }
 

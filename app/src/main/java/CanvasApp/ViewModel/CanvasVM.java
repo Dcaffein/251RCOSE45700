@@ -68,7 +68,6 @@ public class CanvasVM {
     }
 
     public void resizeByDrag(int dw, int dh) {
-        System.out.println("[vm resizeByDrag] dw : " + dw + ", dh :" + dh);
         new SetSizeBy(selected,dw,dh).execute();
     }
 
@@ -99,7 +98,6 @@ public class CanvasVM {
         }
 
         DecoratorTextFactory textFactory = DecoratorTextFactory.getInstance();
-
         for (ShapeModel originalShape : selectedShapes) {
             TextInShape textDecorator = textFactory.createShapeDecorator(originalShape, text);
             new DecorateCmd(originalShape,textDecorator,canvas).execute();
@@ -113,7 +111,6 @@ public class CanvasVM {
         }
 
         DecoratorShadowFactory shadowFactory = DecoratorShadowFactory.getInstance();
-
         for (ShapeModel originalShape : selectedShapes) {
             Shadow shadow = shadowFactory.createShapeDecorator(originalShape, color,border);
             new DecorateCmd(originalShape,shadow,canvas).execute();

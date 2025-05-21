@@ -88,7 +88,6 @@ public class ShapeModelGroup extends ShapeModel {
 
     @Override
     public void setSizeBy(int dw, int dh) {
-        System.out.println("[group setSizeBy] dw : " + dw + ", dh :" + dh);
         children.values().forEach(m -> m.setSizeBy(dw, dh));
         notify(new ShapeModelResized(this));
     }

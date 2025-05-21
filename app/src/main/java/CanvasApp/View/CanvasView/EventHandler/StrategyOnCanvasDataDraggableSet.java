@@ -3,8 +3,8 @@ package CanvasApp.View.CanvasView.EventHandler;
 import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataDraggableSet;
 import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataEvent;
 
-public class HandleCanvasDataDraggableSet extends HandleCanvasView{
-    public HandleCanvasDataDraggableSet(CanvasDataEventHandler canvasDataEventHandler) {
+public class StrategyOnCanvasDataDraggableSet extends StrategyHandlingCanvasView {
+    public StrategyOnCanvasDataDraggableSet(CanvasDataEventHandler canvasDataEventHandler) {
         super(canvasDataEventHandler);
     }
 

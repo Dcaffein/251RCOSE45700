@@ -58,7 +58,6 @@ public abstract class ConcreteShapeView extends ShapeView implements ShapeViewCo
         super.paintComponent(g);
         draw(g);
 
-        System.out.println("is shapeData Selected? : " + shapeData.getSelected());
         if (shapeData.getSelected()) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setColor(Color.BLUE);

@@ -14,7 +14,6 @@ public class ShadowAroundShapeView extends ShapeViewDecorator {
     public ShadowAroundShapeView(ShadowData shapeData, CanvasVM viewModel, ShapeView decorated) {
         super(shapeData, viewModel, decorated);
         this.shadowData = shapeData;
-        System.out.println("[ShadowViewDecorator] ShadowViewDecorator instructor called");
     }
 
     @Override
@@ -26,19 +25,17 @@ public class ShadowAroundShapeView extends ShapeViewDecorator {
     public void draw(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create(); // 원본 보호용 복사
 
-        // 1. 그림자 영역 계산
         int x =  shadowOffset;
         int y =  shadowOffset;
+
         int w = shadowData.getW();
         int h = shadowData.getH();
 
-        // 2. 그림자 스타일 지정
         g2.setColor(shadowData.getColor());
-        g2.fillRoundRect(x, y, w, h, 10, 10); // 둥근 사각형 그림자 예시
+        g2.fillRoundRect(x, y, w, h, 10, 10);
 
-        // 3. 원래 도형 그리기 (위에 얹히게)
         decorated.draw(g);
 
-        g2.dispose(); // 리소스 해제
+        g2.dispose();
     }
 }

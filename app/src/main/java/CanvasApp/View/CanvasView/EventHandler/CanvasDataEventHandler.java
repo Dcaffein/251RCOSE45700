@@ -9,7 +9,7 @@ import java.util.Map;
 public class CanvasDataEventHandler implements CanvasDataObserver {
     public CanvasViewContext canvasViewContext;
 
-    private final Map<Class<? extends CanvasDataEvent<?>>, HandleCanvasView> handlingStrategies = new HashMap<>();
+    private final Map<Class<? extends CanvasDataEvent<?>>, StrategyHandlingCanvasView> handlingStrategies = new HashMap<>();
 
     public CanvasDataEventHandler(CanvasViewContext canvasViewContext) {
         this.canvasViewContext = canvasViewContext;
@@ -17,15 +17,15 @@ public class CanvasDataEventHandler implements CanvasDataObserver {
     }
 
     private void initializeEventHandlers() {
-        handlingStrategies.put(CanvasDataShapeAdded.class,new HandleCanvasDataShapeAdded(this));
-        handlingStrategies.put(CanvasDataShapeRemoved.class,new HandleCanvasDataShapeRemoved(this));
-        handlingStrategies.put(CanvasDataShapeRealigned.class,new HandleCanvasDataShapeRealigned(this));
-        handlingStrategies.put(CanvasDataDraggableSet.class,new HandleCanvasDataDraggableSet(this));
+        handlingStrategies.put(CanvasDataShapeAdded.class,new StrategyOnCanvasDataShapeAdded(this));
+        handlingStrategies.put(CanvasDataShapeRemoved.class,new StrategyOnCanvasDataShapeRemoved(this));
+        handlingStrategies.put(CanvasDataShapeRealigned.class,new StrategyOnCanvasDataShapeRealigned(this));
+        handlingStrategies.put(CanvasDataDraggableSet.class,new StrategyOnCanvasDataDraggableSet(this));
     }
 
     @Override
     public void onUpdate(CanvasDataEvent<?> event) {
-        HandleCanvasView strategy = handlingStrategies.get(event.getClass());
+        StrategyHandlingCanvasView strategy = handlingStrategies.get(event.getClass());
         if (strategy != null) {
             strategy.handle(event);
         }

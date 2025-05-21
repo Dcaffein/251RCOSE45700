@@ -8,8 +8,8 @@ import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataShapeAdded;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.ShapeDataDecorator;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
-public class HandleCanvasDataShapeAdded extends HandleCanvasView{
-    public HandleCanvasDataShapeAdded(CanvasDataEventHandler canvasDataEventHandler) {
+public class StrategyOnCanvasDataShapeAdded extends StrategyHandlingCanvasView {
+    public StrategyOnCanvasDataShapeAdded(CanvasDataEventHandler canvasDataEventHandler) {
         super(canvasDataEventHandler);
     }
 

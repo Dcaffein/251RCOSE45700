@@ -6,8 +6,8 @@ import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataShapeRemoved;
 
 import java.awt.*;
 
-public class HandleCanvasDataShapeRemoved extends HandleCanvasView{
-    public HandleCanvasDataShapeRemoved(CanvasDataEventHandler canvasDataEventHandler) {
+public class StrategyOnCanvasDataShapeRemoved extends StrategyHandlingCanvasView {
+    public StrategyOnCanvasDataShapeRemoved(CanvasDataEventHandler canvasDataEventHandler) {
         super(canvasDataEventHandler);
     }
 

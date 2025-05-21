@@ -63,13 +63,13 @@ public abstract class ShapeDecorator extends ShapeModel {
 
     @Override
     public void setPosition(int newX, int newY) {
-        decorated.setPositionBy(newX, newY);
+        decorated.setPosition(newX, newY);
         notify(new ShapeModelMoved(this));
     }
 
     @Override
     public void setSize(int newW, int newH) {
-        decorated.setSizeBy(newW, newH);
+        decorated.setSize(newW, newH);
         notify(new ShapeModelResized(this));
     }
 

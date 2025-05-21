@@ -60,6 +60,7 @@ public class PropertyView extends JPanel implements PropertyViewContext {
         int newX = parseField(xField.getText());
         int oldX = data.getX();
         if (newX != oldX) {
+            System.out.println("[commit] newX : " + newX + ", newY : " + data.getY());
             vm.handleCmd(new MoveTo(vm, newX, data.getY()));
         }
     }

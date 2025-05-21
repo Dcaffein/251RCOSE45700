@@ -3,10 +3,10 @@ package CanvasApp.View.CanvasView.EventHandler;
 import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataEvent;
 import Observer.EventHandlingStrategy;
 
-public abstract class HandleCanvasView implements EventHandlingStrategy<CanvasDataEvent<?>> {
+public abstract class StrategyHandlingCanvasView implements EventHandlingStrategy<CanvasDataEvent<?>> {
     CanvasDataEventHandler canvasDataEventHandler;
 
-    public HandleCanvasView(CanvasDataEventHandler canvasDataEventHandler) {
+    public StrategyHandlingCanvasView(CanvasDataEventHandler canvasDataEventHandler) {
         this.canvasDataEventHandler = canvasDataEventHandler;
     }
 }
