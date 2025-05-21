@@ -29,4 +29,6 @@ public abstract class ShapeView extends JComponent{
     public ShapeData getShapeData() {
         return shapeData;
     }
+
+//    public abstract Shape getShape();
 }

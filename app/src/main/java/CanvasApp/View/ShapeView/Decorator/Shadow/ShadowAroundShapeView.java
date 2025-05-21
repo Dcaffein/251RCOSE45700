@@ -1,10 +1,12 @@
 package CanvasApp.View.ShapeView.Decorator.Shadow;
 
+import CanvasApp.View.ShapeView.ConcreteShapeView;
 import CanvasApp.View.ShapeView.Decorator.ShapeViewDecorator;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.Shadow.ShadowData;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class ShadowAroundShapeView extends ShapeViewDecorator {
@@ -20,6 +22,12 @@ public class ShadowAroundShapeView extends ShapeViewDecorator {
     public void paintComponent(Graphics g) {
         draw(g);
     }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+    }
+
 
     @Override
     public void draw(Graphics g) {

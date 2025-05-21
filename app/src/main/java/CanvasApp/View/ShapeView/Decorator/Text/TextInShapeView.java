@@ -57,7 +57,9 @@ public class TextInShapeView extends ShapeViewDecorator implements HasText {
     }
 
     @Override
-    public void draw(Graphics g) {}
+    public void draw(Graphics g) {
+        decorated.draw(g);
+    }
 
     @Override
     protected void paintComponent(Graphics g) {

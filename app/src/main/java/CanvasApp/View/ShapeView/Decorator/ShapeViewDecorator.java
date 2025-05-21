@@ -4,6 +4,8 @@ import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.ShapeDataDecorator;
 
+import java.awt.*;
+
 public abstract class ShapeViewDecorator extends ShapeView {
     protected ShapeView decorated;
 
@@ -26,4 +28,9 @@ public abstract class ShapeViewDecorator extends ShapeView {
 
     @Override
     public void moveShape(int dx, int dy) {}
+
+//    @Override
+//    public Shape getShape(){
+//        return decorated.getShape();
+//    }
 }

@@ -34,14 +34,12 @@ public class StrategyOnCanvasDataShapeAdded extends StrategyHandlingCanvasView {
                     decoratedView = ((ShapeViewDecorator) decoratedView).getDecorated();
                 }
             }
-
             else {
-                shapeView = canvasViewContext.createChildShapeView(shapeData);
-            }
-            canvasViewContext.addChildViewOnLayeredPane(shapeView);
-            shapeView.setBounds(shapeData.getX(),shapeData.getY(),shapeData.getW(),shapeData.getH());
-            canvasViewContext.setChildViewLayerOnLayeredPane(shapeView,shapeData.getZ());
-            canvasViewContext.repaint();
+                shapeView = canvasViewContext.createChildShapeView(shapeData);                              }
+                canvasViewContext.addChildViewOnLayeredPane(shapeView);
+                shapeView.setBounds(shapeData.getX(),shapeData.getY(),shapeData.getW(),shapeData.getH());
+                canvasViewContext.setChildViewLayerOnLayeredPane(shapeView,shapeData.getZ());
+                canvasViewContext.repaint();
         }
     }
 }
