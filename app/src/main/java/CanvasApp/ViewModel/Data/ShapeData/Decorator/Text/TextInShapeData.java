@@ -1,15 +1,14 @@
-package CanvasApp.ViewModel.Data.ShapeData.Decorator;
+package CanvasApp.ViewModel.Data.ShapeData.Decorator.Text;
 
 import CanvasApp.Model.Decorator.TextInShape;
+import CanvasApp.ViewModel.Data.ShapeData.Decorator.ShapeDataDecorator;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
 public class TextInShapeData extends ShapeDataDecorator {
-    private final ShapeData decorated;
     private String text;
 
     public TextInShapeData(TextInShape model, ShapeData decorated) {
         super(model,decorated);
-        this.decorated = decorated;
         this.text = model.getText();
     }
 

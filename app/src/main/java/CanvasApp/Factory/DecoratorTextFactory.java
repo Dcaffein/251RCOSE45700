@@ -5,7 +5,7 @@ import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.ShapeView.Decorator.Text.TextInShapeView;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Data.ShapeData.Decorator.TextInShapeData;
+import CanvasApp.ViewModel.Data.ShapeData.Decorator.Text.TextInShapeData;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
 public class DecoratorTextFactory extends ShapeFactory{
@@ -21,13 +21,13 @@ public class DecoratorTextFactory extends ShapeFactory{
         return null;
     }
 
-    public TextInShape createShapeDecorator(ShapeModel shapeModel,String text) {
-        return new TextInShape(shapeModel, text);
+    public TextInShape createShapeDecorator(ShapeModel decorated,String text) {
+        return new TextInShape(decorated, text);
     }
 
     @Override
-    public ShapeData createShapeData(ShapeModel model) {
-        if (!(model instanceof TextInShape decorator)) {
+    public ShapeData createShapeData(ShapeModel shapeModel) {
+        if (!(shapeModel instanceof TextInShape decorator)) {
             throw new UnsupportedOperationException("DecoratorTextFactory supports only DecoratorText");
         }
 
@@ -35,12 +35,11 @@ public class DecoratorTextFactory extends ShapeFactory{
 
         ShapeFactory factory = ShapeFactoryRegistry.factoryFor(decorated);
         return new TextInShapeData(decorator, factory.createShapeData(decorated));
-
     }
 
     @Override
-    public ShapeView createShapeView(ShapeData data, CanvasVM vm) {
-        if (!(data instanceof TextInShapeData textInShapeData)) {
+    public ShapeView createShapeView(ShapeData shapeData, CanvasVM vm) {
+        if (!(shapeData instanceof TextInShapeData textInShapeData)) {
             throw new UnsupportedOperationException("Expected TextInShapeData");
         }
 

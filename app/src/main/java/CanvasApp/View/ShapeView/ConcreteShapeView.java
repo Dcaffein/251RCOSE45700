@@ -9,9 +9,7 @@ import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 import Command.Command;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 
 public abstract class ConcreteShapeView extends ShapeView implements ShapeViewContext {
     protected Point dragStart = null;
@@ -41,6 +39,17 @@ public abstract class ConcreteShapeView extends ShapeView implements ShapeViewCo
             @Override
             public void mouseDragged(MouseEvent e) {
                 currentState.onMouseDragged(e);
+            }
+        });
+
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                System.out.println("componentResized : " + e.getComponent().getClass().getName());
+                for (Component comp : ConcreteShapeView.this.getComponents()) {
+                    comp.setBounds(0, 0, e.getComponent().getWidth(), e.getComponent().getHeight());
+                    comp.repaint();
+                }
             }
         });
     }
@@ -85,7 +94,6 @@ public abstract class ConcreteShapeView extends ShapeView implements ShapeViewCo
     @Override
     public void resizeShape(int dw,int dh){
         Command resizeCmd = new ResizeByDrag(viewModel,dw, dh);
-        System.out.println("[concreteShapeView resizeShape]. dw : " + dw + ", dh :" + dh);
         viewModel.handleCmd(resizeCmd);
     }
 

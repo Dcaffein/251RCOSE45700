@@ -1,8 +1,6 @@
 package CanvasApp.View.ShapeView;
 
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataEvent;
-import CanvasApp.ViewModel.Data.ShapeData.ReadOnlyShapeData;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
 import java.awt.*;

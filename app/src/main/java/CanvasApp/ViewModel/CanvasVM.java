@@ -1,9 +1,11 @@
 package CanvasApp.ViewModel;
 
+import CanvasApp.Factory.DecoratorShadowFactory;
 import CanvasApp.Factory.DecoratorTextFactory;
 import CanvasApp.Factory.ShapeFactory;
 import CanvasApp.Model.Cmd.*;
 import CanvasApp.Model.Composite.ShapeModelGroup;
+import CanvasApp.Model.Decorator.Shadow;
 import CanvasApp.Model.Decorator.TextInShape;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.Data.CanvasData.CanvasData;
@@ -12,6 +14,7 @@ import CanvasApp.ViewModel.Data.PropertyData.PropertyData;
 import CanvasApp.ViewModel.EventHandler.SelectedHandler.SelectedHandler;
 import Command.Command;
 
+import java.awt.*;
 import java.util.Collection;
 
 public class CanvasVM {
@@ -52,42 +55,6 @@ public class CanvasVM {
         command.execute();
     }
 
-    public void setCurrentFactory(ShapeFactory selectedShapeFactory) {
-        this.factoryForNewShape = selectedShapeFactory;
-    }
-
-    public void setCanvasDraggable(boolean draggable) {
-        canvasData.setCanvasViewState(draggable);
-    }
-
-    public void createShapeLeafByDrag(int x, int y, int w, int h, int z) {
-        new CreateShapeCmd(canvas,factoryForNewShape,x,y,w,h,z).execute();
-    }
-
-    public PropertyData getPropertyData() {
-        return propertyData;
-    }
-
-    public void decoratesWithText(String defaultText) {
-        Collection<ShapeModel> selectedShapes = selected.getChildren();
-        if (selectedShapes == null || selectedShapes.isEmpty()) {
-            return;
-        }
-
-        DecoratorTextFactory textFactory = DecoratorTextFactory.getInstance();
-
-        for (ShapeModel originalShape : selectedShapes) {
-            TextInShape textDecorator = textFactory.createShapeDecorator(originalShape, defaultText);
-            new DecorateCmd(originalShape,textDecorator,canvas).execute();
-        }
-    }
-
-    public void changeText(String id, String text) {
-        ShapeModel shapeModel = canvas.getChild(id);
-        if(shapeModel == null) return;
-        new ChangeTextCmd(shapeModel, text).execute();
-    }
-
     public void moveTo(int newX, int newY){
         new SetPosition(selected,newX,newY).execute();
     }
@@ -105,9 +72,57 @@ public class CanvasVM {
         new SetSizeBy(selected,dw,dh).execute();
     }
 
-
     public void realign(int z){
         selected.realign(z);
     }
 
+    public void setCurrentFactory(ShapeFactory selectedShapeFactory) {
+        this.factoryForNewShape = selectedShapeFactory;
+    }
+
+    public void setCanvasDraggable(boolean draggable) {
+        canvasData.setCanvasViewState(draggable);
+    }
+
+    public void createShapeLeafByDrag(int x, int y, int w, int h, int z) {
+        new CreateShapeCmd(canvas,factoryForNewShape,x,y,w,h,z).execute();
+    }
+
+    public PropertyData getPropertyData() {
+        return propertyData;
+    }
+
+    public void decoratesWithText(String text) {
+        Collection<ShapeModel> selectedShapes = selected.getChildren();
+        if (selectedShapes == null || selectedShapes.isEmpty()) {
+            return;
+        }
+
+        DecoratorTextFactory textFactory = DecoratorTextFactory.getInstance();
+
+        for (ShapeModel originalShape : selectedShapes) {
+            TextInShape textDecorator = textFactory.createShapeDecorator(originalShape, text);
+            new DecorateCmd(originalShape,textDecorator,canvas).execute();
+        }
+    }
+
+    public void decoratesWithShadow(Color color,int border){
+        Collection<ShapeModel> selectedShapes = selected.getChildren();
+        if (selectedShapes == null || selectedShapes.isEmpty()) {
+            return;
+        }
+
+        DecoratorShadowFactory shadowFactory = DecoratorShadowFactory.getInstance();
+
+        for (ShapeModel originalShape : selectedShapes) {
+            Shadow shadow = shadowFactory.createShapeDecorator(originalShape, color,border);
+            new DecorateCmd(originalShape,shadow,canvas).execute();
+        }
+    }
+
+    public void changeText(String id, String text) {
+        ShapeModel shapeModel = canvas.getChild(id);
+        if(shapeModel == null) return;
+        new ChangeTextCmd(shapeModel, text).execute();
+    }
 }

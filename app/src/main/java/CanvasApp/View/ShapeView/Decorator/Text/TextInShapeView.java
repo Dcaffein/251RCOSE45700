@@ -1,9 +1,10 @@
 package CanvasApp.View.ShapeView.Decorator.Text;
 
+import CanvasApp.View.ShapeView.Decorator.ShapeViewDecorator;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Command.ShapeCmd.Decorate.UpdateTextCmd;
-import CanvasApp.ViewModel.Data.ShapeData.Decorator.TextInShapeData;
+import CanvasApp.ViewModel.Data.ShapeData.Decorator.Text.TextInShapeData;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -11,16 +12,15 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TextInShapeView extends ShapeDecoratorView {
+public class TextInShapeView extends ShapeViewDecorator {
     private final JTextField textEditField;
     private final TextInShapeData textInShapeData;
 
     public TextInShapeView(TextInShapeData shapeData, CanvasVM viewModel, ShapeView decorated) {
         super(shapeData, viewModel, decorated);
-        setLayout(null);
         this.textInShapeData = shapeData;
-        this.shapeDataEventHandler = new TextInViewHandler(this);
-        this.textInShapeData.attach(this.shapeDataEventHandler);
+        this.shapeDataEventHandler = new TextInShapeViewHandler(this);
+        this.shapeData.attach(this.shapeDataEventHandler);
 
         this.textEditField = new JTextField(shapeData.getText());
         this.textEditField.setHorizontalAlignment(JTextField.CENTER);

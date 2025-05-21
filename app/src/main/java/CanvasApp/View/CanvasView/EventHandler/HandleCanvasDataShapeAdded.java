@@ -1,7 +1,7 @@
 package CanvasApp.View.CanvasView.EventHandler;
 
 import CanvasApp.View.CanvasView.CanvasViewContext;
-import CanvasApp.View.ShapeView.Decorator.Text.ShapeDecoratorView;
+import CanvasApp.View.ShapeView.Decorator.ShapeViewDecorator;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataEvent;
 import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataShapeAdded;
@@ -23,15 +23,15 @@ public class HandleCanvasDataShapeAdded extends HandleCanvasView{
             if(e.source instanceof ShapeDataDecorator){
                 ShapeView nestedView = canvasViewContext.createChildShapeView(shapeData);
                 ShapeView decoratedView = nestedView;
-                while (decoratedView instanceof ShapeDecoratorView){
-                    decoratedView = ((ShapeDecoratorView) decoratedView).getDecorated();
+                while (decoratedView instanceof ShapeViewDecorator){
+                    decoratedView = ((ShapeViewDecorator) decoratedView).getDecorated();
                 }
                 shapeView = decoratedView;
                 decoratedView = nestedView;
-                while(decoratedView instanceof ShapeDecoratorView) {
+                while(decoratedView instanceof ShapeViewDecorator) {
                     decoratedView.setBounds(0,0,shapeData.getW(),shapeData.getH());
                     shapeView.add(decoratedView);
-                    decoratedView = ((ShapeDecoratorView) decoratedView).getDecorated();
+                    decoratedView = ((ShapeViewDecorator) decoratedView).getDecorated();
                 }
             }
 

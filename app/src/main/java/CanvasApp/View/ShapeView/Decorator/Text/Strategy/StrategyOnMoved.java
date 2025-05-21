@@ -1,13 +1,13 @@
 package CanvasApp.View.ShapeView.Decorator.Text.Strategy;
 
-import CanvasApp.View.ShapeView.Decorator.Text.StrategyTextInShapeView;
-import CanvasApp.View.ShapeView.Decorator.Text.TextInViewHandler;
+import CanvasApp.View.ShapeView.Decorator.Text.StrategyHandlingTextInShapeView;
+import CanvasApp.View.ShapeView.Decorator.Text.TextInShapeViewHandler;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataEvent;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataMoved;
 
-public class HandleMoved extends StrategyTextInShapeView {
-    public HandleMoved(TextInViewHandler textInViewHandler) {
-        super(textInViewHandler);
+public class StrategyOnMoved extends StrategyHandlingTextInShapeView {
+    public StrategyOnMoved(TextInShapeViewHandler textInShapeViewHandler) {
+        super(textInShapeViewHandler);
     }
 
     @Override

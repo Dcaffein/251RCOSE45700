@@ -1,6 +1,5 @@
 package CanvasApp.Model.Decorator;
 
-import CanvasApp.Model.Event.ShapeModelTextChanged;
 import CanvasApp.Model.ShapeModel;
 
 import java.awt.*;
@@ -19,17 +18,17 @@ public class Shadow extends ShapeDecorator {
         return color;
     }
 
+//    public void setColor(Color color) {
+//        this.color = color;
+//        notify
+//    }
+
     public int getBorder() {
         return border;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-        //notify
-    }
-
-    public void setBorder(int border) {
-        this.border = border;
-        //notify
-    }
+//    public void setBorder(int border) {
+//        this.border = border;
+//        notify
+//    }
 }

@@ -3,7 +3,7 @@ package CanvasApp.ViewModel.EventHandler.CanvasHandler.Strategy;
 import CanvasApp.Model.Event.ShapeEvent;
 import CanvasApp.Model.Event.ShapeModelTextChanged;
 import CanvasApp.Model.ShapeModel;
-import CanvasApp.ViewModel.Data.ShapeData.Decorator.TextInShapeData;
+import CanvasApp.ViewModel.Data.ShapeData.Decorator.Text.TextInShapeData;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.ShapeDataDecorator;
 import CanvasApp.ViewModel.EventHandler.CanvasHandler.CanvasHandler;

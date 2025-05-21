@@ -15,7 +15,7 @@ public class ShapeData extends Observable implements ReadOnlyShapeData{
     private int w;
     private int h;
     private int z;
-    private int padding = 2;
+    private int padding = 5;
     private ShapeFactory factory;
 
     public ShapeData(ShapeModel source) {

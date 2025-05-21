@@ -14,7 +14,7 @@ public abstract class ShapeModelLeaf extends ShapeModel {
     protected int w, h;
     protected int z;
     protected String id;
-    protected int padding = 2;
+//    protected int padding = 2;
 
     public ShapeModelLeaf(String id, int x, int y, int w, int h, int z) {
         this.id = id;

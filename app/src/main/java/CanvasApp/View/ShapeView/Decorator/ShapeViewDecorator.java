@@ -1,13 +1,13 @@
-package CanvasApp.View.ShapeView.Decorator.Text;
+package CanvasApp.View.ShapeView.Decorator;
 
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.ShapeDataDecorator;
 
-public abstract class ShapeDecoratorView extends ShapeView {
+public abstract class ShapeViewDecorator extends ShapeView {
     protected ShapeView decorated;
 
-    public ShapeDecoratorView(ShapeDataDecorator shapeData, CanvasVM viewModel, ShapeView decorated) {
+    public ShapeViewDecorator(ShapeDataDecorator shapeData, CanvasVM viewModel, ShapeView decorated) {
         super(shapeData, viewModel);
         this.decorated = decorated;
     }
@@ -22,12 +22,8 @@ public abstract class ShapeDecoratorView extends ShapeView {
     }
 
     @Override
-    public void resizeShape(int dw, int dh) {
-
-    }
+    public void resizeShape(int dw, int dh) {}
 
     @Override
-    public void moveShape(int dx, int dy) {
-
-    }
+    public void moveShape(int dx, int dy) {}
 }

@@ -1,13 +1,13 @@
 package CanvasApp.View.ShapeView.Decorator.Text.Strategy;
 
-import CanvasApp.View.ShapeView.Decorator.Text.StrategyTextInShapeView;
-import CanvasApp.View.ShapeView.Decorator.Text.TextInViewHandler;
+import CanvasApp.View.ShapeView.Decorator.Text.StrategyHandlingTextInShapeView;
+import CanvasApp.View.ShapeView.Decorator.Text.TextInShapeViewHandler;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataEvent;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataResized;
 
-public class HandleResized extends StrategyTextInShapeView {
-    public HandleResized(TextInViewHandler textInViewHandler) {
-        super(textInViewHandler);
+public class StrategyOnResized extends StrategyHandlingTextInShapeView {
+    public StrategyOnResized(TextInShapeViewHandler textInShapeViewHandler) {
+        super(textInShapeViewHandler);
     }
 
     @Override

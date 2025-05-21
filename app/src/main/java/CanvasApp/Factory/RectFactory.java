@@ -22,12 +22,12 @@ public class RectFactory extends ShapeFactory {
     }
 
     @Override
-    public ShapeData createShapeData(ShapeModel model) {
-        return new ShapeData(model);
+    public ShapeData createShapeData(ShapeModel shapeModel) {
+        return new ShapeData(shapeModel);
     }
 
     @Override
-    public ShapeView createShapeView(ShapeData data, CanvasVM vm) {
-        return new RectView(data, vm);
+    public ShapeView createShapeView(ShapeData data, CanvasVM viewModel) {
+        return new RectView(data, viewModel);
     }
 }
