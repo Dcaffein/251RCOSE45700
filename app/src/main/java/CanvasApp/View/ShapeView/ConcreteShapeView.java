@@ -4,10 +4,7 @@ import CanvasApp.View.ShapeView.EventHandler.ShapeDataEventHandler;
 import CanvasApp.View.ShapeView.ShapeViewState.IsReadyToSelect;
 import CanvasApp.View.ShapeView.ShapeViewState.ShapeViewState;
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Command.ShapeCmd.Move;
-import CanvasApp.ViewModel.Command.ShapeCmd.MultiSelect;
-import CanvasApp.ViewModel.Command.ShapeCmd.Resize;
-import CanvasApp.ViewModel.Command.ShapeCmd.Select;
+import CanvasApp.ViewModel.Command.ShapeCmd.*;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 import Command.Command;
 
@@ -87,13 +84,14 @@ public abstract class ConcreteShapeView extends ShapeView implements ShapeViewCo
 
     @Override
     public void resizeShape(int dw,int dh){
-        Command resizeCmd = new Resize(viewModel,shapeData.getW()+dw, shapeData.getH()+dh);
+        Command resizeCmd = new ResizeByDrag(viewModel,dw, dh);
+        System.out.println("[concreteShapeView resizeShape]. dw : " + dw + ", dh :" + dh);
         viewModel.handleCmd(resizeCmd);
     }
 
     @Override
     public void moveShape(int dx, int dy) {
-        Command moveCmd = new Move(viewModel,shapeData.getX()+dx, shapeData.getY()+dy);
+        Command moveCmd = new MoveByDrag(viewModel,dx, dy);
         viewModel.handleCmd(moveCmd);
     }
 }

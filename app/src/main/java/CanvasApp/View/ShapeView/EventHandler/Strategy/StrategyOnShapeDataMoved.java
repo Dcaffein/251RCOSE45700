@@ -1,12 +1,12 @@
 package CanvasApp.View.ShapeView.EventHandler.Strategy;
 
 import CanvasApp.View.ShapeView.EventHandler.ShapeDataEventHandler;
-import CanvasApp.View.ShapeView.EventHandler.StrategyShapeView;
+import CanvasApp.View.ShapeView.EventHandler.StrategyHandlingShapeView;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataEvent;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
 
-public class HandleShapeDataResized extends StrategyShapeView {
-    public HandleShapeDataResized(ShapeDataEventHandler shapeDataEventHandler) {
+public class StrategyOnShapeDataMoved extends StrategyHandlingShapeView {
+    public StrategyOnShapeDataMoved(ShapeDataEventHandler shapeDataEventHandler) {
         super(shapeDataEventHandler);
     }
 
@@ -14,6 +14,5 @@ public class HandleShapeDataResized extends StrategyShapeView {
     public void handle(ShapeDataEvent event) {
         ShapeData shapeData = event.source;
         shapeDataEventHandler.shapeViewContext.setBounds(shapeData.getX(),shapeData.getY(),shapeData.getW(),shapeData.getH());
-        shapeDataEventHandler.shapeViewContext.repaint();
     }
 }

@@ -3,7 +3,7 @@ package CanvasApp.View.ToolView;
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Command.CreateShapeCmd.CreateRectSelectedCmd;
 import CanvasApp.ViewModel.Command.SelectToolSelectedCmd;
-import CanvasApp.ViewModel.Command.ShapeCmd.DecorateWithTextCmd;
+import CanvasApp.ViewModel.Command.ShapeCmd.Decorate.DecorateWithTextCmd;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,23 +1,22 @@
 package CanvasApp.ViewModel;
 
+import CanvasApp.Factory.DecoratorTextFactory;
 import CanvasApp.Factory.ShapeFactory;
-import CanvasApp.Model.Cmd.CreateShapeCmd;
-import CanvasApp.Model.Cmd.DecorateCmd;
+import CanvasApp.Model.Cmd.*;
 import CanvasApp.Model.Composite.ShapeModelGroup;
-import CanvasApp.Model.Decorator.ShapeDecorator;
 import CanvasApp.Model.Decorator.TextInShape;
-import CanvasApp.Model.Event.ShapeModelAdded;
 import CanvasApp.Model.ShapeModel;
-import CanvasApp.ViewModel.Command.ShapeCmd.DecorateWithTextCmd;
 import CanvasApp.ViewModel.Data.CanvasData.CanvasData;
-import CanvasApp.ViewModel.EventHandler.CanvasEventHandler.CanvasHandler;
+import CanvasApp.ViewModel.EventHandler.CanvasHandler.CanvasHandler;
 import CanvasApp.ViewModel.Data.PropertyData.PropertyData;
 import CanvasApp.ViewModel.EventHandler.SelectedHandler.SelectedHandler;
 import Command.Command;
 
+import java.util.Collection;
+
 public class CanvasVM {
     private final ShapeModel canvas = new ShapeModelGroup();
-    public final ShapeModel selected = new ShapeModelGroup();
+    private final ShapeModel selected = new ShapeModelGroup();
 
     private final CanvasData canvasData;
 
@@ -35,23 +34,17 @@ public class CanvasVM {
         selected.attach(selectedHandler);
     }
 
-    public ShapeModel getShape(String id) {
-        return canvas.getChildren().stream()
-                .filter(shape -> shape.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
-
     public void deSelectAll() {
         selected.clear();
     }
 
-    public void toggleSelect(ShapeModel shapeModel) {
-        if (selected.contains(shapeModel.getId())) {
+    public void toggleSelect(String id) {
+        ShapeModel shapeModel = canvas.getChild(id);
+        if(shapeModel == null) return;
+        if (selected.getChild(id)!=null) {
             selected.remove(shapeModel);
         } else {
             selected.add(shapeModel);
-            selected.notify(new ShapeModelAdded(shapeModel));
         }
     }
 
@@ -75,18 +68,46 @@ public class CanvasVM {
         return propertyData;
     }
 
-    public void decorateShapeWithText(ShapeModel originalShape,TextInShape textDecorator){
-        DecorateCmd cmd = new DecorateCmd(originalShape,textDecorator,canvas);
-        cmd.execute();
-    }
+    public void decoratesWithText(String defaultText) {
+        Collection<ShapeModel> selectedShapes = selected.getChildren();
+        if (selectedShapes == null || selectedShapes.isEmpty()) {
+            return;
+        }
 
-    public void updateShapeTextById(ShapeModel shapeModel, String newText) {
-        if (shapeModel instanceof ShapeDecorator shapeDecorator) {
-            if(shapeDecorator instanceof TextInShape textInShape){
-                textInShape.setText(newText);
-            } else {
-                updateShapeTextById(shapeDecorator.getDecorated(),newText);
-            }
+        DecoratorTextFactory textFactory = DecoratorTextFactory.getInstance();
+
+        for (ShapeModel originalShape : selectedShapes) {
+            TextInShape textDecorator = textFactory.createShapeDecorator(originalShape, defaultText);
+            new DecorateCmd(originalShape,textDecorator,canvas).execute();
         }
     }
+
+    public void changeText(String id, String text) {
+        ShapeModel shapeModel = canvas.getChild(id);
+        if(shapeModel == null) return;
+        new ChangeTextCmd(shapeModel, text).execute();
+    }
+
+    public void moveTo(int newX, int newY){
+        new SetPosition(selected,newX,newY).execute();
+    }
+
+    public void resizeAs(int newW, int newH){
+        new SetSize(selected,newW,newH).execute();
+    }
+
+    public void moveByDrag(int dx, int dy) {
+        new SetPositionBy(selected,dx,dy).execute();
+    }
+
+    public void resizeByDrag(int dw, int dh) {
+        System.out.println("[vm resizeByDrag] dw : " + dw + ", dh :" + dh);
+        new SetSizeBy(selected,dw,dh).execute();
+    }
+
+
+    public void realign(int z){
+        selected.realign(z);
+    }
+
 }

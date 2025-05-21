@@ -1,4 +1,4 @@
-package CanvasApp.View.ShapeView.Decorator;
+package CanvasApp.View.ShapeView.Decorator.Text;
 
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataEvent;
 import Observer.EventHandlingStrategy;

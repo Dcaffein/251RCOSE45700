@@ -1,4 +1,4 @@
-package CanvasApp.View.ShapeView.Decorator;
+package CanvasApp.View.ShapeView.Decorator.Text;
 
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;

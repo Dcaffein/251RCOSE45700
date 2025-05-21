@@ -2,7 +2,7 @@ package CanvasApp.Factory;
 
 import CanvasApp.Model.Decorator.TextInShape;
 import CanvasApp.Model.ShapeModel;
-import CanvasApp.View.ShapeView.Decorator.TextInShapeView;
+import CanvasApp.View.ShapeView.Decorator.Text.TextInShapeView;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.TextInShapeData;

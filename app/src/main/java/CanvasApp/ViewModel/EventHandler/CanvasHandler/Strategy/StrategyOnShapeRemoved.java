@@ -1,10 +1,11 @@
-package CanvasApp.ViewModel.EventHandler.CanvasEventHandler;
+package CanvasApp.ViewModel.EventHandler.CanvasHandler.Strategy;
 
 import CanvasApp.Model.Event.ShapeEvent;
 import CanvasApp.Model.Event.ShapeModelRemoved;
+import CanvasApp.ViewModel.EventHandler.CanvasHandler.CanvasHandler;
 
-public class HandleShapeRemoved extends HandleCanvas {
-    public HandleShapeRemoved(CanvasHandler context) {
+public class StrategyOnShapeRemoved extends StrategyHandlingCanvas {
+    public StrategyOnShapeRemoved(CanvasHandler context) {
         super(context);
     }
 

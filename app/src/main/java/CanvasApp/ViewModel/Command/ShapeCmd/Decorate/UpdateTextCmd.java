@@ -1,4 +1,4 @@
-package CanvasApp.ViewModel.Command.ShapeCmd;
+package CanvasApp.ViewModel.Command.ShapeCmd.Decorate;
 
 import CanvasApp.ViewModel.CanvasVM;
 import Command.Command;
@@ -16,6 +16,6 @@ public class UpdateTextCmd implements Command {
 
     @Override
     public void execute() {
-
+        viewModel.changeText(id, newText);
     }
 }

@@ -1,7 +1,7 @@
 package CanvasApp.View.CanvasView.EventHandler;
 
 import CanvasApp.View.CanvasView.CanvasViewContext;
-import CanvasApp.View.ShapeView.Decorator.ShapeDecoratorView;
+import CanvasApp.View.ShapeView.Decorator.Text.ShapeDecoratorView;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataEvent;
 import CanvasApp.ViewModel.Data.CanvasData.Event.CanvasDataShapeAdded;

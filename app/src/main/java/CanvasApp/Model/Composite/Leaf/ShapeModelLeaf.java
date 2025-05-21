@@ -49,16 +49,35 @@ public abstract class ShapeModelLeaf extends ShapeModel {
     }
 
     @Override
-    public void move(int newX, int newY) {
+    public void setPositionBy(int dx, int dy) {
+        int newX = x + dx;
+        int newY = y + dy;
         if(newX > 0) this.x = newX;
         if(newY > 0) this.y = newY;
         notify(new ShapeModelMoved(this));
     }
 
     @Override
-    public void resize(int newW, int newH) {
-        if(newW > 0) this.w = newW;
-        if(newH > 0) this.h = newH;
+    public void setSizeBy(int dw, int dh) {
+        System.out.println("[leaf setSizeBy] dw : " + dw + ", dh :" + dh);
+        int newW = w + dw;
+        int newH = h + dh;
+        if(newW > minimun) this.w = newW;
+        if(newH > minimun) this.h = newH;
+        notify(new ShapeModelResized(this));
+    }
+
+    @Override
+    public void setPosition(int newX, int newY) {
+        if(newX > 0) this.x = newX;
+        if(newY > 0) this.y = newY;
+        notify(new ShapeModelMoved(this));
+    }
+
+    @Override
+    public void setSize(int newW, int newH) {
+        if(newW > minimun) this.w = newW;
+        if(newH > minimun) this.h = newH;
         notify(new ShapeModelResized(this));
     }
 
@@ -92,7 +111,7 @@ public abstract class ShapeModelLeaf extends ShapeModel {
     }
 
     @Override
-    public boolean contains(String id) {
-        return this.id.equals(id);
+    public ShapeModel getChild(String id) {
+        return null;
     }
 }

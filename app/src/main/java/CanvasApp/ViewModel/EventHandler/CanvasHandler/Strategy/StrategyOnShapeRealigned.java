@@ -1,11 +1,12 @@
-package CanvasApp.ViewModel.EventHandler.CanvasEventHandler;
+package CanvasApp.ViewModel.EventHandler.CanvasHandler.Strategy;
 
 import CanvasApp.Model.Event.ShapeEvent;
 import CanvasApp.Model.Event.ShapeModelRealigned;
 import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
+import CanvasApp.ViewModel.EventHandler.CanvasHandler.CanvasHandler;
 
-public class HandleShapeRealigned extends HandleCanvas{
-    public HandleShapeRealigned(CanvasHandler context) {
+public class StrategyOnShapeRealigned extends StrategyHandlingCanvas {
+    public StrategyOnShapeRealigned(CanvasHandler context) {
         super(context);
     }
 

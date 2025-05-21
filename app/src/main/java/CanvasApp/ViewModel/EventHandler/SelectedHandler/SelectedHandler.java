@@ -9,7 +9,7 @@ public class SelectedHandler implements ShapeObserver {
     public PropertyData propertyData;
 
 //    private final Map<Class<? extends ShapeEvent>, HandleSelected> handlingStrategies = new HashMap<>();
-    private HandleSelected currentStrategy; //default strategy
+    private StrategyHandlingSelected currentStrategy; //default strategy
 
     public SelectedHandler(ShapeModel selected, PropertyData propertyData) {
         this.propertyData = propertyData;
@@ -17,7 +17,7 @@ public class SelectedHandler implements ShapeObserver {
     }
 
     private void initializeEventHandlers() {
-        currentStrategy = new handleSelectedUpdated(this);
+        currentStrategy = new StrategyOnSelectedUpdated(this);
     }
 
     @Override

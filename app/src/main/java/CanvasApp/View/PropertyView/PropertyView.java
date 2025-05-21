@@ -2,9 +2,9 @@ package CanvasApp.View.PropertyView;
 
 import CanvasApp.View.PropertyView.EventHandler.PropertyDataEventHandler;
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Command.ShapeCmd.Move;
+import CanvasApp.ViewModel.Command.ShapeCmd.MoveTo;
 import CanvasApp.ViewModel.Command.ShapeCmd.Realign;
-import CanvasApp.ViewModel.Command.ShapeCmd.Resize;
+import CanvasApp.ViewModel.Command.ShapeCmd.ResizeAs;
 import CanvasApp.ViewModel.Data.PropertyData.Event.PropertyDataObserver;
 import CanvasApp.ViewModel.Data.PropertyData.PropertyData;
 
@@ -60,29 +60,29 @@ public class PropertyView extends JPanel implements PropertyViewContext {
         int newX = parseField(xField.getText());
         int oldX = data.getX();
         if (newX != oldX) {
-            vm.handleCmd(new Move(vm, newX - (oldX == -1? 0 : oldX), 0));
+            vm.handleCmd(new MoveTo(vm, newX, data.getY()));
         }
     }
     private void commitY() {
         int newY = parseField(yField.getText());
         int oldY = data.getY();
         if (newY != oldY) {
-            System.out.println("[commitY] oldY : " + oldY + ", newY :" + newY);
-            vm.handleCmd(new Move(vm, 0, newY - (oldY == -1? 0 : oldY)));
+            vm.handleCmd(new MoveTo(vm, data.getX(), newY));
         }
     }
     private void commitW() {
         int newW = parseField(wField.getText());
         int oldW = data.getW();
         if (newW != oldW) {
-            vm.handleCmd(new Resize(vm, newW - (oldW==-1?0:oldW), 0));
+            vm.handleCmd(new ResizeAs(vm, newW, data.getH()));
         }
+
     }
     private void commitH() {
         int newH = parseField(hField.getText());
         int oldH = data.getH();
         if (newH != oldH) {
-            vm.handleCmd(new Resize(vm, 0, newH - (oldH==-1?0:oldH)));
+            vm.handleCmd(new ResizeAs(vm, data.getW(), newH));
         }
     }
     private void commitZ() {

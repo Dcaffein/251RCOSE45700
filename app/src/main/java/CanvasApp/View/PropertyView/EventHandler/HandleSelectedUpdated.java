@@ -9,7 +9,7 @@ public class HandleSelectedUpdated extends StrategyHandlingPropertyView {
 
     @Override
     public void handle(PropertyDataChanged event) {
-        System.out.println("[PropertyDataChanged] : " + event.source.getX() + "," + event.source.getY());
+//        System.out.println("[PropertyDataChanged] : " + event.source.getX() + "," + event.source.getY());
         propertyDataEventHandler.propertyViewContext.updateFields(event.source);
     }
 }

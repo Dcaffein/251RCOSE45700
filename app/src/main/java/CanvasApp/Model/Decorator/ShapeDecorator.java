@@ -50,14 +50,26 @@ public abstract class ShapeDecorator extends ShapeModel {
     }
 
     @Override
-    public void move(int newX, int newY) {
-        decorated.move(newX, newY);
+    public void setPositionBy(int dx, int dy) {
+        decorated.setPositionBy(dx, dy);
         notify(new ShapeModelMoved(this));
     }
 
     @Override
-    public void resize(int newW, int newH) {
-        decorated.resize(newW, newH);
+    public void setSizeBy(int dw, int dh) {
+        decorated.setSizeBy(dw, dh);
+        notify(new ShapeModelResized(this));
+    }
+
+    @Override
+    public void setPosition(int newX, int newY) {
+        decorated.setPositionBy(newX, newY);
+        notify(new ShapeModelMoved(this));
+    }
+
+    @Override
+    public void setSize(int newW, int newH) {
+        decorated.setSizeBy(newW, newH);
         notify(new ShapeModelResized(this));
     }
 
@@ -93,7 +105,7 @@ public abstract class ShapeDecorator extends ShapeModel {
     }
 
     @Override
-    public boolean contains(String id) {
-        return decorated.contains(id);
+    public ShapeModel getChild(String id) {
+        return decorated.getChild(id);
     }
 }

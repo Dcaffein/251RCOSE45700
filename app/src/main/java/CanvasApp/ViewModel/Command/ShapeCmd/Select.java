@@ -15,6 +15,6 @@ public class Select implements Command {
     @Override
     public void execute() {
         canvasVM.deSelectAll();
-        canvasVM.toggleSelect(canvasVM.getShape(id));
+        canvasVM.toggleSelect(id);
     }
 }

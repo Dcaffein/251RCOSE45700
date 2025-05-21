@@ -7,7 +7,7 @@ import Command.Command;
 public class CreateShapeCmd implements Command {
     private final ShapeFactory shapeFactory;
     private int x, y, w, h, z;
-    private ShapeModel canvas;
+    private final ShapeModel canvas;
 
     public CreateShapeCmd(ShapeModel canvas, ShapeFactory shapeFactory, int x, int y, int w, int h, int z) {
         this.canvas = canvas;

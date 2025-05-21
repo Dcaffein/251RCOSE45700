@@ -27,6 +27,6 @@ public class PropertyDataEventHandler implements PropertyDataObserver {
     @Override
     public void onUpdate(PropertyDataChanged event) {
         currentStrategy.handle(event);
-        System.out.println("[PropertyDataEventHandler] : " + currentStrategy.getClass().getName());
+//        System.out.println("[PropertyDataEventHandler] : " + currentStrategy.getClass().getName());
     }
 }

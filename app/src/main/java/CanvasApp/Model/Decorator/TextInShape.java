@@ -17,8 +17,8 @@ public class TextInShape extends ShapeDecorator {
 
     public void setText(String newText) {
         String oldText = this.text;
-        this.text = text;
         if (oldText == null || !oldText.equals(newText)) {
+            this.text = newText;
             notify(new ShapeModelTextChanged(this, this.text));
         }
     }

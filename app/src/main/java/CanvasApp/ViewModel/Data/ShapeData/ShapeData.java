@@ -12,8 +12,8 @@ public class ShapeData extends Observable implements ReadOnlyShapeData{
     private final String id;
     private int x;
     private int y;
-    private int width;
-    private int height;
+    private int w;
+    private int h;
     private int z;
     private int padding = 2;
     private ShapeFactory factory;
@@ -22,8 +22,8 @@ public class ShapeData extends Observable implements ReadOnlyShapeData{
         this.id = source.getId();
         this.x = source.getX();
         this.y = source.getY();
-        this.width = source.getW();
-        this.height = source.getH();
+        this.w = source.getW();
+        this.h = source.getH();
         this.z = source.getZ();
         this.factory = ShapeFactoryRegistry.factoryFor(source.getClass());
     }
@@ -41,11 +41,11 @@ public class ShapeData extends Observable implements ReadOnlyShapeData{
     }
 
     public int getW() {
-        return width;
+        return w;
     }
 
     public int getH() {
-        return height;
+        return h;
     }
 
     public int getPadding() {
@@ -60,15 +60,15 @@ public class ShapeData extends Observable implements ReadOnlyShapeData{
         return factory;
     }
 
-    public void updatePosition(int x, int y) {
+    public void move(int x, int y) {
         this.x = x;
         this.y = y;
         notify(new ShapeDataMoved(this));
     }
 
-    public void updateSize(int width, int height) {
-        this.width = width;
-        this.height = height;
+    public void resize(int w, int h) {
+        this.w = w;
+        this.h = h;
         notify(new ShapeDataResized(this));
     }
 

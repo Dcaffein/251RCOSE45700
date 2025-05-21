@@ -5,9 +5,9 @@ import CanvasApp.Model.ShapeModel;
 import Command.Command;
 
 public class DecorateCmd implements Command {
-    private ShapeModel decorated;
-    private ShapeDecorator decorator;
-    private ShapeModel canvas;
+    private final ShapeModel decorated;
+    private final ShapeDecorator decorator;
+    private final ShapeModel canvas;
 
     public DecorateCmd(ShapeModel decorated, ShapeDecorator decorator, ShapeModel canvas) {
         this.decorated = decorated;
@@ -19,10 +19,5 @@ public class DecorateCmd implements Command {
     public void execute() {
         canvas.remove(decorated);
         canvas.add(decorator);
-    }
-
-    public void unExecute() {
-        canvas.remove(decorator);
-        canvas.add(decorated);
     }
 }

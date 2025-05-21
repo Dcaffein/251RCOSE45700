@@ -3,11 +3,11 @@ package CanvasApp.ViewModel.Command.ShapeCmd;
 import CanvasApp.ViewModel.CanvasVM;
 import Command.Command;
 
-public class Move implements Command {
+public class MoveTo implements Command {
     public CanvasVM canvasVM;
     int newX, newY;
 
-    public Move(CanvasVM canvasVM,int newX,int newY) {
+    public MoveTo(CanvasVM canvasVM, int newX, int newY) {
         this.canvasVM = canvasVM;
         this.newX = newX;
         this.newY = newY;
@@ -15,6 +15,7 @@ public class Move implements Command {
 
     @Override
     public void execute() {
-        canvasVM.selected.move(newX, newY);
+        System.out.println("[MoveTo] newX : " + newX + ", newY :" + newY);
+        canvasVM.moveTo(newX, newY);
     }
 }

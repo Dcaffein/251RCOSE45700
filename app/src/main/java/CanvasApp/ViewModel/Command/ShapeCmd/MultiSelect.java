@@ -14,6 +14,6 @@ public class MultiSelect implements Command {
 
     @Override
     public void execute() {
-        canvasVM.toggleSelect(canvasVM.getShape(id));
+        canvasVM.toggleSelect(id);
     }
 }

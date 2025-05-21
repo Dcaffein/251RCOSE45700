@@ -1,8 +1,8 @@
-package CanvasApp.View.ShapeView.Decorator;
+package CanvasApp.View.ShapeView.Decorator.Text;
 
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Command.ShapeCmd.UpdateTextCmd;
+import CanvasApp.ViewModel.Command.ShapeCmd.Decorate.UpdateTextCmd;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.TextInShapeData;
 
 import javax.swing.*;
@@ -24,6 +24,7 @@ public class TextInShapeView extends ShapeDecoratorView {
 
         this.textEditField = new JTextField(shapeData.getText());
         this.textEditField.setHorizontalAlignment(JTextField.CENTER);
+        this.textEditField.setOpaque(false);
         this.add(textEditField);
         this.setBackground(Color.YELLOW);
 
@@ -31,7 +32,6 @@ public class TextInShapeView extends ShapeDecoratorView {
     }
 
     private void setupField(JTextField field, Runnable commit) {
-        // 엔터 입력 또는 포커스 잃을 때 커밋
         field.addActionListener(e -> commit.run());
         field.addFocusListener(new FocusAdapter() {
             @Override
@@ -40,7 +40,6 @@ public class TextInShapeView extends ShapeDecoratorView {
             }
         });
 
-        // 텍스트 변경될 때마다 필드 크기 갱신
         field.getDocument().addDocumentListener(new DocumentListener() {
             @Override public void insertUpdate(DocumentEvent e) { updateTextFieldBounds(); }
             @Override public void removeUpdate(DocumentEvent e) { updateTextFieldBounds(); }
@@ -51,6 +50,7 @@ public class TextInShapeView extends ShapeDecoratorView {
     private void commitEdit() {
         String newText = textEditField.getText();
         if (!newText.equals(textInShapeData.getText())) {
+            System.out.println("[commitEdit] newText : " + newText);
             viewModel.handleCmd(new UpdateTextCmd(viewModel, shapeData.getId(), newText));
         }
     }
@@ -105,8 +105,12 @@ public class TextInShapeView extends ShapeDecoratorView {
         int y = (getHeight() - fieldHeight) / 2;
 
         textEditField.setBounds(x, y, fieldWidth, fieldHeight);
+    }
 
-        System.out.println("[updateTextFieldBounds] : " + textEditField.getBounds());
-        System.out.println("[TextInShapeView] : " + this.getBounds());
+    public void updateTextDisplay(String text) {
+        textEditField.setText(text);
+        System.out.println("[updateTextDisplay] currentText : " + textEditField.getText());
+        updateTextFieldBounds();
+        repaint();
     }
 }

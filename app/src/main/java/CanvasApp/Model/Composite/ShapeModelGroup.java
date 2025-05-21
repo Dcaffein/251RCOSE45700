@@ -69,16 +69,30 @@ public class ShapeModelGroup extends ShapeModel {
     }
 
     @Override
-    public void move(int dx, int dy) {
-        children.values().forEach(m -> m.move(dx, dy));
+    public void setPosition(int newX, int newY) {
+        children.values().forEach(m -> m.setPosition(newX, newY));
         notify(new ShapeModelMoved(this));
     }
 
     @Override
-    public void resize(int dw, int dh) {
-        children.values().forEach(m -> m.resize(dw, dh));
+    public void setSize(int newW, int newH) {
+        children.values().forEach(m -> m.setSize(newW, newH));
         notify(new ShapeModelResized(this));
     }
+
+    @Override
+    public void setPositionBy(int dx, int dy) {
+        children.values().forEach(m -> m.setPositionBy(dx, dy));
+        notify(new ShapeModelMoved(this));
+    }
+
+    @Override
+    public void setSizeBy(int dw, int dh) {
+        System.out.println("[group setSizeBy] dw : " + dw + ", dh :" + dh);
+        children.values().forEach(m -> m.setSizeBy(dw, dh));
+        notify(new ShapeModelResized(this));
+    }
+
 
     @Override
     public void realign(int z) {
@@ -90,7 +104,6 @@ public class ShapeModelGroup extends ShapeModel {
     public void add(ShapeModel shapeModel) {
         children.put(shapeModel.getId(), shapeModel);
         notify(new ShapeModelAdded(shapeModel));
-        System.out.println("[ShapeModelGroup] add: id=" + shapeModel.getId());
     }
 
     @Override
@@ -111,8 +124,7 @@ public class ShapeModelGroup extends ShapeModel {
         cmd.execute();
     }
 
-    @Override
-    public boolean contains(String id) {
-        return children.get(id) != null;
+    public ShapeModel getChild(String id) {
+        return children.get(id);
     }
 }

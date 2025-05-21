@@ -1,7 +1,7 @@
 package CanvasApp.View.ShapeView.EventHandler;
 
-import CanvasApp.View.ShapeView.EventHandler.Strategy.HandleShapeDataMoved;
-import CanvasApp.View.ShapeView.EventHandler.Strategy.HandleShapeDataResized;
+import CanvasApp.View.ShapeView.EventHandler.Strategy.StrategyOnShapeDataMoved;
+import CanvasApp.View.ShapeView.EventHandler.Strategy.StrategyOnShapeDataResized;
 import CanvasApp.View.ShapeView.ShapeViewContext;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataEvent;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataMoved;
@@ -14,7 +14,7 @@ import java.util.Map;
 public class ShapeDataEventHandler implements ShapeDataObserver {
     public ShapeViewContext shapeViewContext;
 
-    private final Map<Class<? extends ShapeDataEvent>, StrategyShapeView> handlingStrategies = new HashMap<>();
+    private final Map<Class<? extends ShapeDataEvent>, StrategyHandlingShapeView> handlingStrategies = new HashMap<>();
 
     public ShapeDataEventHandler(ShapeViewContext shapeViewContext) {
         this.shapeViewContext = shapeViewContext;
@@ -22,13 +22,13 @@ public class ShapeDataEventHandler implements ShapeDataObserver {
     }
 
     private void initializeEventHandlers() {
-        handlingStrategies.put(ShapeDataMoved.class, new HandleShapeDataMoved(this));
-        handlingStrategies.put(ShapeDataResized.class, new HandleShapeDataResized(this));
+        handlingStrategies.put(ShapeDataMoved.class, new StrategyOnShapeDataMoved(this));
+        handlingStrategies.put(ShapeDataResized.class, new StrategyOnShapeDataResized(this));
     }
 
     @Override
     public void onUpdate(ShapeDataEvent event) {
-        StrategyShapeView strategy = handlingStrategies.get(event.getClass());
+        StrategyHandlingShapeView strategy = handlingStrategies.get(event.getClass());
         if (strategy != null) {
             strategy.handle(event);
         }

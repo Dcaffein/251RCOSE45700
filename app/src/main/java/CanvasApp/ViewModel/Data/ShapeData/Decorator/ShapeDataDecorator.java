@@ -16,18 +16,18 @@ public abstract class ShapeDataDecorator extends ShapeData {
     }
 
     @Override
-    public void updatePosition(int x, int y) {
-        super.updatePosition(x, y);
+    public void move(int x, int y) {
+        super.move(x, y);
         if (decorated != null) {
-            decorated.updatePosition(x, y);
+            decorated.move(x, y);
         }
     }
 
     @Override
-    public void updateSize(int width, int height) {
-        super.updateSize(width, height);
+    public void resize(int w, int h) {
+        super.resize(w, h);
         if (decorated != null) {
-            decorated.updateSize(width, height);
+            decorated.resize(w, h);
         }
     }
 

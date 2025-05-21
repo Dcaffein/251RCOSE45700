@@ -14,6 +14,6 @@ public class Realign implements Command {
 
     @Override
     public void execute() {
-        canvasVM.selected.realign(z);
+        canvasVM.realign(z);
     }
 }
