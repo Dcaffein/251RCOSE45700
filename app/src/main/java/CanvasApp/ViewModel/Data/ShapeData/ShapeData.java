@@ -1,5 +1,8 @@
 package CanvasApp.ViewModel.Data.ShapeData;
 
+import java.awt.image.BufferedImage;
+import java.util.Optional;
+
 import CanvasApp.Factory.ShapeFactory;
 import CanvasApp.Factory.ShapeFactoryRegistry;
 import CanvasApp.Model.ShapeModel;
@@ -9,7 +12,7 @@ import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataResized;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataSelected;
 import Observer.Observable;
 
-public class ShapeData extends Observable implements ReadOnlyShapeData{
+public class ShapeData extends Observable implements ReadOnlyShapeData {
     private final String id;
     private int x;
     private int y;
@@ -86,5 +89,9 @@ public class ShapeData extends Observable implements ReadOnlyShapeData{
 
     public boolean getSelected() {
         return this.selected;
+    }
+
+    public Optional<BufferedImage> getImage() {
+        return Optional.empty();
     }
 }

@@ -1,6 +1,9 @@
 package CanvasApp.Factory;
 
 import CanvasApp.Model.Structure.Composite.Leaf.EllipseModel;
+import CanvasApp.Model.Structure.Composite.Leaf.ImageModel;
+import CanvasApp.Model.Structure.Composite.Leaf.LineBackSlashModel;
+import CanvasApp.Model.Structure.Composite.Leaf.LineSlashModel;
 import CanvasApp.Model.Structure.Composite.Leaf.RectModel;
 import CanvasApp.Model.Structure.Composite.Leaf.TextModel;
 import CanvasApp.Model.Structure.Composite.Leaf.TriangleModel;
@@ -19,6 +22,9 @@ public final class ShapeFactoryRegistry {
         registry.put(EllipseModel.class, EllipseFactory.getInstance());
         registry.put(TriangleModel.class, TriangleFactory.getInstance());
         registry.put(TextModel.class, TextFactory.getInstance());
+        registry.put(ImageModel.class, ImageFactory.getInstance());
+        registry.put(LineBackSlashModel.class, LineBackSlashFactory.getInstance());
+        registry.put(LineSlashModel.class, LineSlashFactory.getInstance());
         registry.put(TextInShape.class, DecoratorTextFactory.getInstance());
         registry.put(Shadow.class, DecoratorShadowFactory.getInstance());
     }
