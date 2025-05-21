@@ -30,7 +30,14 @@ public class ImageView extends ConcreteShapeView {
         });
     }
 
-    /** Loads an image that sits in src/main/resources/path/to/image.png */
+    @Override
+    public Shape getShape() {
+        int padding = shapeData.getPadding();
+        int w = shapeData.getW() - 2 * padding;
+        int h = shapeData.getH() - 2 * padding;
+        return new Rectangle(padding, padding, w, h);
+    }
+
     private Optional<BufferedImage> loadImage() {
         String resource = "/sample.jpg";
         try {
@@ -39,4 +46,5 @@ public class ImageView extends ConcreteShapeView {
             return Optional.empty();
         }
     }
+
 }
