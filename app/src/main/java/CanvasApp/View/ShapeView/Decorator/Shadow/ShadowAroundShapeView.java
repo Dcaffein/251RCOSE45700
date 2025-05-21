@@ -1,16 +1,15 @@
 package CanvasApp.View.ShapeView.Decorator.Shadow;
 
-import CanvasApp.View.ShapeView.ConcreteShapeView;
 import CanvasApp.View.ShapeView.Decorator.ShapeViewDecorator;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.CanvasVM;
 import CanvasApp.ViewModel.Data.ShapeData.Decorator.Shadow.ShadowData;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class ShadowAroundShapeView extends ShapeViewDecorator {
-    private int shadowOffset = 15;
+    private int shadowOffset = 5;
     private ShadowData shadowData;
 
     public ShadowAroundShapeView(ShadowData shapeData, CanvasVM viewModel, ShapeView decorated) {
@@ -33,14 +32,12 @@ public class ShadowAroundShapeView extends ShapeViewDecorator {
     public void draw(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create(); // 원본 보호용 복사
 
-        int x =  shadowOffset;
-        int y =  shadowOffset;
-
-        int w = shadowData.getW();
-        int h = shadowData.getH();
-
         g2.setColor(shadowData.getColor());
-        g2.fillRoundRect(x, y, w, h, 10, 10);
+        Shape shape = getShape();
+        if(shape != null) {return;}
+        AffineTransform tx = AffineTransform.getTranslateInstance(shadowOffset, shadowOffset);
+        Shape shadow = tx.createTransformedShape(shape);
+        g2.fill(shadow);
 
         decorated.draw(g);
 

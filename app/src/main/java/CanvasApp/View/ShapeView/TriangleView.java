@@ -26,4 +26,18 @@ public class TriangleView extends ConcreteShapeView {
     g.setColor(new Color(255, 235, 180));
     g.fillPolygon(tri);
   }
+
+  @Override
+  public Shape getShape() {
+    int padding = shapeData.getPadding();
+    int w = shapeData.getW() - 2 * padding;
+    int h = shapeData.getH() - 2 * padding;
+
+    int x0 = padding, y0 = padding + h;
+    int x1 = padding + w / 2, y1 = padding;
+    int x2 = padding + w, y2 = padding + h;
+
+    return new Polygon(new int[]{x0, x1, x2}, new int[]{y0, y1, y2}, 3);
+  }
+
 }

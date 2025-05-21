@@ -29,8 +29,8 @@ public abstract class ShapeViewDecorator extends ShapeView {
     @Override
     public void moveShape(int dx, int dy) {}
 
-//    @Override
-//    public Shape getShape(){
-//        return decorated.getShape();
-//    }
+    @Override
+    public Shape getShape(){
+        return decorated.getShape();
+    }
 }

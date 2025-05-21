@@ -26,8 +26,12 @@ public class EllipseView extends ConcreteShapeView {
     g.fillOval(padding + 1, padding + 1, w - 1, h - 1);
   }
 
-//  @Override
-//  public Shape getShape() {
-////    return Ellipse2D
-//  }
+  @Override
+  public Shape getShape() {
+    int padding = shapeData.getPadding();
+    int w = shapeData.getW() - 2 * padding;
+    int h = shapeData.getH() - 2 * padding;
+    return new Ellipse2D.Double(padding, padding, w, h);
+  }
+
 }

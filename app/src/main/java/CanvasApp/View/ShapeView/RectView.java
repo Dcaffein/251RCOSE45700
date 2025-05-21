@@ -19,4 +19,12 @@ public class RectView extends ConcreteShapeView {
         g.setColor(new Color(200, 220, 255));
         g.fillRect(padding+1, padding+1, w - 3*padding, h - 3*padding);
     }
+
+    @Override
+    public Shape getShape() {
+        int padding = shapeData.getPadding();
+        int w = shapeData.getW() - 2 * padding;
+        int h = shapeData.getH() - 2 * padding;
+        return new Rectangle(padding, padding, w, h);
+    }
 }

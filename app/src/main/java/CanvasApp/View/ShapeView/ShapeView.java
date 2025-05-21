@@ -30,5 +30,5 @@ public abstract class ShapeView extends JComponent{
         return shapeData;
     }
 
-//    public abstract Shape getShape();
+    public abstract Shape getShape();
 }

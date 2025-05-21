@@ -102,6 +102,11 @@ public class TextView extends ConcreteShapeView implements HasText {
     }
 
     @Override
+    public Shape getShape() {
+        return new Rectangle(0, 0, getWidth(), getHeight());
+    }
+
+    @Override
     public String getText() {
         return textData.getText();
     }
