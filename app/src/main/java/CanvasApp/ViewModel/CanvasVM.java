@@ -33,7 +33,7 @@ public class CanvasVM {
         this.canvasData = canvasData;
         this.canvasHandler = new CanvasHandler(canvasData);
         canvas.attach(canvasHandler);
-        this.selectedHandler = new SelectedHandler(selected, propertyData);
+        this.selectedHandler = new SelectedHandler(propertyData, canvasData);
         selected.attach(selectedHandler);
     }
 

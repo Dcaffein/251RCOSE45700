@@ -6,6 +6,7 @@ import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataMoved;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataRealigned;
 import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataResized;
+import CanvasApp.ViewModel.Data.ShapeData.Event.ShapeDataSelected;
 import Observer.Observable;
 
 public class ShapeData extends Observable implements ReadOnlyShapeData{
@@ -17,6 +18,7 @@ public class ShapeData extends Observable implements ReadOnlyShapeData{
     private int z;
     private int padding = 5;
     private ShapeFactory factory;
+    private boolean selected = false;
 
     public ShapeData(ShapeModel source) {
         this.id = source.getId();
@@ -75,5 +77,14 @@ public class ShapeData extends Observable implements ReadOnlyShapeData{
     public void updateZ(int z) {
         this.z = z;
         notify(new ShapeDataRealigned(this));
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        notify(new ShapeDataSelected(this));
+    }
+
+    public boolean getSelected() {
+        return this.selected;
     }
 }

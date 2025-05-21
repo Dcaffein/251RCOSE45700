@@ -117,7 +117,10 @@ public class ShapeModelGroup extends ShapeModel {
     }
 
     public void clear() {
-        children.clear();
+        for (ShapeModel child : children.values()) {
+            notify(new ShapeModelRemoved(child));
+            children.remove(child.getId());
+        }
     }
 
     public void handleCmd(Command cmd) {

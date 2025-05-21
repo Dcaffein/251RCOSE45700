@@ -2,8 +2,8 @@ package CanvasApp.ViewModel.EventHandler.SelectedHandler;
 
 import CanvasApp.Model.Event.ShapeEvent;
 
-public class StrategyOnSelectedUpdated extends StrategyHandlingSelected {
-    public StrategyOnSelectedUpdated(SelectedHandler context) {
+public class StrategyOnBaseEvent extends StrategyHandlingSelected {
+    public StrategyOnBaseEvent(SelectedHandler context) {
         super(context);
     }
 

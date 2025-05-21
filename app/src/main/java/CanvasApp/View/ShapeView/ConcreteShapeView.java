@@ -45,7 +45,6 @@ public abstract class ConcreteShapeView extends ShapeView implements ShapeViewCo
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                System.out.println("componentResized : " + e.getComponent().getClass().getName());
                 for (Component comp : ConcreteShapeView.this.getComponents()) {
                     comp.setBounds(0, 0, e.getComponent().getWidth(), e.getComponent().getHeight());
                     comp.repaint();
@@ -58,6 +57,15 @@ public abstract class ConcreteShapeView extends ShapeView implements ShapeViewCo
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
+
+        System.out.println("is shapeData Selected? : " + shapeData.getSelected());
+        if (shapeData.getSelected()) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(Color.BLUE);
+            g2.setStroke(new BasicStroke(2));
+            g2.drawRect(1, 1, getWidth() - 2, getHeight() - 2);
+            g2.dispose();
+        }
     }
 
     public void setCurrentState(ShapeViewState newState) {

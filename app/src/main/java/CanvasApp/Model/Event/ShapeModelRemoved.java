@@ -6,9 +6,4 @@ public class ShapeModelRemoved extends ShapeEvent {
     public ShapeModelRemoved(ShapeModel source) {
         super(source);
     }
-
-//    @Override
-//    public void dispatchCompositionEvent(ShapeCollectionObserver observer) {
-//        observer.onShapeRemoved(this);
-//    }
 }
