@@ -1,33 +1,28 @@
 package CanvasApp.View.PropertyView;
 
-import CanvasApp.View.PropertyView.EventHandler.PropertyDataEventHandler;
-import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Command.ShapeCmd.MoveTo;
-import CanvasApp.ViewModel.Command.ShapeCmd.Realign;
-import CanvasApp.ViewModel.Command.ShapeCmd.ResizeAs;
-import CanvasApp.ViewModel.Data.PropertyData.Event.PropertyDataObserver;
-import CanvasApp.ViewModel.Data.PropertyData.PropertyData;
+import CanvasApp.ViewModel.PropertyViewModel.PropertyViewModel;
+import CanvasApp.ViewModel.SelectionManager.Cmd.MoveTo;
+import CanvasApp.ViewModel.SelectionManager.Cmd.Realign;
+import CanvasApp.ViewModel.SelectionManager.Cmd.ResizeAs;
+import Observer.Observer;
+import Observer.Event;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class PropertyView extends JPanel implements PropertyViewContext {
-    private final PropertyData data;
-    private final CanvasVM vm;
+public class PropertyView extends JPanel implements Observer {
+    private final PropertyViewModel viewModel;
     private final JTextField xField = new JTextField(5);
     private final JTextField yField = new JTextField(5);
     private final JTextField wField = new JTextField(5);
     private final JTextField hField = new JTextField(5);
     private final JTextField zField = new JTextField(5);
-    private final PropertyDataObserver eventHandler;
 
-    public PropertyView(CanvasVM vm, PropertyData data) {
-        this.vm = vm;
-        this.data = data;
-        eventHandler = new PropertyDataEventHandler(this);
-        data.attach(eventHandler);
+    public PropertyView(PropertyViewModel viewModel) {
+        this.viewModel = viewModel;
+        viewModel.attach(this);
 
         setLayout(new GridLayout(5, 2, 4, 4));
         add(new JLabel("X:")); add(xField);
@@ -42,7 +37,7 @@ public class PropertyView extends JPanel implements PropertyViewContext {
         setupField(hField, this::commitH);
         setupField(zField, this::commitZ);
 
-        updateFields(data);
+        updateFields();
     }
 
     private void setupField(JTextField field, Runnable commit) {
@@ -58,58 +53,67 @@ public class PropertyView extends JPanel implements PropertyViewContext {
 
     private void commitX() {
         int newX = parseField(xField.getText());
-        int oldX = data.getX();
+        int oldX = viewModel.getX();
         if (newX != oldX) {
-            System.out.println("[commit] newX : " + newX + ", newY : " + data.getY());
-            vm.handleCmd(new MoveTo(vm, newX, data.getY()));
+            System.out.println("[commit] newX : " + newX + ", newY : " + viewModel.getY());
+            (new MoveTo(viewModel.selectionManager, newX, viewModel.getY())).execute();
         }
     }
     private void commitY() {
         int newY = parseField(yField.getText());
-        int oldY = data.getY();
+        int oldY = viewModel.getY();
         if (newY != oldY) {
-            vm.handleCmd(new MoveTo(vm, data.getX(), newY));
+            (new MoveTo(viewModel.selectionManager, viewModel.getX(), newY)).execute();
         }
     }
     private void commitW() {
         int newW = parseField(wField.getText());
-        int oldW = data.getW();
+        int oldW = viewModel.getW();
         if (newW != oldW) {
-            vm.handleCmd(new ResizeAs(vm, newW, data.getH()));
+            (new ResizeAs(viewModel.selectionManager, newW, viewModel.getH())).execute();
         }
 
     }
     private void commitH() {
         int newH = parseField(hField.getText());
-        int oldH = data.getH();
+        int oldH = viewModel.getH();
         if (newH != oldH) {
-            vm.handleCmd(new ResizeAs(vm, data.getW(), newH));
+            (new ResizeAs(viewModel.selectionManager, viewModel.getW(), newH)).execute();
         }
     }
     private void commitZ() {
         int newZ = parseField(zField.getText());
-        int oldZ = data.getZ();
+        int oldZ = viewModel.getZ();
         if ( newZ != oldZ) {
-
-            vm.handleCmd(new Realign(vm, newZ));
+            (new Realign(viewModel.selectionManager, newZ)).execute();
         }
     }
 
-    public void updateFields(PropertyData data) {
+    public void updateFields() {
 //        System.out.printf(
 //                "[PropertyView] beforeUpdateData : X:%s  Y:%s  W:%s  H:%s  Z:%s%n",
 //                data.getX(), data.getY(), data.getW(), data.getH(), data.getZ());
 
-        String xs = data.getX() == -1 ? "--" : String.valueOf(data.getX());
-        String ys = data.getY() == -1 ? "--" : String.valueOf(data.getY());
-        String ws = data.getW() == -1 ? "--" : String.valueOf(data.getW());
-        String hs = data.getH() == -1 ? "--" : String.valueOf(data.getH());
-        String zs = data.getZ() == -1 ? "--" : String.valueOf(data.getZ());
+        int x = viewModel.getX();
+        int y = viewModel.getY();
+        int w = viewModel.getW();
+        int h = viewModel.getH();
+        int z = viewModel.getZ();
+        String xString = x == -1 ? "--" : String.valueOf(x);
+        String yString = y == -1 ? "--" : String.valueOf(y);
+        String wString = w == -1 ? "--" : String.valueOf(w);
+        String hString = h == -1 ? "--" : String.valueOf(h);
+        String zString = z == -1 ? "--" : String.valueOf(z);
 
-        xField.setText(xs);
-        yField.setText(ys);
-        wField.setText(ws);
-        hField.setText(hs);
-        zField.setText(zs);
+        xField.setText(xString);
+        yField.setText(yString);
+        wField.setText(wString);
+        hField.setText(hString);
+        zField.setText(zString);
+    }
+
+    @Override
+    public void onUpdate(Event<?> event) {
+        updateFields();
     }
 }

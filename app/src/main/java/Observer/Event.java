@@ -5,5 +5,4 @@ public abstract class Event<T> {
     public Event(T source) {
         this.source = source;
     }
-    public abstract void dispatch(Observer o);
 }

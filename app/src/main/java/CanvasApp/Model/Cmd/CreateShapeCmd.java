@@ -1,6 +1,6 @@
 package CanvasApp.Model.Cmd;
 
-import CanvasApp.Factory.ShapeFactory;
+import CanvasApp.Factory.ShapeFactory.ShapeFactory;
 import CanvasApp.Model.ShapeModel;
 import Command.Command;
 

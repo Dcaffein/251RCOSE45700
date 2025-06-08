@@ -1,10 +1,8 @@
 package CanvasApp.Model.Cmd;
 
-import CanvasApp.Model.Structure.Composite.Leaf.TextModel;
-import CanvasApp.Model.Structure.Decorator.ShapeDecorator;
-import CanvasApp.Model.Structure.Decorator.TextInShape;
+import CanvasApp.Model.Decorator.ShapeDecorator;
 import CanvasApp.Model.ShapeModel;
-import CanvasApp.Model.Structure.HasText;
+import CanvasApp.Model.HasText;
 import Command.Command;
 
 public class ChangeTextCmd implements Command {

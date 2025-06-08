@@ -6,7 +6,7 @@ import Observer.Observable;
 import java.util.Collection;
 
 public abstract class ShapeModel extends Observable{
-    protected final int minimun = 20;
+    protected final int minimum = 20;
     public abstract String getId();
     public abstract int getX();
     public abstract int getY();
@@ -22,6 +22,5 @@ public abstract class ShapeModel extends Observable{
     public abstract void remove(ShapeModel shapeModel);
     public abstract void clear();
     public abstract Collection<ShapeModel> getChildren();
-    public abstract void handleCmd(Command cmd);
     public abstract ShapeModel getChild(String id);
 }

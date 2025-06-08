@@ -1,40 +1,40 @@
 package CanvasApp.View.CanvasView;
 
-import CanvasApp.View.CanvasView.EventHandler.CanvasDataEventHandler;
+import CanvasApp.View.CanvasView.EventHandler.CanvasViewEventHandler;
+import CanvasApp.View.CanvasView.EventHandler.OnShapeAdded;
+import CanvasApp.View.CanvasView.EventHandler.OnShapeRealigned;
+import CanvasApp.ViewModel.CanvasViewModel.Cmd.PressMouse;
+import CanvasApp.ViewModel.CanvasViewModel.Cmd.ReleaseMouse;
+import CanvasApp.Model.Event.ShapeRealigned;
+import CanvasApp.ViewModel.CanvasViewModel.Event.ShapeVMAdded;
+import Observer.Observer;
+import Observer.Event;
 import CanvasApp.View.PropertyView.PropertyView;
-import CanvasApp.View.ShapeView.ShapeView;
-import CanvasApp.ViewModel.CanvasVM;
-import CanvasApp.ViewModel.Command.CreateShapeCmd.CompleteCreateCmd;
-import CanvasApp.ViewModel.Data.CanvasData.CanvasData;
-import CanvasApp.ViewModel.Data.ShapeData.ShapeData;
-import Command.Command;
-import static utils.MathUtil.computeRectangle;
+import CanvasApp.ViewModel.CanvasViewModel.CanvasViewModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
-public class CanvasView extends JPanel implements CanvasViewContext {
-    private final CanvasVM viewModel;
-    private final CanvasData canvasData;
-    private final CanvasDataEventHandler canvasDataEventHandler = new CanvasDataEventHandler(this);
+public class CanvasView extends JPanel implements Observer {
+    private final CanvasViewModel viewModel;
 
     private final JLayeredPane layeredPane = new JLayeredPane();
     private final JPanel glassPane = new JPanel();
-    private final PropertyView propertyView;  // Property inspector panel on the right
-    private Point dragStart = null;
+    private final PropertyView propertyView;
+    private final Map<Class<? extends Event<?>>, CanvasViewEventHandler> eventHandlers = new HashMap<>();
 
-    public CanvasView(CanvasVM viewModel, CanvasData canvasData) {
+    public CanvasView(CanvasViewModel viewModel,PropertyView propertyView) {
         this.viewModel = viewModel;
-        this.canvasData = canvasData;
-        canvasData.attach(canvasDataEventHandler);
-
-        this.propertyView = new PropertyView(viewModel, viewModel.getPropertyData());
+        this.propertyView = propertyView;
 
         setLayout(new BorderLayout());
         initUI();
         initGlassPane();
+        registerEventHandler();
     }
 
     private void initUI() {
@@ -54,7 +54,6 @@ public class CanvasView extends JPanel implements CanvasViewContext {
     }
 
     private void initGlassPane() {
-        // add a transparent glass pane for drawing new shapes
         glassPane.setBounds(0, 0, layeredPane.getPreferredSize().width, layeredPane.getPreferredSize().height);
         glassPane.setOpaque(false);
         glassPane.setVisible(false);
@@ -63,25 +62,27 @@ public class CanvasView extends JPanel implements CanvasViewContext {
         glassPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                dragStart = e.getPoint();
+                (new PressMouse(viewModel,e)).execute();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                Point dragEnd = e.getPoint();
-                Rectangle dragRect = computeRectangle(dragStart, dragEnd);
-                Command cmd = new CompleteCreateCmd(
-                        viewModel, dragRect.x, dragRect.y,
-                        dragRect.width, dragRect.height,
-                        canvasData.getMaxZ() + 1
-                );
-                viewModel.handleCmd(cmd);
+                (new ReleaseMouse(viewModel,e)).execute();
             }
         });
     }
 
-    public ShapeView createChildShapeView(ShapeData shapeData) {
-        return shapeData.getFactory().createShapeView(shapeData, viewModel);
+    private void registerEventHandler(){
+        eventHandlers.put(ShapeVMAdded.class, new OnShapeAdded());
+        eventHandlers.put(ShapeRealigned.class, new OnShapeRealigned());
+    }
+
+    @Override
+    public void onUpdate(Event<?> event) {
+        CanvasViewEventHandler currentHandler = eventHandlers.get(event.getClass());
+        if(currentHandler != null){
+            currentHandler.handle(this,event);
+        }
     }
 
     public void addChildViewOnLayeredPane(Component child){
@@ -90,7 +91,6 @@ public class CanvasView extends JPanel implements CanvasViewContext {
 
     public void removeChildViewOnLayeredPane(Component child) {
         layeredPane.remove(child);
-        child.repaint();
     }
 
     public void setChildViewLayerOnLayeredPane(Component child,int layer){

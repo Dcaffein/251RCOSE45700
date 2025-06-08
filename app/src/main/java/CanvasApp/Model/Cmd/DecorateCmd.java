@@ -1,6 +1,6 @@
 package CanvasApp.Model.Cmd;
 
-import CanvasApp.Model.Structure.Decorator.ShapeDecorator;
+import CanvasApp.Model.Decorator.ShapeDecorator;
 import CanvasApp.Model.ShapeModel;
 import Command.Command;
 

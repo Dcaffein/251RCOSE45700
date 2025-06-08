@@ -20,7 +20,7 @@ public abstract class Observable {
 
     public void notify(Event<?> event) {
         for (Observer observer : observers) {
-            event.dispatch(observer);
+            observer.onUpdate(event);
         }
     }
 }
