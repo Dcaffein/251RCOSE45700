@@ -1,6 +1,6 @@
-package CanvasApp.ViewModel.StateManager;
+package CanvasApp.ViewModel.StateManager.State;
 
-import CanvasApp.ViewModel.StateManager.State.CommonState;
+import CanvasApp.ViewModel.StateManager.StateManager;
 
 public class StateForSelect implements CommonState {
     @Override

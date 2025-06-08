@@ -1,7 +1,14 @@
 package CanvasApp;
 
+import CanvasApp.Model.Composite.ShapeModelGroup;
+import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.CanvasView.CanvasView;
+import CanvasApp.View.PropertyView.PropertyView;
 import CanvasApp.View.ToolView.ToolBarView;
+import CanvasApp.ViewModel.CanvasViewModel.CanvasViewModel;
+import CanvasApp.ViewModel.PropertyViewModel.PropertyViewModel;
+import CanvasApp.ViewModel.SelectionManager.SelectionManager;
+import CanvasApp.ViewModel.ToolViewModel.ToolViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,18 +16,18 @@ import java.awt.*;
 public class App {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Canvas App");
-//        CanvasData canvasData = new CanvasData();
-//        CanvasVM viewModel = new CanvasVM(canvasData);
-//        CanvasView canvasView = new CanvasView(viewModel, canvasData);
-//        ToolBarView toolBarView = new ToolBarView(viewModel);
+        ShapeModel canvas = new ShapeModelGroup();
+        CanvasView canvasView = new CanvasView(new CanvasViewModel(canvas));
+        ToolBarView toolBarView = new ToolBarView(new ToolViewModel());
+        PropertyView propertyView = new PropertyView(new PropertyViewModel());
 
-        // 메인 패널 구성
         JPanel mainPanel = new JPanel(new BorderLayout());
-//        mainPanel.add(toolBarView, BorderLayout.WEST);   // 도구 모음 왼쪽
-//        mainPanel.add(canvasView, BorderLayout.CENTER);  // 캔버스 중앙
+        mainPanel.add(toolBarView, BorderLayout.WEST);
+        mainPanel.add(canvasView, BorderLayout.CENTER);
+        mainPanel.add(propertyView, BorderLayout.EAST);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(mainPanel);  // 메인 패널을 프레임에 설정
+        frame.setContentPane(mainPanel);
         frame.setSize(1000, 600);
         frame.setVisible(true);
     }

@@ -1,9 +1,10 @@
 package CanvasApp.View.ToolView;
 
 import CanvasApp.Factory.ShapeFactory.*;
+import CanvasApp.ViewModel.SelectionManager.SelectionManager;
 import CanvasApp.ViewModel.StateManager.Cmd.SetCommonState;
-import CanvasApp.ViewModel.StateManager.StateForCreate;
-import CanvasApp.ViewModel.StateManager.StateForSelect;
+import CanvasApp.ViewModel.StateManager.State.StateForCreate;
+import CanvasApp.ViewModel.StateManager.State.StateForSelect;
 import CanvasApp.ViewModel.StateManager.StateManager;
 import CanvasApp.ViewModel.ToolViewModel.ToolViewModel;
 
@@ -35,10 +36,12 @@ public class ToolBarView extends JPanel {
 //        JButton addShadowBtn = new JButton("Add Shadow");
 
         StateManager stateManager = viewModel.stateManager;
+        SelectionManager selectionManager = viewModel.selectionManager;
         selectBtn.addActionListener(e -> (new SetCommonState(stateManager,new StateForSelect())).execute());
-        rectBtn.addActionListener(e -> (
-                new SetCommonState(stateManager,
-                        new StateForCreate(RectFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute());
+        rectBtn.addActionListener(e ->{
+                selectionManager.deselectAll();
+                (new SetCommonState(stateManager,
+                        new StateForCreate(RectFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute();});
         ellipseBtn.addActionListener(e -> (
                 new SetCommonState(stateManager,
                         new StateForCreate(EllipseFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute());

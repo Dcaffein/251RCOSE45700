@@ -15,6 +15,7 @@ public class Select implements Command {
 
     @Override
     public void execute() {
+//        System.out.println("Select : execute");
         selectionManager.deselectAll();
         selectionManager.toggleSelection(shape);
     }

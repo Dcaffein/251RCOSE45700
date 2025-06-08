@@ -4,9 +4,9 @@ import CanvasApp.Model.Event.ShapeAdded;
 import CanvasApp.Model.Event.ShapeRealigned;
 import CanvasApp.Model.Event.ShapeRemoved;
 import CanvasApp.Model.ShapeModel;
-import CanvasApp.ViewModel.CanvasViewModel.Event.CanvasViewModelStateChanged;
+import CanvasApp.ViewModel.CanvasViewModel.Event.MouseEventStateChanged;
 import CanvasApp.ViewModel.CanvasViewModel.EventHandler.*;
-import CanvasApp.ViewModel.CanvasViewModel.State.CanvasViewModelState;
+import CanvasApp.ViewModel.CanvasViewModel.State.MouseEventState;
 import CanvasApp.ViewModel.StateManager.StateManager;
 import CanvasApp.ViewModel.StateManager.Event.CommonStateChanged;
 import Observer.Observable;
@@ -22,13 +22,14 @@ public class CanvasViewModel extends Observable implements Observer {
     private final Map<Class<? extends Event<?>>, CanvasViewModelEventHandler> eventHandlers = new HashMap<>();
     public ShapeModel whichCreate;
     public StateManager stateManager = StateManager.getInstance();
-    public CanvasViewModelState currentState;
+    public MouseEventState currentState;
     public int dragStartX, dragStartY;
 
     public CanvasViewModel(ShapeModel canvas) {
         this.canvas = canvas;
-        registerEventHandler();
+        canvas.attach(this);
         stateManager.attach(this);
+        registerEventHandler();
     }
 
     public void registerEventHandler(){
@@ -39,6 +40,7 @@ public class CanvasViewModel extends Observable implements Observer {
     }
 
     public void updateMaxZ(int newZ){
+        System.out.println("newZ = " + newZ);
         if(newZ > maxZ){
             maxZ = newZ;
         }
@@ -55,9 +57,10 @@ public class CanvasViewModel extends Observable implements Observer {
         whichCreate = model;
     }
 
-    public void setCurrentState(CanvasViewModelState state){
+    public void setCurrentState(MouseEventState state){
         currentState = state;
-        notify(new CanvasViewModelStateChanged(currentState));
+//        System.out.println("[CanvasViewModel] setCurrentState: " + currentState.getClass());
+        notify(new MouseEventStateChanged(currentState));
     }
 
     public void setDragStartPoint(int dragStartX,int dragStartY){

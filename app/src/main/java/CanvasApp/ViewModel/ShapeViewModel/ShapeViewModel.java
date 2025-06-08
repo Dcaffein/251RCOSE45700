@@ -3,8 +3,9 @@ package CanvasApp.ViewModel.ShapeViewModel;
 import CanvasApp.Model.Event.ShapeMoved;
 import CanvasApp.Model.Event.ShapeResized;
 import CanvasApp.Model.ShapeModel;
+import CanvasApp.ViewModel.SelectionManager.Event.ShapeSelected;
+import CanvasApp.ViewModel.SelectionManager.Event.ShapeUnselected;
 import CanvasApp.ViewModel.SelectionManager.SelectionManager;
-import CanvasApp.ViewModel.ShapeViewModel.Event.isSelected;
 import CanvasApp.ViewModel.ShapeViewModel.EventHandler.*;
 import CanvasApp.ViewModel.ShapeViewModel.State.ReadyToSelect;
 import CanvasApp.ViewModel.ShapeViewModel.State.MouseEventState;
@@ -37,6 +38,8 @@ public class ShapeViewModel extends Observable implements Observer {
         eventHandlers.put(ShapeMoved.class,new OnShapeMoved());
         eventHandlers.put(ShapeResized.class,new OnShapeResized());
         eventHandlers.put(CommonStateChanged.class,new OnCommonStateChanged());
+        eventHandlers.put(ShapeSelected.class,new OnShapeSelected());
+        eventHandlers.put(ShapeUnselected.class,new OnShapeUnselected());
     }
 
     @Override
@@ -51,9 +54,9 @@ public class ShapeViewModel extends Observable implements Observer {
         mouseEventState = state;
     }
 
-    public boolean isCorner (int x,int y){
+    public boolean isCorner (int x, int y){
         int cornerSize = 10;
-        return (x < shape.getW() - cornerSize || y < shape.getH() - cornerSize);
+        return (x >= shape.getW() - cornerSize && y >= shape.getH() - cornerSize);
     }
 
     public void setDragStartPoint(int x,int y){
@@ -63,6 +66,6 @@ public class ShapeViewModel extends Observable implements Observer {
 
     public void setSelected(boolean isSelected){
         this.isSelected = isSelected;
-        notify(new isSelected(isSelected));
+        notify(new ShapeSelected(shape));
     }
 }

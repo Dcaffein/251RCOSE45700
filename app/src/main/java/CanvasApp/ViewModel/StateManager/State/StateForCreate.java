@@ -1,7 +1,7 @@
-package CanvasApp.ViewModel.StateManager;
+package CanvasApp.ViewModel.StateManager.State;
 
 import CanvasApp.Model.ShapeModel;
-import CanvasApp.ViewModel.StateManager.State.CommonState;
+import CanvasApp.ViewModel.StateManager.StateManager;
 
 public class StateForCreate implements CommonState {
     public ShapeModel shapeForCreation;

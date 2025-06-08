@@ -2,12 +2,9 @@ package CanvasApp.View.ShapeView;
 
 import CanvasApp.Model.Event.ShapeMoved;
 import CanvasApp.Model.Event.ShapeResized;
-import CanvasApp.View.CanvasView.EventHandler.CanvasViewEventHandler;
-import CanvasApp.View.ShapeView.EventHandler.OnShapeMoved;
-import CanvasApp.View.ShapeView.EventHandler.OnShapeResized;
-import CanvasApp.View.ShapeView.EventHandler.OnShapeSelected;
-import CanvasApp.View.ShapeView.EventHandler.ShapeViewEventHandler;
+import CanvasApp.View.ShapeView.EventHandler.*;
 import CanvasApp.ViewModel.SelectionManager.Event.ShapeSelected;
+import CanvasApp.ViewModel.SelectionManager.Event.ShapeUnselected;
 import Observer.Observer;
 import Observer.Event;
 import CanvasApp.Model.ShapeModel;
@@ -37,12 +34,15 @@ public class ShapeView extends JComponent implements Observer{
         ShapeModel shape = viewModel.shape;
         setBounds(shape.getX(), shape.getY(), shape.getW(), shape.getH());
         addMouseEventListener();
+        setName(viewModel.shape.getId());
+        registerEventHandler();
     }
 
     private void registerEventHandler(){
         eventHandlers.put(ShapeMoved.class, new OnShapeMoved());
         eventHandlers.put(ShapeResized.class, new OnShapeResized());
-        eventHandlers.put(ShapeSelected.class, new OnShapeSelected());
+        eventHandlers.put(ShapeSelected.class, new OnShapeSelection());
+        eventHandlers.put(ShapeUnselected.class, new OnShapeSelection());
     }
 
     private void addMouseEventListener(){

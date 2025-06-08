@@ -82,7 +82,7 @@ public abstract class ShapeModelLeaf extends ShapeModel {
 
     @Override
     public void realign(int newZ) {
-        if(z > 0) this.z = newZ;
+        if(newZ > 0) this.z = newZ;
         notify(new ShapeRealigned(this));
     }
 

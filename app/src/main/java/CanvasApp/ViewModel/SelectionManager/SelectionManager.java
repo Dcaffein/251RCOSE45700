@@ -33,6 +33,13 @@ public class SelectionManager extends Observable {
             notify(new ShapeUnselected(selected));
         } else {
             selected.add(shape);
+
+//            Collection<ShapeModel> children = getSelected();
+//            System.out.println("children.size() :  " + children.size());
+//            for (ShapeModel child : children) {
+//                System.out.println("selected " + child.getId());
+//            }
+
             notify(new ShapeSelected(shape));
         }
     }

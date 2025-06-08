@@ -11,14 +11,15 @@ public class Resizing implements MouseEventState {
 
     @Override
     public void onMouseDragged(ShapeViewModel shapeViewModel, int x, int y) {
-        shapeViewModel.setMouseEventState(new ReadyToSelect());
-    }
-
-    @Override
-    public void onMouseReleased(ShapeViewModel shapeViewModel, int x, int y) {
         int dw = x - shapeViewModel.dragStartX;
         int dh = y - shapeViewModel.dragStartY;
         (new ResizeBy(shapeViewModel.selectionManager,dw,dh)).execute();
         shapeViewModel.setDragStartPoint(x, y);
+    }
+
+    @Override
+    public void onMouseReleased(ShapeViewModel shapeViewModel, int x, int y) {
+
+        shapeViewModel.setMouseEventState(new ReadyToSelect());
     }
 }

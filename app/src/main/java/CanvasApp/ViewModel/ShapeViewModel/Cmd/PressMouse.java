@@ -20,6 +20,7 @@ public class PressMouse implements Command {
 
     @Override
     public void execute() {
+//        System.out.println("Press mouse cmd : " + shapeViewModel.mouseEventState.getClass());
         shapeViewModel.mouseEventState.onMousePressed(shapeViewModel, x, y, ctrlDowned);
     }
 }

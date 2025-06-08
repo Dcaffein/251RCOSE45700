@@ -1,11 +1,13 @@
 package CanvasApp.View.CanvasView;
 
 import CanvasApp.View.CanvasView.EventHandler.CanvasViewEventHandler;
+import CanvasApp.View.CanvasView.EventHandler.OnMouseEventStateChanged;
 import CanvasApp.View.CanvasView.EventHandler.OnShapeAdded;
 import CanvasApp.View.CanvasView.EventHandler.OnShapeRealigned;
 import CanvasApp.ViewModel.CanvasViewModel.Cmd.PressMouse;
 import CanvasApp.ViewModel.CanvasViewModel.Cmd.ReleaseMouse;
 import CanvasApp.Model.Event.ShapeRealigned;
+import CanvasApp.ViewModel.CanvasViewModel.Event.MouseEventStateChanged;
 import CanvasApp.ViewModel.CanvasViewModel.Event.ShapeVMAdded;
 import Observer.Observer;
 import Observer.Event;
@@ -24,12 +26,11 @@ public class CanvasView extends JPanel implements Observer {
 
     private final JLayeredPane layeredPane = new JLayeredPane();
     private final JPanel glassPane = new JPanel();
-    private final PropertyView propertyView;
     private final Map<Class<? extends Event<?>>, CanvasViewEventHandler> eventHandlers = new HashMap<>();
 
-    public CanvasView(CanvasViewModel viewModel,PropertyView propertyView) {
+    public CanvasView(CanvasViewModel viewModel) {
         this.viewModel = viewModel;
-        this.propertyView = propertyView;
+        this.viewModel.attach(this);
 
         setLayout(new BorderLayout());
         initUI();
@@ -40,33 +41,25 @@ public class CanvasView extends JPanel implements Observer {
     private void initUI() {
         layeredPane.setPreferredSize(new Dimension(800, 600));
         layeredPane.setLayout(null);
-        JScrollPane canvasScroll = new JScrollPane(layeredPane);
-
-        JSplitPane splitPane = new JSplitPane(
-                JSplitPane.HORIZONTAL_SPLIT,
-                canvasScroll,
-                propertyView
-        );
-        splitPane.setDividerLocation(800);
-        splitPane.setResizeWeight(0.0);
-
-        add(splitPane, BorderLayout.CENTER);
     }
 
     private void initGlassPane() {
         glassPane.setBounds(0, 0, layeredPane.getPreferredSize().width, layeredPane.getPreferredSize().height);
         glassPane.setOpaque(false);
         glassPane.setVisible(false);
-        layeredPane.add(glassPane, JLayeredPane.DRAG_LAYER);  // add to drag layer
+        this.add(layeredPane);
+        layeredPane.add(glassPane, JLayeredPane.DRAG_LAYER);
 
         glassPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+//                System.out.println("[CanvasView] mousePressed");
                 (new PressMouse(viewModel,e)).execute();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
+//                System.out.println("[CanvasView] mouseReleased");
                 (new ReleaseMouse(viewModel,e)).execute();
             }
         });
@@ -75,10 +68,12 @@ public class CanvasView extends JPanel implements Observer {
     private void registerEventHandler(){
         eventHandlers.put(ShapeVMAdded.class, new OnShapeAdded());
         eventHandlers.put(ShapeRealigned.class, new OnShapeRealigned());
+        eventHandlers.put(MouseEventStateChanged.class, new OnMouseEventStateChanged());
     }
 
     @Override
     public void onUpdate(Event<?> event) {
+//        System.out.println("[CanvasView] event.source : "+ event.source.getClass());
         CanvasViewEventHandler currentHandler = eventHandlers.get(event.getClass());
         if(currentHandler != null){
             currentHandler.handle(this,event);
@@ -87,6 +82,8 @@ public class CanvasView extends JPanel implements Observer {
 
     public void addChildViewOnLayeredPane(Component child){
         layeredPane.add(child);
+        child.repaint();
+//        System.out.println("[commit] newX : " + newX + ", newY : " + viewModel.getY());
     }
 
     public void removeChildViewOnLayeredPane(Component child) {

@@ -1,6 +1,5 @@
 package CanvasApp.Model;
 
-import Command.Command;
 import Observer.Observable;
 
 import java.util.Collection;
