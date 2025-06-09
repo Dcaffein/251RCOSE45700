@@ -6,7 +6,7 @@ import CanvasApp.Model.Event.ShapeRealigned;
 
 import CanvasApp.Model.ShapeModel;
 
-import java.util.Collection;
+import java.util.List;
 
 public abstract class ShapeDecorator extends ShapeModel {
     private final ShapeModel decorated;
@@ -95,7 +95,7 @@ public abstract class ShapeDecorator extends ShapeModel {
     }
 
     @Override
-    public Collection<ShapeModel> getChildren() {
+    public List<ShapeModel> getChildren() {
         return decorated.getChildren();
     }
 

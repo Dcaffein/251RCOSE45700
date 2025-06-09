@@ -7,7 +7,7 @@ import Observer.Observer;
 
 import CanvasApp.Model.ShapeModel;
 
-import java.util.Collection;
+import java.util.List;
 
 public abstract class ShapeModelLeaf extends ShapeModel {
     protected int x, y;
@@ -93,7 +93,7 @@ public abstract class ShapeModelLeaf extends ShapeModel {
     public void remove(ShapeModel shape) {}
 
     @Override
-    public Collection<ShapeModel> getChildren(){
+    public List<ShapeModel> getChildren(){
         return null;
     }
 

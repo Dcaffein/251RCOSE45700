@@ -3,6 +3,7 @@ package CanvasApp.Model;
 import Observer.Observable;
 
 import java.util.Collection;
+import java.util.List;
 
 public abstract class ShapeModel extends Observable{
     protected final int minimum = 20;
@@ -20,6 +21,6 @@ public abstract class ShapeModel extends Observable{
     public abstract void add(ShapeModel shapeModel);
     public abstract void remove(ShapeModel shapeModel);
     public abstract void clear();
-    public abstract Collection<ShapeModel> getChildren();
+    public abstract List<ShapeModel> getChildren();
     public abstract ShapeModel getChild(String id);
 }

@@ -8,7 +8,7 @@ public class Select implements Command {
     private final SelectionManager selectionManager;
     private final ShapeModel shape;
 
-    public Select(SelectionManager selectionManager,ShapeModel shape) {
+    public Select(SelectionManager selectionManager, ShapeModel shape) {
         this.selectionManager = selectionManager;
         this.shape = shape;
     }
@@ -16,7 +16,7 @@ public class Select implements Command {
     @Override
     public void execute() {
 //        System.out.println("Select : execute");
-        selectionManager.deselectAll();
-        selectionManager.toggleSelection(shape);
+        selectionManager.unselectAll();
+        selectionManager.toggleSelection(shape.getId());
     }
 }

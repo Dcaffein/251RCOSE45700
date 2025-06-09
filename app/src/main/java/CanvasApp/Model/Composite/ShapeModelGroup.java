@@ -1,17 +1,13 @@
 package CanvasApp.Model.Composite;
 
 import CanvasApp.Model.ShapeModel;
-import Command.Command;
 import CanvasApp.Model.Event.ShapeAdded;
 import CanvasApp.Model.Event.ShapeRemoved;
 import CanvasApp.Model.Event.ShapeMoved;
 import CanvasApp.Model.Event.ShapeResized;
 import CanvasApp.Model.Event.ShapeRealigned;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ShapeModelGroup extends ShapeModel {
     private final Map<String, ShapeModel> children = new HashMap<>();
@@ -107,12 +103,12 @@ public class ShapeModelGroup extends ShapeModel {
 
     @Override
     public void remove(ShapeModel shapeModel) {
-        notify(new ShapeRemoved(shapeModel));
         children.remove(shapeModel.getId());
+        notify(new ShapeRemoved(shapeModel.getId()));
     }
 
-    public Collection<ShapeModel> getChildren() {
-        return children.values();
+    public List<ShapeModel> getChildren() {
+        return children.values().stream().toList();
     }
 
     public void clear() {

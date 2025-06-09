@@ -32,6 +32,13 @@ public class CanvasViewModel extends Observable implements Observer {
         registerEventHandler();
     }
 
+    public void onUpdate(Event<?> event){
+        CanvasViewModelEventHandler currentHandler = eventHandlers.get(event.getClass());
+        if(currentHandler != null){
+            currentHandler.handle(this,event);
+        }
+    }
+
     public void registerEventHandler(){
         eventHandlers.put(ShapeAdded.class,new OnShapeAdded());
         eventHandlers.put(ShapeRemoved.class,new OnShapeRemoved());
@@ -43,13 +50,6 @@ public class CanvasViewModel extends Observable implements Observer {
         System.out.println("newZ = " + newZ);
         if(newZ > maxZ){
             maxZ = newZ;
-        }
-    }
-
-    public void onUpdate(Event<?> event){
-        CanvasViewModelEventHandler currentHandler = eventHandlers.get(event.getClass());
-        if(currentHandler != null){
-            currentHandler.handle(this,event);
         }
     }
 

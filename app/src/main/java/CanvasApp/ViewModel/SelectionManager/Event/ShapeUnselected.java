@@ -3,8 +3,10 @@ package CanvasApp.ViewModel.SelectionManager.Event;
 import CanvasApp.Model.ShapeModel;
 import Observer.Event;
 
-public class ShapeUnselected extends Event<ShapeModel> {
-    public ShapeUnselected(ShapeModel source) {
+import java.util.List;
+
+public class ShapeUnselected extends Event<List<ShapeModel>> {
+    public ShapeUnselected(List<ShapeModel> source) {
         super(source);
     }
 }

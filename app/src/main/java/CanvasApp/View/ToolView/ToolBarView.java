@@ -39,7 +39,7 @@ public class ToolBarView extends JPanel {
         SelectionManager selectionManager = viewModel.selectionManager;
         selectBtn.addActionListener(e -> (new SetCommonState(stateManager,new StateForSelect())).execute());
         rectBtn.addActionListener(e ->{
-                selectionManager.deselectAll();
+                selectionManager.unselectAll();
                 (new SetCommonState(stateManager,
                         new StateForCreate(RectFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute();});
         ellipseBtn.addActionListener(e -> (

@@ -15,6 +15,6 @@ public class MultiSelect implements Command {
 
     @Override
     public void execute() {
-        selectionManager.toggleSelection(shape);
+        selectionManager.toggleSelection(shape.getId());
     }
 }

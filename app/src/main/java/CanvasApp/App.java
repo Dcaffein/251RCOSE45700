@@ -17,6 +17,7 @@ public class App {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Canvas App");
         ShapeModel canvas = new ShapeModelGroup();
+        SelectionManager.init(canvas);
         CanvasView canvasView = new CanvasView(new CanvasViewModel(canvas));
         ToolBarView toolBarView = new ToolBarView(new ToolViewModel());
         PropertyView propertyView = new PropertyView(new PropertyViewModel());
