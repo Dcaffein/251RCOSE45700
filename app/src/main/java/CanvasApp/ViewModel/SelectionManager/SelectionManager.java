@@ -36,7 +36,11 @@ public class SelectionManager extends Observable implements Observer {
         //if shape in selected is deleted. then also remove that one from selected
     }
 
-    public List<ShapeModel> getSelectedShapes() {
+    public ShapeModel getSelectedShape(){
+        return selected;
+    }
+
+    public List<ShapeModel> getSelectedShapeList() {
         return selected.getChildren();
     }
 
@@ -51,27 +55,11 @@ public class SelectionManager extends Observable implements Observer {
         if (target == null) return;
 
         if (selected.getChild(id) != null) {
-            selected.remove(target);
+            selected.removeChild(target);
             notify(new ShapeUnselected(List.of(target)));
         } else {
-            selected.add(target);
+            selected.addChild(target);
             notify(new ShapeSelected(target));
         }
-    }
-
-    public void setPositionBy(int dx, int dy){
-        selected.setPositionBy(dx, dy);
-    }
-    public void setSizeBy(int dw, int dh) {
-        selected.setSizeBy(dw, dh);
-    }
-    public void setPosition(int newX, int newY) {
-        selected.setPosition(newX, newY);
-    }
-    public void setSize(int newW, int newH) {
-        selected.setSize(newW, newH);
-    }
-    public void realign(int newZ) {
-        selected.realign(newZ);
     }
 }

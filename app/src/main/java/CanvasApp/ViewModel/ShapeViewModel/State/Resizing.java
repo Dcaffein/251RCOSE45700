@@ -1,6 +1,5 @@
 package CanvasApp.ViewModel.ShapeViewModel.State;
 
-import CanvasApp.ViewModel.SelectionManager.Cmd.ResizeBy;
 import CanvasApp.ViewModel.ShapeViewModel.ShapeViewModel;
 
 public class Resizing implements MouseEventState {
@@ -11,9 +10,9 @@ public class Resizing implements MouseEventState {
 
     @Override
     public void onMouseDragged(ShapeViewModel shapeViewModel, int x, int y) {
-        int dw = x - shapeViewModel.dragStartX;
-        int dh = y - shapeViewModel.dragStartY;
-        (new ResizeBy(shapeViewModel.selectionManager,dw,dh)).execute();
+        int dw = x - shapeViewModel.getDragStartX();
+        int dh = y - shapeViewModel.getDragStartY();
+        shapeViewModel.resizeBy(dw, dh);
         shapeViewModel.setDragStartPoint(x, y);
     }
 

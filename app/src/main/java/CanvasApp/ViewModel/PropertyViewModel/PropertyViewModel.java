@@ -1,5 +1,8 @@
 package CanvasApp.ViewModel.PropertyViewModel;
 
+import CanvasApp.Model.Cmd.MoveTo;
+import CanvasApp.Model.Cmd.Realign;
+import CanvasApp.Model.Cmd.ResizeAs;
 import CanvasApp.Model.Event.ShapeMoved;
 import CanvasApp.Model.Event.ShapeRealigned;
 import CanvasApp.Model.Event.ShapeResized;
@@ -21,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PropertyViewModel extends Observable implements Observer {
-    public final SelectionManager selectionManager = SelectionManager.getInstance();
+    private final SelectionManager selectionManager = SelectionManager.getInstance();
 
     private int x = -1;
     private int y = -1;
@@ -53,7 +56,7 @@ public class PropertyViewModel extends Observable implements Observer {
     }
 
     public void recalculate() {
-        List<ShapeModel> shapes = selectionManager.getSelectedShapes();
+        List<ShapeModel> shapes = selectionManager.getSelectedShapeList();
         if (shapes.isEmpty()) {
             x = y = w = h = z = -1;
         } else {
@@ -79,4 +82,20 @@ public class PropertyViewModel extends Observable implements Observer {
     public int getW() { return w; }
     public int getH() { return h; }
     public int getZ() { return z; }
+
+    public ShapeModel getSelectedShape() {
+        return selectionManager.getSelectedShape();
+    }
+
+    public void moveTo(int newX, int newY) {
+        new MoveTo(getSelectedShape(), newX, newY).execute();
+    }
+
+    public void resizeAs(int newW, int newH) {
+        new ResizeAs(getSelectedShape(), newW, newH).execute();
+    }
+
+    public void realign(int newZ){
+        new Realign(getSelectedShape(), newZ).execute();
+    }
 }

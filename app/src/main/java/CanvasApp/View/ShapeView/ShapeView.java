@@ -1,6 +1,7 @@
 package CanvasApp.View.ShapeView;
 
 import CanvasApp.Model.Event.ShapeMoved;
+import CanvasApp.Model.Event.ShapeReplaced;
 import CanvasApp.Model.Event.ShapeResized;
 import CanvasApp.View.ShapeView.EventHandler.*;
 import CanvasApp.ViewModel.SelectionManager.Event.ShapeSelected;
@@ -31,10 +32,10 @@ public class ShapeView extends JComponent implements Observer{
         this.drawer = drawer;
         setLayout(null);
 
-        ShapeModel shape = viewModel.shape;
+        ShapeModel shape = viewModel.getShape();
         setBounds(shape.getX(), shape.getY(), shape.getW(), shape.getH());
         addMouseEventListener();
-        setName(viewModel.shape.getId());
+        setName(viewModel.getShape().getId());
         registerEventHandler();
     }
 
@@ -43,6 +44,7 @@ public class ShapeView extends JComponent implements Observer{
         eventHandlers.put(ShapeResized.class, new OnShapeResized());
         eventHandlers.put(ShapeSelected.class, new OnShapeSelection());
         eventHandlers.put(ShapeUnselected.class, new OnShapeSelection());
+        eventHandlers.put(ShapeReplaced.class,new OnShapeReplaced());
     }
 
     private void addMouseEventListener(){
@@ -81,9 +83,9 @@ public class ShapeView extends JComponent implements Observer{
     }
 
     public void draw(Graphics g){
-        drawer.draw(g,viewModel);
+        drawer.draw(g,this);
 
-        if (viewModel.isSelected) {
+        if (viewModel.getSelected()) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setColor(Color.BLUE);
             g2.setStroke(new BasicStroke(2));

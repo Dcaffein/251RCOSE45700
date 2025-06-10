@@ -18,6 +18,6 @@ public class DragMouse implements Command {
 
     @Override
     public void execute() {
-        shapeViewModel.mouseEventState.onMouseDragged(shapeViewModel, x, y);
+        shapeViewModel.dragMouse(x, y);
     }
 }

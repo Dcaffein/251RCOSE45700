@@ -2,6 +2,7 @@ package CanvasApp.ViewModel.SelectionManager.Cmd;
 
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.SelectionManager.SelectionManager;
+
 import Command.Command;
 
 public class MultiSelect implements Command {

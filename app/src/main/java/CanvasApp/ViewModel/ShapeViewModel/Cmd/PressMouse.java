@@ -9,18 +9,17 @@ public class PressMouse implements Command {
     private final ShapeViewModel shapeViewModel;
     private final int x;
     private final int y;
-    private final boolean ctrlDowned;
+    private final boolean isCtrlDown;
 
     public PressMouse(ShapeViewModel shapeViewModel, MouseEvent mouseEvent) {
         this.shapeViewModel = shapeViewModel;
         this.x = mouseEvent.getX();
         this.y = mouseEvent.getY();
-        this.ctrlDowned = mouseEvent.isControlDown();
+        this.isCtrlDown = mouseEvent.isControlDown();
     }
 
     @Override
     public void execute() {
-//        System.out.println("Press mouse cmd : " + shapeViewModel.mouseEventState.getClass());
-        shapeViewModel.mouseEventState.onMousePressed(shapeViewModel, x, y, ctrlDowned);
+        shapeViewModel.pressMouse(x, y,isCtrlDown);
     }
 }

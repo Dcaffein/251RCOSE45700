@@ -1,11 +1,6 @@
 package CanvasApp.View.ToolView;
 
-import CanvasApp.Factory.ShapeFactory.*;
-import CanvasApp.ViewModel.SelectionManager.SelectionManager;
-import CanvasApp.ViewModel.StateManager.Cmd.SetCommonState;
-import CanvasApp.ViewModel.StateManager.State.StateForCreate;
-import CanvasApp.ViewModel.StateManager.State.StateForSelect;
-import CanvasApp.ViewModel.StateManager.StateManager;
+import CanvasApp.ViewModel.ToolViewModel.Cmd.*;
 import CanvasApp.ViewModel.ToolViewModel.ToolViewModel;
 
 import javax.swing.*;
@@ -32,38 +27,23 @@ public class ToolBarView extends JPanel {
 
 //        JButton imageBtn = new JButton("Image");
 //        JButton textBtn = new JButton("Text");
-//        JButton addTextBtn = new JButton("Add Text");
-//        JButton addShadowBtn = new JButton("Add Shadow");
+        JButton applyTextBtn = new JButton("Apply Text");
+        JButton applyShadowBtn = new JButton("Apply Shadow");
 
-        StateManager stateManager = viewModel.stateManager;
-        SelectionManager selectionManager = viewModel.selectionManager;
-        selectBtn.addActionListener(e -> (new SetCommonState(stateManager,new StateForSelect())).execute());
-        rectBtn.addActionListener(e ->{
-                selectionManager.unselectAll();
-                (new SetCommonState(stateManager,
-                        new StateForCreate(RectFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute();});
-        ellipseBtn.addActionListener(e -> (
-                new SetCommonState(stateManager,
-                        new StateForCreate(EllipseFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute());
-        triangleBtn.addActionListener(e -> (
-                new SetCommonState(stateManager,
-                        new StateForCreate(TriangleFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute());
-        lineBackSlashBtn.addActionListener(e -> (
-                new SetCommonState(stateManager,
-                        new StateForCreate(LineBackSlashFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute());
-        lineSlashBtn.addActionListener(e -> (
-                new SetCommonState(stateManager,
-                        new StateForCreate(LineSlashFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute());
+        selectBtn.addActionListener(e -> new ReadyToSelect(viewModel).execute());
+        rectBtn.addActionListener(e -> new CreateRect(viewModel).execute());
+        ellipseBtn.addActionListener(e -> new CreateEllipse(viewModel).execute());
+        triangleBtn.addActionListener(e -> new CreateTriangle(viewModel).execute());
+        lineBackSlashBtn.addActionListener(e -> new CreateLineBackSlash(viewModel).execute());
+        lineSlashBtn.addActionListener(e -> new CreateLineSlash(viewModel).execute());
 //        imageBtn.addActionListener(e -> (
 //                new SetCommonState(stateManager,
 //                        new StateForCreate(ImageFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute());
 
         //        textBtn.addActionListener(e -> (new SetCommonState(stateManager,new StateForSelect())).execute());
-//        addTextBtn.addActionListener(e -> {
-//            (new DecorateWithTextCmd(viewModel, "text"));
-//        });
-//        addShadowBtn.addActionListener(
-//                e -> (new DecorateWithShadowCmd(viewModel, new Color(0, 0, 0, 80), 3)));
+        applyTextBtn.addActionListener(e -> new ApplyInnerText(viewModel).execute());
+        applyShadowBtn.addActionListener(
+                e ->  new ApplyShadow(viewModel).execute());
 
         this.add(selectBtn);
         this.add(rectBtn);
@@ -73,7 +53,7 @@ public class ToolBarView extends JPanel {
         this.add(lineSlashBtn);
 //        this.add(imageBtn);
 //        this.add(textBtn);
-//        this.add(addTextBtn);
-//        this.add(addShadowBtn);
+        this.add(applyTextBtn);
+        this.add(applyShadowBtn);
     }
 }

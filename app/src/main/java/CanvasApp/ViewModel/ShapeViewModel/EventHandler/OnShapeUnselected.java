@@ -12,7 +12,7 @@ public class OnShapeUnselected implements ShapeViewModelEventHandler {
     public void handle(ShapeViewModel shapeViewModel, Event<?> event) {
         if(event instanceof ShapeUnselected shapeUnselected){
             List<ShapeModel> unselected = shapeUnselected.source;
-            if(unselected.contains(shapeViewModel.shape)){
+            if(unselected.contains(shapeViewModel.getShape())){
                 shapeViewModel.setSelected(false);
             }
         }

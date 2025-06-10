@@ -19,7 +19,7 @@ public class App {
         ShapeModel canvas = new ShapeModelGroup();
         SelectionManager.init(canvas);
         CanvasView canvasView = new CanvasView(new CanvasViewModel(canvas));
-        ToolBarView toolBarView = new ToolBarView(new ToolViewModel());
+        ToolBarView toolBarView = new ToolBarView(new ToolViewModel(canvas));
         PropertyView propertyView = new PropertyView(new PropertyViewModel());
 
         JPanel mainPanel = new JPanel(new BorderLayout());

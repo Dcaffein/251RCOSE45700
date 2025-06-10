@@ -1,6 +1,7 @@
 package CanvasApp.Model.Decorator;
 
 import CanvasApp.Model.Event.ShapeMoved;
+import CanvasApp.Model.Event.ShapeReplaced;
 import CanvasApp.Model.Event.ShapeResized;
 import CanvasApp.Model.Event.ShapeRealigned;
 
@@ -50,26 +51,26 @@ public abstract class ShapeDecorator extends ShapeModel {
     }
 
     @Override
-    public void setPositionBy(int dx, int dy) {
-        decorated.setPositionBy(dx, dy);
+    public void moveBy(int dx, int dy) {
+        decorated.moveBy(dx, dy);
         notify(new ShapeMoved(this));
     }
 
     @Override
-    public void setSizeBy(int dw, int dh) {
-        decorated.setSizeBy(dw, dh);
+    public void resizeBy(int dw, int dh) {
+        decorated.resizeBy(dw, dh);
         notify(new ShapeResized(this));
     }
 
     @Override
-    public void setPosition(int newX, int newY) {
-        decorated.setPosition(newX, newY);
+    public void moveTo(int newX, int newY) {
+        decorated.moveTo(newX, newY);
         notify(new ShapeMoved(this));
     }
 
     @Override
-    public void setSize(int newW, int newH) {
-        decorated.setSize(newW, newH);
+    public void resizeAs(int newW, int newH) {
+        decorated.resizeAs(newW, newH);
         notify(new ShapeResized(this));
     }
 
@@ -80,13 +81,18 @@ public abstract class ShapeDecorator extends ShapeModel {
     }
 
     @Override
-    public void add(ShapeModel shapeModel) {
-        decorated.add(shapeModel);
+    public void addChild(ShapeModel shapeModel) {
+        decorated.addChild(shapeModel);
     }
 
     @Override
-    public void remove(ShapeModel shapeModel) {
-        decorated.remove(shapeModel);
+    public void removeChild(ShapeModel shapeModel) {
+        decorated.removeChild(shapeModel);
+    }
+
+    @Override
+    public void replace(ShapeModel oldOne, ShapeModel newOne) {
+        notify(new ShapeReplaced(newOne));
     }
 
     @Override
@@ -98,7 +104,6 @@ public abstract class ShapeDecorator extends ShapeModel {
     public List<ShapeModel> getChildren() {
         return decorated.getChildren();
     }
-
 
     @Override
     public ShapeModel getChild(String id) {

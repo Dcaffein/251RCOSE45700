@@ -18,6 +18,6 @@ public class ReleaseMouse implements Command {
 
     @Override
     public void execute() {
-        shapeViewModel.mouseEventState.onMouseReleased(shapeViewModel, x, y);
+        shapeViewModel.releaseMouse(x, y);
     }
 }

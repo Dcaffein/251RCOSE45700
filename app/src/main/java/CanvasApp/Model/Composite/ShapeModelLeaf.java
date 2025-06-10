@@ -1,6 +1,7 @@
 package CanvasApp.Model.Composite;
 
 import CanvasApp.Model.Event.ShapeMoved;
+import CanvasApp.Model.Event.ShapeReplaced;
 import CanvasApp.Model.Event.ShapeResized;
 import CanvasApp.Model.Event.ShapeRealigned;
 import Observer.Observer;
@@ -48,7 +49,7 @@ public abstract class ShapeModelLeaf extends ShapeModel {
     }
 
     @Override
-    public void setPositionBy(int dx, int dy) {
+    public void moveBy(int dx, int dy) {
         int newX = x + dx;
         int newY = y + dy;
         if(newX > 0) this.x = newX;
@@ -57,26 +58,30 @@ public abstract class ShapeModelLeaf extends ShapeModel {
     }
 
     @Override
-    public void setSizeBy(int dw, int dh) {
+    public void resizeBy(int dw, int dh) {
         System.out.println("[leaf setSizeBy] dw : " + dw + ", dh :" + dh);
         int newW = w + dw;
         int newH = h + dh;
-        if(newW > minimum) this.w = newW;
-        if(newH > minimum) this.h = newH;
+        if(newW < minimum) newW = minimum;
+        if(newH < minimum) newH = minimum;
+        this.w = newW;
+        this.h = newH;
         notify(new ShapeResized(this));
     }
 
     @Override
-    public void setPosition(int newX, int newY) {
+    public void moveTo(int newX, int newY) {
         if(newX > 0) this.x = newX;
         if(newY > 0) this.y = newY;
         notify(new ShapeMoved(this));
     }
 
     @Override
-    public void setSize(int newW, int newH) {
-        if(newW > minimum) this.w = newW;
-        if(newH > minimum) this.h = newH;
+    public void resizeAs(int newW, int newH) {
+        if(newW < minimum) newW = minimum;
+        if(newH < minimum) newH = minimum;
+        this.w = newW;
+        this.h = newH;
         notify(new ShapeResized(this));
     }
 
@@ -87,10 +92,15 @@ public abstract class ShapeModelLeaf extends ShapeModel {
     }
 
     @Override
-    public void add(ShapeModel shape) {}
+    public void addChild(ShapeModel shape) {}
 
     @Override
-    public void remove(ShapeModel shape) {}
+    public void removeChild(ShapeModel shape) {}
+
+    @Override
+    public void replace(ShapeModel oldOne, ShapeModel newOne) {
+        notify(new ShapeReplaced(newOne));
+    }
 
     @Override
     public List<ShapeModel> getChildren(){

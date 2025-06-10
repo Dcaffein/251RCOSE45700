@@ -7,7 +7,7 @@ import Observer.Event;
 public class OnShapeMoved implements ShapeViewEventHandler {
     @Override
     public void handle(ShapeView shapeView, Event<?> event) {
-        ShapeModel shape = shapeView.viewModel.shape;
+        ShapeModel shape = shapeView.viewModel.getShape();
         shapeView.setBounds(shape.getX(),shape.getY(),shape.getW(),shape.getH());
     }
 }

@@ -2,6 +2,7 @@ package CanvasApp.ViewModel.SelectionManager.Cmd;
 
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.SelectionManager.SelectionManager;
+
 import Command.Command;
 
 public class Select implements Command {
@@ -15,7 +16,6 @@ public class Select implements Command {
 
     @Override
     public void execute() {
-//        System.out.println("Select : execute");
         selectionManager.unselectAll();
         selectionManager.toggleSelection(shape.getId());
     }

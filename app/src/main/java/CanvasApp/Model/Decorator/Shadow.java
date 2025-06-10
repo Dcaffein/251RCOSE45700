@@ -5,20 +5,20 @@ import CanvasApp.Model.ShapeModel;
 import java.awt.*;
 
 public class Shadow extends ShapeDecorator {
-    private Color color;
+    private int color;
     private int border;
 
-    public Shadow(ShapeModel decorated,Color color, int border) {
+    public Shadow(ShapeModel decorated,int color, int border) {
         super(decorated);
         this.color = color;
         this.border = border;
     }
 
-    public Color getColor() {
+    public int getColor() {
         return color;
     }
 
-//    public void setColor(Color color) {
+//    public void setColor(String color) {
 //        this.color = color;
 //        notify
 //    }

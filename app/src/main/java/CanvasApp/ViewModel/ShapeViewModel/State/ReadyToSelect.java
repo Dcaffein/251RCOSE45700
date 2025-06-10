@@ -1,7 +1,5 @@
 package CanvasApp.ViewModel.ShapeViewModel.State;
 
-import CanvasApp.ViewModel.SelectionManager.Cmd.MultiSelect;
-import CanvasApp.ViewModel.SelectionManager.Cmd.Select;
 import CanvasApp.ViewModel.ShapeViewModel.ShapeViewModel;
 
 public class ReadyToSelect implements MouseEventState {
@@ -9,9 +7,9 @@ public class ReadyToSelect implements MouseEventState {
     public void onMousePressed(ShapeViewModel shapeViewModel, int x, int y, boolean ctrlDowned) {
         if (!(shapeViewModel.isCorner(x, y))) {
             if (ctrlDowned) {
-                (new MultiSelect(shapeViewModel.selectionManager,shapeViewModel.shape)).execute();
+                shapeViewModel.multiSelectWithThis();
             } else {
-                (new Select(shapeViewModel.selectionManager,shapeViewModel.shape)).execute();
+                shapeViewModel.selectThis();
             }
         }
 

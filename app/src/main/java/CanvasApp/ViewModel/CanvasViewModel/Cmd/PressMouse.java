@@ -18,6 +18,6 @@ public class PressMouse implements Command {
 
     @Override
     public void execute() {
-        canvasViewModel.currentState.onMousePressed(canvasViewModel, x, y);
+        canvasViewModel.pressMouse(x, y);
     }
 }

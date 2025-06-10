@@ -1,6 +1,6 @@
 package CanvasApp.ViewModel.CanvasViewModel.EventHandler;
 
-import CanvasApp.Factory.ShapeViewModelFactory.ShapeViewModelFactory;
+import CanvasApp.Factory.ShapeViewModel.ShapeViewModelFactory;
 import CanvasApp.ViewModel.ShapeViewModel.ShapeViewModel;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.CanvasViewModel.CanvasViewModel;
@@ -16,6 +16,5 @@ public class OnShapeAdded implements CanvasViewModelEventHandler {
 
         ShapeViewModel shapeViewModel = ShapeViewModelFactory.getInstance().createShapeViewModel(shape);
         canvasViewModel.notify(new ShapeVMAdded(shapeViewModel));
-        System.out.println("[CanvasVM EventHandler] OnShapeAdded : " + shapeViewModel.shape.getId());
     }
 }

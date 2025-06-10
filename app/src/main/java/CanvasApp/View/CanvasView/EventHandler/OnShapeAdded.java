@@ -1,6 +1,6 @@
 package CanvasApp.View.CanvasView.EventHandler;
 
-import CanvasApp.Factory.ShapeViewFactory.ShapeViewFactory;
+import CanvasApp.Factory.ShapeView.ShapeViewFactory;
 import CanvasApp.View.ShapeView.ShapeView;
 import CanvasApp.ViewModel.ShapeViewModel.ShapeViewModel;
 
@@ -14,6 +14,6 @@ public class OnShapeAdded implements CanvasViewEventHandler {
         ShapeViewModel viewModel = (ShapeViewModel) event.source;
         ShapeView view = ShapeViewFactory.getInstance().createShapeView(viewModel);
         canvasView.addChildViewOnLayeredPane(view);
-        canvasView.setChildViewLayerOnLayeredPane(view,viewModel.shape.getZ());
+        canvasView.setChildViewLayerOnLayeredPane(view,viewModel.getShape().getZ());
     }
 }

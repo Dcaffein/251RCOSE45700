@@ -1,9 +1,14 @@
 package CanvasApp.View.ShapeView.Drawer;
 
-import CanvasApp.ViewModel.ShapeViewModel.ShapeViewModel;
+import CanvasApp.View.ShapeView.ShapeView;
 
 import java.awt.*;
 
-public interface Drawer {
-    void draw(Graphics g, ShapeViewModel viewModel);
+public abstract class Drawer {
+    public Drawer decorated;
+    public abstract void draw(Graphics g, ShapeView shapeView);
+    public abstract Shape getShape(ShapeView shapeView);
+//    public void setDecorated(Drawer decorated) {
+//        this.decorated = decorated;
+//    }
 }

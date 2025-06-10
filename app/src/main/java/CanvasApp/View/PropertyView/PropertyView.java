@@ -1,9 +1,9 @@
 package CanvasApp.View.PropertyView;
 
+import CanvasApp.ViewModel.PropertyViewModel.Cmd.MoveTo;
+import CanvasApp.ViewModel.PropertyViewModel.Cmd.Realign;
+import CanvasApp.ViewModel.PropertyViewModel.Cmd.ResizeAs;
 import CanvasApp.ViewModel.PropertyViewModel.PropertyViewModel;
-import CanvasApp.ViewModel.SelectionManager.Cmd.MoveTo;
-import CanvasApp.ViewModel.SelectionManager.Cmd.Realign;
-import CanvasApp.ViewModel.SelectionManager.Cmd.ResizeAs;
 import Observer.Observer;
 import Observer.Event;
 
@@ -56,21 +56,21 @@ public class PropertyView extends JPanel implements Observer {
         int oldX = viewModel.getX();
         if (newX != oldX) {
             System.out.println("[commit] newX : " + newX + ", newY : " + viewModel.getY());
-            (new MoveTo(viewModel.selectionManager, newX, viewModel.getY())).execute();
+            (new MoveTo(viewModel, newX, viewModel.getY())).execute();
         }
     }
     private void commitY() {
         int newY = parseField(yField.getText());
         int oldY = viewModel.getY();
         if (newY != oldY) {
-            (new MoveTo(viewModel.selectionManager, viewModel.getX(), newY)).execute();
+            (new MoveTo(viewModel, viewModel.getX(), newY)).execute();
         }
     }
     private void commitW() {
         int newW = parseField(wField.getText());
         int oldW = viewModel.getW();
         if (newW != oldW) {
-            (new ResizeAs(viewModel.selectionManager, newW, viewModel.getH())).execute();
+            (new ResizeAs(viewModel, newW, viewModel.getH())).execute();
         }
 
     }
@@ -78,14 +78,14 @@ public class PropertyView extends JPanel implements Observer {
         int newH = parseField(hField.getText());
         int oldH = viewModel.getH();
         if (newH != oldH) {
-            (new ResizeAs(viewModel.selectionManager, viewModel.getW(), newH)).execute();
+            (new ResizeAs(viewModel, viewModel.getW(), newH)).execute();
         }
     }
     private void commitZ() {
         int newZ = parseField(zField.getText());
         int oldZ = viewModel.getZ();
         if ( newZ != oldZ) {
-            (new Realign(viewModel.selectionManager, newZ)).execute();
+            (new Realign(viewModel, newZ)).execute();
         }
     }
 

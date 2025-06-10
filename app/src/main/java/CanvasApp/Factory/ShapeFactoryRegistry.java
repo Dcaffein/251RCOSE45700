@@ -1,8 +1,10 @@
 package CanvasApp.Factory;
 
-import CanvasApp.Factory.ShapeViewFactory.DrawerFactory;
-import CanvasApp.Factory.ShapeViewFactory.RectDrawerFactory;
+import CanvasApp.Factory.ShapeView.DrawerFactory;
+import CanvasApp.Factory.ShapeView.RectDrawerFactory;
+import CanvasApp.Factory.ShapeView.ShadowDrawerFactory;
 import CanvasApp.Model.Composite.ConcreteLeaf.RectModel;
+import CanvasApp.Model.Decorator.Shadow;
 import CanvasApp.Model.ShapeModel;
 
 import java.util.HashMap;
@@ -13,6 +15,7 @@ public final class ShapeFactoryRegistry {
 
     static {
         registry.put(RectModel.class, RectDrawerFactory.getInstance());
+        registry.put(Shadow.class, ShadowDrawerFactory.getInstance());
 //        registry.put(EllipseModel.class, EllipseFactory.getInstance());
 //        registry.put(TriangleModel.class, TriangleFactory.getInstance());
 //        registry.put(TextModel.class, TextFactory.getInstance());

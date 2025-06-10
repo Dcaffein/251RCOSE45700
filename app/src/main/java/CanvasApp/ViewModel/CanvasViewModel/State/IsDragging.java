@@ -2,7 +2,6 @@ package CanvasApp.ViewModel.CanvasViewModel.State;
 
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.CanvasViewModel.CanvasViewModel;
-import CanvasApp.ViewModel.StateManager.State.StateForSelect;
 
 import java.awt.*;
 
@@ -16,16 +15,9 @@ public class IsDragging implements MouseEventState {
 
     @Override
     public void onMouseReleased(CanvasViewModel canvasViewModel, int x, int y) {
-        Rectangle rect = computeRectangle(canvasViewModel.dragStartX, canvasViewModel.dragStartY, x, y);
-        ShapeModel modelForCreation = canvasViewModel.whichCreate;
-        System.out.println("[IsDragging] onMouseReleased : " + modelForCreation);
-
-        if(modelForCreation == null) return;
-        modelForCreation.setPosition(rect.x, rect.y);
-        modelForCreation.setSize(rect.width, rect.height);
-        modelForCreation.realign(canvasViewModel.maxZ+1);
-        canvasViewModel.canvas.add(modelForCreation);
-
-        canvasViewModel.stateManager.setState(new StateForSelect());
+        Rectangle rect = computeRectangle(canvasViewModel.getDragStartX(), canvasViewModel.getDragStartY(), x, y);
+        ShapeModel modelForAdd = canvasViewModel.getWhichCreate();
+        if(modelForAdd == null) return;
+        canvasViewModel.addWhichCreate(rect.x, rect.y, rect.width, rect.height);
     }
 }

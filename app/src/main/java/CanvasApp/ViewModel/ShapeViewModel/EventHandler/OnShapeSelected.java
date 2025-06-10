@@ -10,7 +10,7 @@ public class OnShapeSelected implements ShapeViewModelEventHandler {
     public void handle(ShapeViewModel shapeViewModel, Event<?> event) {
         if(event instanceof ShapeSelected shapeSelected){
             ShapeModel shape = shapeSelected.source;
-            if (shape == shapeViewModel.shape){
+            if (shape == shapeViewModel.getShape()){
                 shapeViewModel.setSelected(true);
             }
         }

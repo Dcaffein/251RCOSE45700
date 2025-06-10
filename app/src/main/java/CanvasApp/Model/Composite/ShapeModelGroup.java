@@ -1,11 +1,7 @@
 package CanvasApp.Model.Composite;
 
+import CanvasApp.Model.Event.*;
 import CanvasApp.Model.ShapeModel;
-import CanvasApp.Model.Event.ShapeAdded;
-import CanvasApp.Model.Event.ShapeRemoved;
-import CanvasApp.Model.Event.ShapeMoved;
-import CanvasApp.Model.Event.ShapeResized;
-import CanvasApp.Model.Event.ShapeRealigned;
 
 import java.util.*;
 
@@ -65,26 +61,26 @@ public class ShapeModelGroup extends ShapeModel {
     }
 
     @Override
-    public void setPosition(int newX, int newY) {
-        children.values().forEach(m -> m.setPosition(newX, newY));
+    public void moveTo(int newX, int newY) {
+        children.values().forEach(m -> m.moveTo(newX, newY));
         notify(new ShapeMoved(this));
     }
 
     @Override
-    public void setSize(int newW, int newH) {
-        children.values().forEach(m -> m.setSize(newW, newH));
+    public void resizeAs(int newW, int newH) {
+        children.values().forEach(m -> m.resizeAs(newW, newH));
         notify(new ShapeResized(this));
     }
 
     @Override
-    public void setPositionBy(int dx, int dy) {
-        children.values().forEach(m -> m.setPositionBy(dx, dy));
+    public void moveBy(int dx, int dy) {
+        children.values().forEach(m -> m.moveBy(dx, dy));
         notify(new ShapeMoved(this));
     }
 
     @Override
-    public void setSizeBy(int dw, int dh) {
-        children.values().forEach(m -> m.setSizeBy(dw, dh));
+    public void resizeBy(int dw, int dh) {
+        children.values().forEach(m -> m.resizeBy(dw, dh));
         notify(new ShapeResized(this));
     }
 
@@ -96,15 +92,22 @@ public class ShapeModelGroup extends ShapeModel {
     }
 
     @Override
-    public void add(ShapeModel shapeModel) {
+    public void addChild(ShapeModel shapeModel) {
         children.put(shapeModel.getId(), shapeModel);
         notify(new ShapeAdded(shapeModel));
     }
 
     @Override
-    public void remove(ShapeModel shapeModel) {
+    public void removeChild(ShapeModel shapeModel) {
         children.remove(shapeModel.getId());
         notify(new ShapeRemoved(shapeModel.getId()));
+    }
+
+    @Override
+    public void replace(ShapeModel oldOne,ShapeModel newOne) {
+        children.get(oldOne.getId()).replace(oldOne, newOne);
+        children.put(oldOne.getId(), newOne);
+        notify(new ShapeReplaced(newOne));
     }
 
     public List<ShapeModel> getChildren() {

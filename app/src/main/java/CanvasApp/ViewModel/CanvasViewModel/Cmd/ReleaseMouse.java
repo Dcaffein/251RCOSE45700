@@ -18,7 +18,6 @@ public class ReleaseMouse implements Command {
 
     @Override
     public void execute() {
-        System.out.println("[ReleaseMouse Command] ReleaseMouse");
-        canvasViewModel.currentState.onMouseReleased(canvasViewModel,x,y);
+        canvasViewModel.releaseMouse(x, y);
     }
 }

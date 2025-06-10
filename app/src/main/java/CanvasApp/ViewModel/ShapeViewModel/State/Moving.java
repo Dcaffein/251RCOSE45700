@@ -1,6 +1,5 @@
 package CanvasApp.ViewModel.ShapeViewModel.State;
 
-import CanvasApp.ViewModel.SelectionManager.Cmd.MoveBy;
 import CanvasApp.ViewModel.ShapeViewModel.ShapeViewModel;
 
 public class Moving implements MouseEventState {
@@ -11,9 +10,9 @@ public class Moving implements MouseEventState {
 
     @Override
     public void onMouseDragged(ShapeViewModel shapeViewModel, int x, int y) {
-        int dx = x - shapeViewModel.dragStartX;
-        int dy = y - shapeViewModel.dragStartY;
-        (new MoveBy(shapeViewModel.selectionManager,dx,dy)).execute();
+        int dx = x - shapeViewModel.getDragStartX();
+        int dy = y - shapeViewModel.getDragStartY();
+        shapeViewModel.moveBy(dx, dy);
         shapeViewModel.setDragStartPoint(x, y);
     }
 
