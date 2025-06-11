@@ -2,18 +2,20 @@ package CanvasApp.View.ShapeView.Drawer;
 
 import CanvasApp.View.ShapeView.ShapeView;
 import java.awt.*;
-import java.awt.geom.Ellipse2D.Double;
+import java.awt.geom.Line2D.Double;
 
-public class EllipseDrawer extends Drawer {
+public class LineBackSlashDrawer extends Drawer {
     @Override
     public void draw(Graphics g, ShapeView shapeView) {
         int padding = shapeView.viewModel.getPadding();
         int w = shapeView.viewModel.getShape().getW();
         int h = shapeView.viewModel.getShape().getH();
+        int multiply = 0;
 
-        g.drawOval(padding, padding, w - 2*padding, h - 2*padding);
-        g.setColor(new Color(200, 220, 255));
-        g.fillOval(padding+1, padding+1, w - 3 *padding, h - 3 *padding);
+        g.setColor(Color.BLUE);
+        g.drawLine(
+          padding * multiply, padding * multiply, w - padding * multiply, h - padding * multiply
+        );
     }
 
     @Override
@@ -21,7 +23,8 @@ public class EllipseDrawer extends Drawer {
         int padding = shapeView.viewModel.getPadding();
         int w = shapeView.viewModel.getShape().getW();
         int h = shapeView.viewModel.getShape().getH();
+        int multiply = 0;
 
-        return new Double(padding,padding,w - 4 * padding,h - 4* padding);
+        return new Double(padding * multiply, padding * multiply, w - padding * multiply, h - padding * multiply);
     }
 }
