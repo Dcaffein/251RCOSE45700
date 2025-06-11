@@ -2,6 +2,7 @@
 .gradle
 /build/
 /out/
+app/bin/
 
 # Ignore Gradle build output directory
 build
