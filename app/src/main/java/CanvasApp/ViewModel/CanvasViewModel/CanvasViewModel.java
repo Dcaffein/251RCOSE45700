@@ -1,9 +1,9 @@
 package CanvasApp.ViewModel.CanvasViewModel;
 
 import CanvasApp.Model.Cmd.CreateShapeCmd;
-import CanvasApp.Model.Event.ShapeAdded;
+import CanvasApp.Model.Composite.Event.ShapeAdded;
 import CanvasApp.Model.Event.ShapeRealigned;
-import CanvasApp.Model.Event.ShapeRemoved;
+import CanvasApp.Model.Composite.Event.ShapeRemoved;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.ViewModel.CanvasViewModel.Event.MouseEventStateChanged;
 import CanvasApp.ViewModel.CanvasViewModel.EventHandler.*;
@@ -11,7 +11,6 @@ import CanvasApp.ViewModel.CanvasViewModel.State.MouseEventState;
 import CanvasApp.ViewModel.CommonStateManager.Cmd.SetCommonState;
 import CanvasApp.ViewModel.CommonStateManager.CommonStateManager;
 import CanvasApp.ViewModel.CommonStateManager.Event.CommonStateChanged;
-import CanvasApp.ViewModel.CommonStateManager.State.CommonState;
 import CanvasApp.ViewModel.CommonStateManager.State.StateForSelect;
 import Observer.Observable;
 import Observer.Observer;

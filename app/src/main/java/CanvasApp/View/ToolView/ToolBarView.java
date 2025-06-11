@@ -41,9 +41,9 @@ public class ToolBarView extends JPanel {
 //                        new StateForCreate(ImageFactory.getInstance().createShapeModel(0,0,0,0,0)))).execute());
 
         //        textBtn.addActionListener(e -> (new SetCommonState(stateManager,new StateForSelect())).execute());
-        applyTextBtn.addActionListener(e -> new ApplyInnerText(viewModel).execute());
+        applyTextBtn.addActionListener(e -> new ToggleInnerText(viewModel).execute());
         applyShadowBtn.addActionListener(
-                e ->  new ApplyShadow(viewModel).execute());
+                e ->  new ToggleShadow(viewModel).execute());
 
         this.add(selectBtn);
         this.add(rectBtn);

@@ -1,5 +1,6 @@
 package CanvasApp.Model;
 
+import CanvasApp.Model.Decorator.ShapeDecorator;
 import Observer.Observable;
 
 import java.util.List;

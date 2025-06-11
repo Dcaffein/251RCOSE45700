@@ -1,5 +1,6 @@
 package CanvasApp.Model.Composite;
 
+import CanvasApp.Model.Decorator.ShapeDecorator;
 import CanvasApp.Model.Event.ShapeMoved;
 import CanvasApp.Model.Event.ShapeReplaced;
 import CanvasApp.Model.Event.ShapeResized;
@@ -99,6 +100,7 @@ public abstract class ShapeModelLeaf extends ShapeModel {
 
     @Override
     public void replace(ShapeModel oldOne, ShapeModel newOne) {
+        System.out.println("[Leaf] applyDeco: " + this);
         notify(new ShapeReplaced(newOne));
     }
 

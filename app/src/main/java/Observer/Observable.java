@@ -19,8 +19,9 @@ public abstract class Observable {
     }
 
     public void notify(Event<?> event) {
-        for (Observer observer : observers) {
-            observer.onUpdate(event);
+        List<Observer> snapshot = new ArrayList<>(observers);
+        for (Observer o : snapshot) {
+            o.onUpdate(event);
         }
     }
 }

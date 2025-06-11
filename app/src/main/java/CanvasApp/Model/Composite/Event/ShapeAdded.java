@@ -1,4 +1,4 @@
-package CanvasApp.Model.Event;
+package CanvasApp.Model.Composite.Event;
 
 import CanvasApp.Model.ShapeModel;
 import Observer.Event;

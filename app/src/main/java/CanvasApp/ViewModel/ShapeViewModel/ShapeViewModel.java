@@ -26,7 +26,7 @@ public class ShapeViewModel extends Observable implements Observer {
     private final SelectionManager selectionManager = SelectionManager.getInstance();
     private final CommonStateManager commonStateManager = CommonStateManager.getInstance();
     private final Map<Class<? extends Event<?>>, ShapeViewModelEventHandler> eventHandlers = new HashMap<>();
-    private int padding = 2;
+    private final int padding = 2;
     private int dragStartX,dragStartY;
     private MouseEventState mouseEventState = new ReadyToSelect();
     private boolean isSelected = false;
@@ -61,6 +61,7 @@ public class ShapeViewModel extends Observable implements Observer {
     }
 
     public void setShape(ShapeModel shape){
+        this.shape.detach(this);
         shape.attach(this);
         this.shape = shape;
     }

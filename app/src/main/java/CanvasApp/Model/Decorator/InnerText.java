@@ -1,5 +1,6 @@
 package CanvasApp.Model.Decorator;
 
+import CanvasApp.Model.Decorator.Event.DecoratorStateChanged;
 import CanvasApp.Model.Event.ShapeTextChanged;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.Model.HasText;
@@ -20,7 +21,14 @@ public class InnerText extends ShapeDecorator implements HasText {
         String oldText = this.text;
         if (oldText == null || !oldText.equals(newText)) {
             this.text = newText;
-            notify(new ShapeTextChanged(this, this.text));
+            notify(new DecoratorStateChanged(this));
+        }
+    }
+
+    @Override
+    public void updateOwnState(ShapeDecorator decorator) {
+        if(decorator instanceof InnerText textDeco) {
+            setText(textDeco.getText());
         }
     }
 }

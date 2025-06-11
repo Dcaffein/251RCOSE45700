@@ -1,5 +1,7 @@
 package CanvasApp.Model.Composite;
 
+import CanvasApp.Model.Composite.Event.ShapeAdded;
+import CanvasApp.Model.Composite.Event.ShapeRemoved;
 import CanvasApp.Model.Event.*;
 import CanvasApp.Model.ShapeModel;
 
@@ -105,9 +107,11 @@ public class ShapeModelGroup extends ShapeModel {
 
     @Override
     public void replace(ShapeModel oldOne,ShapeModel newOne) {
-        children.get(oldOne.getId()).replace(oldOne, newOne);
-        children.put(oldOne.getId(), newOne);
-        notify(new ShapeReplaced(newOne));
+        ShapeModel child = children.get(oldOne.getId());
+        if(child != null) {
+            child.replace(oldOne,newOne);
+            children.put(oldOne.getId(), newOne);
+        }
     }
 
     public List<ShapeModel> getChildren() {

@@ -6,6 +6,7 @@ import CanvasApp.Model.Event.ShapeResized;
 import CanvasApp.View.ShapeView.EventHandler.*;
 import CanvasApp.ViewModel.SelectionManager.Event.ShapeSelected;
 import CanvasApp.ViewModel.SelectionManager.Event.ShapeUnselected;
+import CanvasApp.ViewModel.ShapeViewModel.Event.DecoCompositionChanged;
 import Observer.Observer;
 import Observer.Event;
 import CanvasApp.Model.ShapeModel;
@@ -44,7 +45,7 @@ public class ShapeView extends JComponent implements Observer{
         eventHandlers.put(ShapeResized.class, new OnShapeResized());
         eventHandlers.put(ShapeSelected.class, new OnShapeSelection());
         eventHandlers.put(ShapeUnselected.class, new OnShapeSelection());
-        eventHandlers.put(ShapeReplaced.class,new OnShapeReplaced());
+        eventHandlers.put(DecoCompositionChanged.class,new OnDecoCompositionChanged());
     }
 
     private void addMouseEventListener(){
