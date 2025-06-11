@@ -12,6 +12,8 @@ import CanvasApp.ViewModel.CommonStateManager.Cmd.SetCommonState;
 import CanvasApp.ViewModel.CommonStateManager.CommonStateManager;
 import CanvasApp.ViewModel.CommonStateManager.Event.CommonStateChanged;
 import CanvasApp.ViewModel.CommonStateManager.State.StateForSelect;
+import CanvasApp.ViewModel.SelectionManager.SelectionManager;
+import CanvasApp.ViewModel.SelectionManager.Cmd.UnselectAll;
 import Observer.Observable;
 import Observer.Observer;
 import Observer.Event;
@@ -82,13 +84,19 @@ public class CanvasViewModel extends Observable implements Observer {
         this.dragStartY = dragStartY;
     }
 
-    public void addWhichCreate(int x, int y, int w, int h){
+    public void addWhichCreate(int x, int y, int w, int h) {
         whichCreate.moveTo(x, y);
-        whichCreate.resizeAs(w,h);
-        whichCreate.realign(maxZ+1);
+        whichCreate.resizeAs(w, h);
+        whichCreate.realign(maxZ + 1);
 
-        new CreateShapeCmd(canvas,whichCreate).execute();
-        new SetCommonState(commonStateManager,new StateForSelect()).execute();
+        new CreateShapeCmd(canvas, whichCreate).execute();
+        new SetCommonState(commonStateManager, new StateForSelect()).execute();
+    }
+    
+     public void deselectAllShapes() {
+        SelectionManager selectionManager = SelectionManager.getInstance();
+        
+        new UnselectAll(selectionManager).execute();
     }
 
     public void pressMouse(int x, int y){

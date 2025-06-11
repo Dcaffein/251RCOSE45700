@@ -4,6 +4,7 @@ import CanvasApp.View.CanvasView.EventHandler.CanvasViewEventHandler;
 import CanvasApp.View.CanvasView.EventHandler.OnMouseEventStateChanged;
 import CanvasApp.View.CanvasView.EventHandler.OnShapeAdded;
 import CanvasApp.View.CanvasView.EventHandler.OnShapeRealigned;
+import CanvasApp.ViewModel.CanvasViewModel.Cmd.PressBackground;
 import CanvasApp.ViewModel.CanvasViewModel.Cmd.PressMouse;
 import CanvasApp.ViewModel.CanvasViewModel.Cmd.ReleaseMouse;
 import CanvasApp.Model.Event.ShapeRealigned;
@@ -41,6 +42,20 @@ public class CanvasView extends JPanel implements Observer {
     private void initUI() {
         layeredPane.setPreferredSize(new Dimension(800, 600));
         layeredPane.setLayout(null);
+        
+        layeredPane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (glassPane.isVisible()) {
+                    return;
+                }
+                
+                Component clickedComponent = layeredPane.findComponentAt(e.getPoint());
+                if (clickedComponent == null || clickedComponent == layeredPane) {
+                    new PressBackground(viewModel).execute();
+                }
+            }
+        });
     }
 
     private void initGlassPane() {
