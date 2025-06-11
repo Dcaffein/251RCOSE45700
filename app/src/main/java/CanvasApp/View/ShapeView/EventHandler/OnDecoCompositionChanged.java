@@ -5,19 +5,20 @@ import CanvasApp.Model.Decorator.ShapeDecorator;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.ShapeView.Drawer.Drawer;
 import CanvasApp.View.ShapeView.ShapeView;
+import CanvasApp.ViewModel.ShapeViewModel.Event.DecoCompositionChanged;
 import Observer.Event;
 
 public class OnDecoCompositionChanged implements ShapeViewEventHandler{
     @Override
     public void handle(ShapeView shapeView, Event<?> event) {
-        if (event.source instanceof ShapeDecorator decorator) {
-            shapeView.drawer = createNewChainedDrawer(decorator);
+        if (event instanceof DecoCompositionChanged) {
+            shapeView.drawer = createNewChainedDrawer(shapeView.viewModel.getShape());
             shapeView.repaint();
         }
     }
 
     private Drawer createNewChainedDrawer(ShapeModel model){
-        Drawer drawer = ShapeFactoryRegistry.factoryFor(model).createDrawer(model);
+        Drawer drawer = ShapeFactoryRegistry.factoryFor(model).createDrawer();
         if(model instanceof ShapeDecorator decorator){
             drawer.decorated = createNewChainedDrawer(decorator.getDecorated());
         }

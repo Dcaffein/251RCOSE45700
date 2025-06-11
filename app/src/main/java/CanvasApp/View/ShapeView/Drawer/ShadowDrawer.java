@@ -12,6 +12,7 @@ public class ShadowDrawer extends Drawer {
     @Override
     public void draw(Graphics g, ShapeView shapeView) {
         ShapeModel shapeModel = shapeView.viewModel.getShape();
+//        System.out.println("[ShadowDrawer] decorated : " + decorated);
 
         if (shapeModel instanceof ShapeDecorator d && d.getDecorator(Shadow.class) instanceof Shadow shadow) {
             Graphics2D g2d = (Graphics2D) g.create();

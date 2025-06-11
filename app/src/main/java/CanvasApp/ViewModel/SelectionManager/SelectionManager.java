@@ -70,7 +70,7 @@ public class SelectionManager extends Observable implements Observer {
         List<ShapeModel> children = selected.getChildren();
         for (ShapeModel shape : children) {
             shape.detach(this);
-            System.out.println("[unselectAll] : shape: " + shape);
+//            System.out.println("[unselectAll] : shape: " + shape);
         }
         selected.clear();
         notify(new ShapeUnselected(children));
@@ -87,16 +87,16 @@ public class SelectionManager extends Observable implements Observer {
         } else {
             selected.addChild(target);
             target.attach(this);
-            System.out.println("[toggleSelection] : target.getObservers(): " + target.getObservers());
+//            System.out.println("[toggleSelection] : target.getObservers(): " + target.getObservers());
             notify(new ShapeSelected(target));
 
         }
     }
 
     public void add(ShapeModel shape) {
-        System.out.println("[add] : target: " + shape);
+//        System.out.println("[add] : target: " + shape);
         selected.addChild(shape);
-        System.out.println("[add] : getChildren(): " + selected.getChildren());
+//        System.out.println("[add] : getChildren(): " + selected.getChildren());
         shape.attach(this);
         notify(new ShapeSelected(shape));
     }
@@ -105,7 +105,7 @@ public class SelectionManager extends Observable implements Observer {
         ShapeModel target = canvas.getChild(id);
         if (target == null) return;
         target.detach(this);
-        System.out.println("[remove] : target: " + target);
+//        System.out.println("[remove] : target: " + target);
         notify(new ShapeUnselected(List.of(target)));
     }
 }

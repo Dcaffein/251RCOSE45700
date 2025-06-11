@@ -138,15 +138,15 @@ public abstract class ShapeDecorator extends ShapeModel {
     }
 
     public void removeDecorator(Class<? extends ShapeDecorator> targetClass, ShapeDecorator wrapper, ShapeDecorator outterMost) {
-        if (getDecorator(targetClass) != null){
-            if(wrapper!=null) {
-                wrapper.decorated = decorated;
+        if(this.getClass() == targetClass){
+            if(wrapper!=null){
+                wrapper.decorated = this.decorated;
+                System.out.println("[removeDecorator wrapper!=null] this : " + this);
                 outterMost.notify(new InnerUndecorated(this));
             }
         }
-
-        if (decorated instanceof ShapeDecorator){
-            ((ShapeDecorator) decorated).removeDecorator(targetClass,outterMost,this);
+        if(decorated instanceof ShapeDecorator){
+            ((ShapeDecorator) decorated).removeDecorator(targetClass,this,outterMost);
         }
     }
 }

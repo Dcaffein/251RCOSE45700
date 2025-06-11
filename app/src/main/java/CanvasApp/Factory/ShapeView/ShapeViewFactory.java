@@ -14,7 +14,7 @@ public class ShapeViewFactory {
 
     public ShapeView createShapeView(ShapeViewModel shapeViewModel) {
         DrawerFactory drawerFactory = ShapeFactoryRegistry.factoryFor(shapeViewModel.getShape());
-        Drawer drawer = drawerFactory.createDrawer(shapeViewModel.getShape());
+        Drawer drawer = drawerFactory.createDrawer();
         return new ShapeView(shapeViewModel,drawer);
     }
 }

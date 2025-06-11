@@ -1,10 +1,11 @@
-package CanvasApp.Factory.ShapeView;
+package CanvasApp.Factory.ShapeView.ConcreteDrawer;
 
+import CanvasApp.Factory.ShapeView.DrawerFactory;
 import CanvasApp.Model.ShapeModel;
 import CanvasApp.View.ShapeView.Drawer.Drawer;
 import CanvasApp.View.ShapeView.Drawer.LineSlashDrawer;
 
-public class LineSlashDrawerFactory implements DrawerFactory{
+public class LineSlashDrawerFactory implements DrawerFactory {
     private static final LineSlashDrawerFactory instance = new LineSlashDrawerFactory();
     public LineSlashDrawerFactory(){}
     public static LineSlashDrawerFactory getInstance() {
@@ -12,7 +13,7 @@ public class LineSlashDrawerFactory implements DrawerFactory{
     }
 
     @Override
-    public Drawer createDrawer(ShapeModel shapeModel) {
+    public Drawer createDrawer() {
         return new LineSlashDrawer();
     }
 }

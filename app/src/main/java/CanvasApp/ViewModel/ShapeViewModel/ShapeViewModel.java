@@ -2,6 +2,7 @@ package CanvasApp.ViewModel.ShapeViewModel;
 
 import CanvasApp.Model.Cmd.MoveBy;
 import CanvasApp.Model.Cmd.ResizeBy;
+import CanvasApp.Model.Decorator.Event.InnerUndecorated;
 import CanvasApp.Model.Event.ShapeMoved;
 import CanvasApp.Model.Event.ShapeReplaced;
 import CanvasApp.Model.Event.ShapeResized;
@@ -46,6 +47,7 @@ public class ShapeViewModel extends Observable implements Observer {
         eventHandlers.put(ShapeSelected.class,new OnShapeSelected());
         eventHandlers.put(ShapeUnselected.class,new OnShapeUnselected());
         eventHandlers.put(ShapeReplaced.class,new OnShapeReplaced());
+        eventHandlers.put(InnerUndecorated.class,new OnDecoCompositionChanged());
     }
 
     @Override
