@@ -13,7 +13,6 @@ public class InnerTextDrawer extends Drawer {
         ShapeModel shapeModel = shapeView.viewModel.getShape();
 
         decorated.draw(g, shapeView);
-//        System.out.println("[InnerTextDrawer] decorated : " + decorated);
 
         if (shapeModel instanceof ShapeDecorator d && d.getDecorator(InnerText.class) instanceof InnerText innerText) {
             Graphics2D g2d = (Graphics2D) g.create();

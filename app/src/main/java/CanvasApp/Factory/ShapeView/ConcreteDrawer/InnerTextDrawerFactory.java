@@ -12,7 +12,7 @@ public class InnerTextDrawerFactory implements DrawerFactory {
     }
 
     @Override
-    public Drawer createDrawer( ) {
+    public Drawer createDrawer() {
         return new InnerTextDrawer();
     }
 }

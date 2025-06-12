@@ -84,7 +84,7 @@ public class CanvasViewModel extends Observable implements Observer {
         this.dragStartY = dragStartY;
     }
 
-    public void addWhichCreate(int x, int y, int w, int h) {
+    public void addShapeOnCanvas(int x, int y, int w, int h) {
         whichCreate.moveTo(x, y);
         whichCreate.resizeAs(w, h);
         whichCreate.realign(maxZ + 1);

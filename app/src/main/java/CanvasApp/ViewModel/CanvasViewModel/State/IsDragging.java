@@ -18,6 +18,6 @@ public class IsDragging implements MouseEventState {
         Rectangle rect = computeRectangle(canvasViewModel.getDragStartX(), canvasViewModel.getDragStartY(), x, y);
         ShapeModel modelForAdd = canvasViewModel.getWhichCreate();
         if(modelForAdd == null) return;
-        canvasViewModel.addWhichCreate(rect.x, rect.y, rect.width, rect.height);
+        canvasViewModel.addShapeOnCanvas(rect.x, rect.y, rect.width, rect.height);
     }
 }

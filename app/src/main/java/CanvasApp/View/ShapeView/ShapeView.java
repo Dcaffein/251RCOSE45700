@@ -22,7 +22,7 @@ import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShapeView extends JComponent implements Observer{
+public abstract class ShapeView extends JComponent implements Observer{
     public final ShapeViewModel viewModel;
     public Drawer drawer;
     private final Map<Class<? extends Event<?>>, ShapeViewEventHandler> eventHandlers = new HashMap<>();

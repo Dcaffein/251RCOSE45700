@@ -1,11 +1,9 @@
 package CanvasApp.Model.Decorator;
 
 import CanvasApp.Model.Decorator.Event.DecoratorStateChanged;
-import CanvasApp.Model.Event.ShapeTextChanged;
 import CanvasApp.Model.ShapeModel;
-import CanvasApp.Model.HasText;
 
-public class InnerText extends ShapeDecorator implements HasText {
+public class InnerText extends ShapeDecorator {
     private String text;
 
     public InnerText(ShapeModel decorated, String text) {

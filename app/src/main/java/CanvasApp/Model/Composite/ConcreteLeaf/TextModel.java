@@ -1,10 +1,8 @@
 package CanvasApp.Model.Composite.ConcreteLeaf;
 
 import CanvasApp.Model.Composite.ShapeModelLeaf;
-import CanvasApp.Model.Event.ShapeTextChanged;
-import CanvasApp.Model.HasText;
 
-public class TextModel extends ShapeModelLeaf implements HasText {
+public class TextModel extends ShapeModelLeaf  {
     private String text;
 
     public TextModel(String id, int x, int y, int w, int h, int z, String text) {
@@ -14,7 +12,7 @@ public class TextModel extends ShapeModelLeaf implements HasText {
 
     public void setText(String newText) {
         text = newText;
-        notify(new ShapeTextChanged(this,text));
+        //notify
     }
 
     public String getText() {
