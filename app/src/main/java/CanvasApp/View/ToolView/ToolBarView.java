@@ -26,7 +26,7 @@ public class ToolBarView extends JPanel {
         JButton lineSlashBtn = new JButton("Line /");
 
 //        JButton imageBtn = new JButton("Image");
-        JButton textBtn = new JButton("Text");
+//        JButton textBtn = new JButton("Text");
         JButton applyTextBtn = new JButton("Apply Text");
         JButton applyShadowBtn = new JButton("Apply Shadow");
 
@@ -36,7 +36,7 @@ public class ToolBarView extends JPanel {
         triangleBtn.addActionListener(e -> new CreateTriangle(viewModel).execute());
         lineBackSlashBtn.addActionListener(e -> new CreateLineBackSlash(viewModel).execute());
         lineSlashBtn.addActionListener(e -> new CreateLineSlash(viewModel).execute());
-        textBtn.addActionListener(e -> new CreateText(viewModel).execute());
+//        textBtn.addActionListener(e -> new CreateText(viewModel).execute());
         applyTextBtn.addActionListener(e -> new ToggleInnerText(viewModel).execute());
         applyShadowBtn.addActionListener(
                 e ->  new ToggleShadow(viewModel).execute());
@@ -48,7 +48,7 @@ public class ToolBarView extends JPanel {
         this.add(lineBackSlashBtn);
         this.add(lineSlashBtn);
 //        this.add(imageBtn);
-        this.add(textBtn);
+//        this.add(textBtn);
         this.add(applyTextBtn);
         this.add(applyShadowBtn);
     }
